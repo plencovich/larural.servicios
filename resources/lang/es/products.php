@@ -1,0 +1,71 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Productts Language Lines
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    'categories' => [
+        'name' => 'Nombre',
+        'category' => 'Categorías',
+        'add' => 'Agregar Categorías',
+        'edit' => 'Editar Categorías',
+        'list' => 'Listado Categorías',
+        'delete' => 'Eliminar Categoría',
+        'alert' => [
+            'create' => [
+                'message' => 'Categoría %s creado correctamente',
+                'success' => '¡Categoría creado correctamente!',
+            ],
+            'edit' => [
+                'message' => 'Categoría %s editado correctamente',
+                'success' => '¡Categoría editado correctamente!',
+            ],
+            'delete' => [
+                'message' => 'Categoría %s eliminado correctamente',
+                'success' => '¡Categoría eliminada correctamente!',
+
+            ]
+        ],
+        'ask' => [
+            'delete' => 'Está seguro de eliminar la categoría %s?',
+        ],
+    ],
+    'products' => [
+        'products' => 'Productos',
+        'description' => 'Descripción',
+        'quantity' => 'Cantidad',
+        'price' => 'Precio',
+        'category' => 'Categoria',
+        'status-product' => 'Estado Producto',
+        'status-operation' => 'Estado Operación',
+        'name' => 'Nombre',
+        'add' => 'Agregar Productos',
+        'edit' => 'Editar Producto',
+        'list' => 'Listado Productos',
+        'delete' => 'Eliminar Producto',
+        'alert' => [
+            'create' => [
+                'message' => 'Producto %s creada correctamente',
+                'success' => '¡Producto creado correctamente!',
+            ],
+            'edit' => [
+                'message' => 'Producto %s editada correctamente',
+                'success' => '¡Producto editado correctamente!',
+            ],
+            'delete' => [
+                'message' => 'Producto %s eliminada correctamente',
+                'success' => '¡Producto eliminado correctamente!',
+
+            ]
+        ],
+        'ask' => [
+            'delete' => 'Está seguro de eliminar el producto %s?',
+        ],
+    ],
+];

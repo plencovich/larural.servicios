@@ -1,0 +1,44 @@
+name: deploy-production
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get npm cache directory
+        uses: actions/cache@v2
+        with:
+            path: |
+                ~/cache
+                !~/cache/exclude
+                **/node_modules
+            key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+      - name: Install PHP Composer dependencies
+        working-directory: ./
+        run: composer install --profile --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction
+
+      - name: Install NPM dependencies
+        run: npm install --silent
+
+      - name: Compile assets
+        run: npm run prod
+
+      - name: Copy dotenv file
+        run: php -r "file_put_contents(__DIR__ . '/.env', '${{ secrets.DOT_ENV }}');"
+
+      - name: Deploy with rsync
+        env:
+            my_ssh_key: ${{ secrets.SSH_KEY }}
+        run: |
+            mkdir ~/.ssh
+            echo "$my_ssh_key" > ~/.ssh/gh_actions_key
+            chmod 600 ~/.ssh/gh_actions_key
+            rsync -avuh --delete --progress -h -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" --no-perms --no-owner --no-group --no-times --exclude-from "exclude-public.txt" --rsync-path="rsync" ${GITHUB_WORKSPACE}/ ${{ secrets.PROD_USER }}@${{secrets.PROD_HOST}}:${{secrets.PROD_FOLDER}}/public_html/
+            bash gitStatusTelegramBot.sh
