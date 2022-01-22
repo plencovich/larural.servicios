@@ -15,7 +15,10 @@ class StatusProductSeeder extends Seeder
     public function run()
     {
         StatusProduct::create([
-            'name' => 'Disponible'
+            'name' => 'Disponible',
+            'name' => 'En Uso',
+            'name' => 'Mantenimiento',
+            'name' => 'Reservado',
         ]);
     }
 }

@@ -15,7 +15,8 @@ class StatusOperationSeeder extends Seeder
     public function run()
     {
         StatusOperation::create([
-            'name' => 'Alquiler'
+            'name' => 'Alquiler',
+            'name' => 'Venta',
         ]);
     }
 }
