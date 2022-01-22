@@ -44,6 +44,7 @@ return [
         'internal' => 'Precios Internos',
     ],
     'products' => [
+        'code' => 'Código',
         'products' => 'Productos',
         'description' => 'Descripción',
         'quantity' => 'Cantidad',
@@ -56,6 +57,7 @@ return [
         'edit' => 'Editar Producto',
         'list' => 'Listado Productos',
         'delete' => 'Eliminar Producto',
+        'show-qr' => 'Código QR',
         'alert' => [
             'create' => [
                 'message' => 'Producto %s creada correctamente',

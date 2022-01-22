@@ -15,6 +15,7 @@ class ListProducts extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make(__('products.products.code'), 'code')->sortable(),
             Column::make(__('products.products.name'), 'name')->sortable(),
             Column::make(__('products.products.description'), 'description')->sortable(),
             Column::make(__('products.products.quantity'), 'quantity')->sortable(),
@@ -32,7 +33,9 @@ class ListProducts extends DataTableComponent
 
     public function query(): Builder
     {
-        return Product::query()->when($this->getFilter('search'), fn ($query, $term) => $query->where('name', 'like', '%' . $term . '%')
+        return Product::query()->when($this->getFilter('search'), fn ($query, $term) => $query
+            ->where('code', 'like', '%' . $term . '%')
+            ->where('name', 'like', '%' . $term . '%')
             ->orWhere('description', 'like', '%' . $term . '%')
             ->orWhere('quantity', 'like', '%' . $term . '%'));
     }

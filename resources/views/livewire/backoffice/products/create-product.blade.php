@@ -2,6 +2,9 @@
     <div class="card"></div>
     <x-form action="store">
         <div class="col-md-6">
+            <x-input label="{{ __('products.products.code') }}" type="text" name="code" />
+        </div>
+        <div class="col-md-6">
             <x-input label="{{ __('products.products.name') }}" type="text" name="name" />
         </div>
         <div class="col-md-6">

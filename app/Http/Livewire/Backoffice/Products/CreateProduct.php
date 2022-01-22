@@ -11,6 +11,7 @@ use Livewire\Component;
 
 class CreateProduct extends Component
 {
+    public $code;
     public $name;
     public $description;
     public $quantity;
@@ -33,6 +34,7 @@ class CreateProduct extends Component
     public function rules()
     {
         return [
+            'code' => ['required', 'unique:products'],
             'name' => ['required', 'unique:products'],
             'description' => ['required'],
             'quantity' => ['required', 'integer'],
@@ -52,6 +54,7 @@ class CreateProduct extends Component
     {
         $this->validate();
         $product = Product::create([
+            'code' => $this->code,
             'name' => $this->name,
             'description' => $this->description,
             'image' => '',

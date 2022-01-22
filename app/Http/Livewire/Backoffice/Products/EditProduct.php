@@ -42,6 +42,7 @@ class EditProduct extends Component
     {
 
         return [
+            'product.code' => ['required', 'unique:products,code,' . $this->product->id],
             'product.name' => ['required', 'unique:products,name,' . $this->product->id],
             'product.description' => ['required'],
             'product.quantity' => ['required', 'integer'],
