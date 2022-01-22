@@ -8,9 +8,6 @@
     {{ $row->quantity }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell>
-    {{ $row->price }}
-</x-livewire-tables::bs5.table.cell>
-<x-livewire-tables::bs5.table.cell>
     {{ $row->category->name }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell>

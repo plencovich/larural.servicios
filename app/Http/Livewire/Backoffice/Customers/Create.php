@@ -7,8 +7,7 @@ use Livewire\Component;
 
 class Create extends Component
 {
-
-
+    public $code;
     public $businessName;
     public $name;
     public $lastname;
@@ -17,6 +16,7 @@ class Create extends Component
     public function rules()
     {
         return [
+            'code' => ['required', 'unique:customers,code'],
             'businessName' => ['required', 'unique:customers,business_name'],
             'name' => ['required'],
             'lastname' => ['required'],
@@ -33,6 +33,7 @@ class Create extends Component
     {
         $this->validate();
         Customer::create([
+            'code' => $this->code,
             'business_name' => $this->businessName,
             'name' => $this->name,
             'lastname' => $this->lastname,

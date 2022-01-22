@@ -19,7 +19,6 @@ class Product extends Model
         'description',
         'image',
         'quantity',
-        'price',
         'category_id',
         'status_product_id',
         'status_operation_id',
@@ -28,6 +27,16 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get all of the productPrices for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productPrices()
+    {
+        return $this->hasMany(ProductPrice::class);
     }
 
     public function statusProduct()

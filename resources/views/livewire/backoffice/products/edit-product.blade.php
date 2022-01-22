@@ -10,9 +10,6 @@
             <x-input label="{{ __('products.products.quantity') }}" type="text" name="product.quantity" />
         </div>
         <div class="col-md-6">
-            <x-input label="{{ __('products.products.price') }}" type="text" name="product.price" />
-        </div>
-        <div class="col-md-6">
             <x-select name="product.category_id" label="{{ __('products.products.category') }}">
                 @foreach ($categories as $value)
                     <option value="{{ $value->id }}">
@@ -39,6 +36,34 @@
                 @endforeach
             </x-select>
         </div>
+        <fieldset>
+            <legend>{{ __('products.prices.internal') }}</legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_a') }}" type="number" name="internal_day_a" />
+                </div>
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_b') }}" type="number" name="internal_day_b" />
+                </div>
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_c') }}" type="number" name="internal_day_c" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>{{ __('products.prices.external') }}</legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_a') }}" type="number" name="external_day_a" />
+                </div>
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_b') }}" type="number" name="external_day_b" />
+                </div>
+                <div class="col-md-4">
+                    <x-input label="{{ __('products.prices.day_c') }}" type="number" name="external_day_c" />
+                </div>
+            </div>
+        </fieldset>
         <div class="col-12">
             <x-buttons.back wire:click="$emit('customerShow',false)" />
             <x-buttons.edit />

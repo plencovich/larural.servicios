@@ -15,10 +15,11 @@ class ListCustomers extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make(__('customers.code'), 'code')->sortable(),
             Column::make(__('customers.business_name'), 'business_name')->sortable(),
-            Column::make(__('customers.email'), 'email')->sortable(),
-            Column::make(__('customers.lastname'), 'lastname')->sortable(),
             Column::make(__('customers.name'), 'name')->sortable(),
+            Column::make(__('customers.lastname'), 'lastname')->sortable(),
+            Column::make(__('customers.email'), 'email')->sortable(),
             Column::make(null)->addClass('text-end'),
         ];
     }
@@ -31,7 +32,9 @@ class ListCustomers extends DataTableComponent
     public function query(): Builder
     {
         return Customer::query()
-            ->when($this->getFilter('search'), fn ($query, $term) => $query->where('business_name', 'like', '%' . $term . '%')
+            ->when($this->getFilter('search'), fn ($query, $term) => $query
+                ->where('business_name', 'like', '%' . $term . '%')
+                ->orWhere('code', 'like', '%' . $term . '%')
                 ->orWhere('name', 'like', '%' . $term . '%')
                 ->orWhere('lastname', 'like', '%' . $term . '%')
                 ->orWhere('email', 'like', '%' . $term . '%'));

@@ -13,6 +13,7 @@ return [
     'ask_delete' => 'Está seguro de eliminar el cliente %s?',
     'business_name' => 'Razón Social',
     'customers' => 'Clientes',
+    'code' => 'Número de Cliente',
     'delete' => 'Eliminar Cliente',
     'email' => 'Email',
     'lastname' => 'Apellido',

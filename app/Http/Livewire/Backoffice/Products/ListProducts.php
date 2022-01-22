@@ -18,7 +18,6 @@ class ListProducts extends DataTableComponent
             Column::make(__('products.products.name'), 'name')->sortable(),
             Column::make(__('products.products.description'), 'description')->sortable(),
             Column::make(__('products.products.quantity'), 'quantity')->sortable(),
-            Column::make(__('products.products.price'), 'price')->sortable(),
             Column::make(__('products.products.category'), 'category_id')->sortable(),
             Column::make(__('products.products.status-product'), 'status_product_id')->sortable(),
             Column::make(__('products.products.status-operation'), 'status_operation_id')->sortable(),
@@ -35,7 +34,6 @@ class ListProducts extends DataTableComponent
     {
         return Product::query()->when($this->getFilter('search'), fn ($query, $term) => $query->where('name', 'like', '%' . $term . '%')
             ->orWhere('description', 'like', '%' . $term . '%')
-            ->orWhere('quantity', 'like', '%' . $term . '%')
-            ->orWhere('price', 'like', '%' . $term . '%'));
+            ->orWhere('quantity', 'like', '%' . $term . '%'));
     }
 }

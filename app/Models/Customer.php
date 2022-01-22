@@ -15,12 +15,7 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'business_name',
-        'name',
-        'lastname',
-        'email',
-    ];
+    protected $guarded = [];
 
     public function budgets()
     {

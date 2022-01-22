@@ -36,6 +36,13 @@ return [
             'delete' => 'Está seguro de eliminar la categoría %s?',
         ],
     ],
+    'prices' => [
+        'day_a' => 'Precio para 1 día',
+        'day_b' => 'Precio para 2 a 5 días',
+        'day_c' => 'Precio para 6 a 10 días',
+        'external' => 'Precios Externos',
+        'internal' => 'Precios Internos',
+    ],
     'products' => [
         'products' => 'Productos',
         'description' => 'Descripción',

@@ -18,6 +18,7 @@ class Edit extends Component
     public function rules()
     {
         return [
+            'customer.code' => ['required', 'unique:customers,code,' . $this->customer->id],
             'customer.business_name' => ['required', 'unique:customers,business_name,' . $this->customer->id],
             'customer.name' => ['required'],
             'customer.lastname' => ['required'],

@@ -2,6 +2,7 @@
     {{ $row->name }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell class="text-end">
+    {{-- Show QR code --}}
     <x-buttons.small-pen wire:click="$emit('showModal','backoffice.products.category-edit', {{ $row }})" />
     <x-buttons.small-trash
         wire:click="$emit('showModal', 'backoffice.products.category-delete', {{ $row }})" />

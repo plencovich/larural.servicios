@@ -1,4 +1,7 @@
 <x-livewire-tables::bs5.table.cell>
+    {{ $row->code }}
+</x-livewire-tables::bs5.table.cell>
+<x-livewire-tables::bs5.table.cell>
     {{ $row->business_name }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell>
