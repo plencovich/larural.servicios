@@ -20,9 +20,12 @@ class EditProduct extends Component
     public $external_day_b = 0;
     public $external_day_c = 0;
 
+    public $fromUrl;
+
     public function mount(Product $product)
     {
         $this->product = $product;
+        $this->fromUrl = request()->routeIs('backoffice.products.edit', $product);
 
         // Get prices
         if (filled($product->productPrices->where('product_price_type_id', ProductPriceType::INTERNAL))) {
@@ -83,9 +86,13 @@ class EditProduct extends Component
             ]);
         }
 
-        $this->emit('success', __('products.products.alert.edit.success'), sprintf(__('products.products.alert.edit.message'), $this->product->name));
-        $this->reset();
-        $this->emit('customerShow', false);
+        if ($this->fromUrl) {
+            return redirect()->route('backoffice.products.list');
+        } else {
+            $this->emit('success', __('products.products.alert.edit.success'), sprintf(__('products.products.alert.edit.message'), $this->product->name));
+            $this->reset();
+            $this->emit('customerShow', false);
+        }
     }
 
 
@@ -94,6 +101,7 @@ class EditProduct extends Component
         $categories = Category::all();
         $statusProducts = StatusProduct::all();
         $statusOperations = StatusOperation::all();
-        return view('livewire.backoffice.products.edit-product', compact('categories', 'statusProducts', 'statusOperations'));
+        $fromUrl = $this->fromUrl;
+        return view('livewire.backoffice.products.edit-product', compact('categories', 'statusProducts', 'statusOperations', 'fromUrl'));
     }
 }

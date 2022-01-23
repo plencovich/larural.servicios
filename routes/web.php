@@ -10,6 +10,7 @@ use App\Http\Livewire\Backoffice\Customers\Show as CustomersShow;
 use App\Http\Livewire\Backoffice\Events\Show as EventsShow;
 use App\Http\Livewire\Backoffice\Home\Dashboard;
 use App\Http\Livewire\Backoffice\Products\Categories;
+use App\Http\Livewire\Backoffice\Products\EditProduct;
 use App\Http\Livewire\Backoffice\Products\ProductsShow;
 use App\Http\Livewire\Backoffice\Security\PasswordChange;
 use App\Http\Livewire\Backoffice\Setting\Company;
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/backoffice/customers', CustomersShow::class)->name('backoffice.customers');
         Route::get('/backoffice/zones', ZonesShow::class)->name('backoffice.zones');
         Route::get('/backoffice/products/list', ProductsShow::class)->name('backoffice.products.list');
+        Route::get('/backoffice/products/{product}/edit', EditProduct::class)->name('backoffice.products.edit');
         Route::get('/backoffice/products/categories', Categories::class)->name('backoffice.products.categories');
         Route::get('/backoffice/budgets/list', BudgetsShow::class)->name('backoffice.budgets.list');
         Route::get('/backoffice/events', EventsShow::class)->name('backoffice.events');
