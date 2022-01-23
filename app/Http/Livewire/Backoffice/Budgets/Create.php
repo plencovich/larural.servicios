@@ -33,7 +33,7 @@ class Create extends Component
             [
                 'customer_id' => $this->customerId,
                 'event_name' => $this->eventName,
-                'event_at' => null,
+                'event_at' => now(),
                 'status_budget_id' => 1,
             ]
         );

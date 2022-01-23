@@ -17,7 +17,7 @@ class Modal extends Component
     public $subZone;
     public $productName;
     public $productQty;
-    public $productPrice = 0;
+    public $productPrice;
 
     public function mount(Budget $budget)
     {
@@ -64,9 +64,9 @@ class Modal extends Component
     {
         $zones = Zone::all();
         $subZones = SubZone::where('zone_id', $this->zone)->get();
-        if (!empty($this->productName)) {
-            $this->productPrice = Product::where('id', $this->productName)->first()->price;
-        }
+        // if (!empty($this->productName)) {
+        //     $this->productPrice = Product::where('id', $this->productName)->first()->price;
+        // }
         $products = Product::all();
         return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones'));
     }

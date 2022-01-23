@@ -13,8 +13,8 @@ class ListBudgets extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name', 'event_name'),
-            Column::make('Date', 'event_at'),
+            Column::make(__('budgets.name'), 'event_name'),
+            Column::make(__('budgets.date'), 'event_at'),
             Column::make(null)->addClass('text-end'),
         ];
     }

@@ -11,6 +11,7 @@ return [
     */
 
     'add' => 'Agregar',
+    'add-sub-zone' => 'Agregar Sub Zona',
     'back' => 'Volver',
     'cancel' => 'No, cancelar!',
     'change' => 'Cambiar',

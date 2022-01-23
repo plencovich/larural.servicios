@@ -1,4 +1,4 @@
-@section('title', __('budgets.users'))
+@section('title', __('budgets.budgets-list'))
 <div>
     @if ($componentShow)
         @livewire($componentShow, $params)
