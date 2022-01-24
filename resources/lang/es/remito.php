@@ -16,11 +16,13 @@ return [
     'date' => 'Fecha',
     'description' => 'Descripción',
     'discount' => 'Descuento',
+    'no-dates' => 'No especificada',
     'quantity' => 'Cantidad',
     'sign' => 'Recibí Conforme',
     'social' => 'Razón Social',
     'sr' => 'Sr(es)',
     'subtotal' => 'Subtotal',
+    'to' => 'al',
     'total' => 'Total',
     'zone' => 'Zona',
 ];
