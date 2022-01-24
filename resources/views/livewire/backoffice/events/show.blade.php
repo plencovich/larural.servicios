@@ -11,23 +11,44 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-                allDayText: '{{ __("calendar.text.all-day") }}',
+                eventClick: function(info) {
+                    var eventObj = info.event;
+
+                    if (eventObj.url) {
+                        window.open(eventObj.url);
+
+                        // prevents browser from following link in current tab.
+                        info.jsEvent.preventDefault();
+                    } else {
+                        alert('Clicked ' + eventObj.title);
+                    }
+                },
+                allDayText: '{{ __('calendar.text.all-day') }}',
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    center: 'dayGridMonth,timeGridWeek'
+                    center: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 eventSources: [{
                     events: @json($events),
-                }]
+                }],
+                views: {
+                    timeGridDay: {
+                        type: 'timeGrid',
+                        duration: {
+                            days: 1
+                        },
+                        buttonText: 'Day'
+                    }
+                }
             });
 
             calendar.setOption('locale', '{{ app()->getLocale() }}');
             calendar.setOption('buttonText', {
-                today: '{{ __("calendar.text.today") }}',
-                month: '{{ __("calendar.text.month") }}',
-                week: '{{ __("calendar.text.week") }}',
-                day: '{{ __("calendar.text.day") }}',
-                list: '{{ __("calendar.text.list") }}'
+                today: '{{ __('calendar.text.today') }}',
+                month: '{{ __('calendar.text.month') }}',
+                week: '{{ __('calendar.text.week') }}',
+                day: '{{ __('calendar.text.day') }}',
+                list: '{{ __('calendar.text.list') }}'
             });
 
             calendar.render();
