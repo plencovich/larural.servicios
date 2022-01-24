@@ -14,8 +14,12 @@ class CreateItems extends Component
     public $event_from_at;
     public $event_to_at;
 
+    public $fromUrl;
+
     public function mount(Budget $budget)
     {
+        $this->fromUrl = request()->routeIs('backoffice.budgets.edit', $budget);
+
         $this->budget = $budget;
         if ($budget->event_from_at) {
             $this->event_from_at = $budget->event_from_at->format('Y-m-d');
@@ -44,9 +48,14 @@ class CreateItems extends Component
         $this->budget->event_to_at = $this->event_to_at;
         $this->budget->save();
         $this->budget->customer->notify(new BudgetNewNotification($this->budget));
-        //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
-        $this->reset();
-        $this->emit('customerShow', false);
+
+        if ($this->fromUrl) {
+            return redirect()->route('backoffice.events');
+        } else {
+            //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
+            $this->reset();
+            $this->emit('customerShow', false);
+        }
     }
 
 
