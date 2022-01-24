@@ -25,6 +25,7 @@
 
                 <!-- Right Side Start -->
                 <div class="col-12 col-lg-auto h-100 pb-4 px-4 pt-0 p-lg-0">
+                    @yield('content_right')
                     {{ $slot }}
                 </div>
                 <!-- Right Side End -->
@@ -34,6 +35,9 @@
 
     @include('_layout.scripts')
     @livewireScripts
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{ asset('/js/modals.js') }}"></script>
+    <script src="{{ asset('/js/notify.js') }}"></script>
 </body>
 
 </html>

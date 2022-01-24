@@ -12,6 +12,17 @@ return [
     |
     */
 
+    'budget' => [
+        'date' => 'Fecha',
+        'discount' => 'Descuento',
+        'event' => 'Evento',
+        'hello' => 'Hola',
+        'info' => 'Esta es la información acerca de tu nuevo presupuesto',
+        'no-sub-zones' => 'Aún no se han ingresado sub zonas.',
+        'observations' => 'Observaciones',
+        'sub-zones' => 'Sub zonas',
+        'total' => 'Total',
+    ],
     'company' => 'Empresa',
     'office' => 'Oficina',
     'role' => 'Role',

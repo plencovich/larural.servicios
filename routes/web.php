@@ -23,6 +23,8 @@ use App\Http\Livewire\Backoffice\Setting\SocialNetworks;
 use App\Http\Livewire\Backoffice\Users\Confirms as UsersConfirms;
 use App\Http\Livewire\Backoffice\Users\Show as UsersShow;
 use App\Http\Livewire\Backoffice\Zones\Show as ZonesShow;
+use App\Http\Livewire\Budget\ShowDetails;
+use App\Http\Livewire\Budget\ShowStatus;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +46,9 @@ Route::redirect('/', '/backoffice/home');
 |--------------------------------------------------------------------------
 |
 */
+
+Route::get('/budgets/{hash}/details', ShowDetails::class)->name('budget.customer-view');
+Route::get('/budgets/{hash}/status', ShowStatus::class)->name('budget.customer-status');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::middleware(['account_confirmed'])->group(function () {

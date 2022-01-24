@@ -9,6 +9,7 @@
     <title>@yield('title') | {{ config('app.name') }}</title>
     @include('_layout.head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    @yield('styles')
     @livewireStyles
 </head>
 
@@ -39,6 +40,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('/js/modals.js') }}"></script>
     <script src="{{ asset('/js/notify.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

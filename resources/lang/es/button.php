@@ -12,6 +12,7 @@ return [
 
     'add' => 'Agregar',
     'add-sub-zone' => 'Agregar Sub Zona',
+    'approve' => 'Aprobar',
     'back' => 'Volver',
     'cancel' => 'No, cancelar!',
     'change' => 'Cambiar',
@@ -20,6 +21,7 @@ return [
     'delete' => 'Si, eliminar!',
     'edit' => 'Editar',
     'login' => 'Ingresar',
+    'reject' => 'Rechazar',
     'reset' => 'Restablecer',
     'save' => 'Guardar',
     'send' => 'Enviar',

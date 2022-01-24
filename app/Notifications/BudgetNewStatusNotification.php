@@ -4,11 +4,11 @@ namespace App\Notifications;
 
 use App\Models\Budget;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class BudgetNewNotification extends Notification
+class BudgetNewStatusNotification extends Notification
 {
     use Queueable;
 
@@ -43,15 +43,22 @@ class BudgetNewNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $subject = 'Presupuesto ';
+        if ($this->budget->isApproved()) {
+            $subject .= 'Aprobado';
+        } else {
+            $subject .= 'Rechazado';
+        }
+
         return (new MailMessage)
             ->view(
-                'emails.budget-new',
+                'emails.budget-new-status',
                 [
                     'budget' => $this->budget,
-                    'hash' => encrypt($this->budget->id)
+                    'hash' => encrypt($this->budget->id),
                 ]
             )
-            ->subject('Nuevo presupuesto');
+            ->subject($subject);
     }
 
     /**

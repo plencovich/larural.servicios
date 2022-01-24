@@ -13,8 +13,11 @@ class ListBudgets extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('budgets.name'), 'event_name'),
-            Column::make(__('budgets.date'), 'event_at'),
+            Column::make(__('budgets.name'), 'event_name')->sortable(),
+            Column::make(__('budgets.customer'), 'event_from_at')->sortable(),
+            Column::make(__('budgets.status'), 'status')->sortable(),
+            Column::make(__('budgets.date_from'), 'event_to_at')->sortable(),
+            Column::make(__('budgets.date_to'), 'customer.name')->sortable(),
             Column::make(null)->addClass('text-end'),
         ];
     }
@@ -26,6 +29,11 @@ class ListBudgets extends DataTableComponent
 
     public function query(): Builder
     {
-        return Budget::query();
+        return Budget::query()->when(
+            $this->getFilter('search'),
+            fn ($query, $term) => $query
+                ->where('event_name', 'like', '%' . $term . '%')
+                ->orWhereHas('customer', fn ($q) => $q->where('name', 'like', '%' . $term . '%')->orWhere('lastname', 'like', '%' . $term . '%'))
+        );
     }
 }

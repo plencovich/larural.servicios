@@ -20,7 +20,7 @@
                 </x-select>
             </div>
             <div class="col-md-12">
-                <x-select name="productName" label="{{ __('budgets.customer') }}">
+                <x-select name="productName" label="{{ __('budgets.product.product') }}">
                     @foreach ($products as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}
@@ -29,10 +29,22 @@
                 </x-select>
             </div>
             <div class="col-md-6">
-                <x-input label="{{ __('budgets.product.price') }}" type="text" name="productPrice" />
+                <x-select name="productPrice" label="{{ __('budgets.product.price') }}">
+                    @foreach ($prices as $price)
+                        <option value="{{ $price->day_a }}">
+                            ${{ $price->day_a }} ({{ $price->productPriceType->name }})
+                        </option>
+                        <option value="{{ $price->day_b }}">
+                            ${{ $price->day_b }} ({{ $price->productPriceType->name }})
+                        </option>
+                        <option value="{{ $price->day_c }}">
+                            ${{ $price->day_c }} ({{ $price->productPriceType->name }})
+                        </option>
+                    @endforeach
+                </x-select>
             </div>
             <div class="col-md-6">
-                <x-input label="{{ __('budgets.product.quantity') }}" type="text" name="productQty" />
+                <x-input label="{{ __('budgets.product.quantity') }}" type="number" name="productQty" />
             </div>
         </x-form>
     </x-slot>

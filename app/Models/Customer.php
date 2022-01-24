@@ -21,4 +21,14 @@ class Customer extends Model
     {
         return $this->hasMany(Budget::class);
     }
+
+    /**
+     * Get the full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->lastname;
+    }
 }

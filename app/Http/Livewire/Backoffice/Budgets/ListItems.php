@@ -15,7 +15,8 @@ class ListItems extends DataTableComponent
 
     public $budget;
 
-    public function mount($budget) {
+    public function mount($budget)
+    {
         $this->budget = $budget;
     }
 
@@ -32,6 +33,13 @@ class ListItems extends DataTableComponent
 
     public function query(): Builder
     {
-        return Item::query()->where('budget_id', $this->budget->id)->with(['zone', 'subZone', 'product']);
+        return Item::query()
+            ->when(
+                $this->getFilter('search'),
+                fn ($query, $term) => $query
+                    ->whereHas('zone', fn ($q) => $q->where('name', 'like', '%' . $term . '%'))
+                    ->orWhereHas('subZone', fn ($q) => $q->where('name', 'like', '%' . $term . '%'))
+            )
+            ->where('budget_id', $this->budget->id)->with(['zone', 'subZone', 'product']);
     }
 }

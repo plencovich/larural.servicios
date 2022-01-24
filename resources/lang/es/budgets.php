@@ -12,28 +12,33 @@ return [
 
     'add' => 'Agregar Presupuesto',
     'alert' => [
-        'create' => [
-            'message' => 'Presupuesto %s creada correctamente',
-            'success' => '¡Presupuesto creado correctamente!',
+        'status' => [
+            'approved-message' => 'Presupuesto %s aprobado correctamente.',
+            'approved' => '¡Presupuesto aprobado correctamente!',
+            'rejected-message' => 'Presupuesto %s rechazado correctamente.',
+            'rejected' => '¡Presupuesto rechazado correctamente!',
+            'unauthorized' => 'No estás autorizado a realizar esta acción.',
         ],
-        'edit' => [
-            'message' => 'Presupuesto %s editada correctamente',
-            'success' => '¡Presupuesto editado correctamente!',
-        ],
-        'delete' => [
-            'message' => 'Presupuesto %s eliminada correctamente',
-            'success' => '¡Presupuesto eliminado correctamente!',
-        ]
     ],
+    'approved' => 'Has aprobado este presupuesto',
     'ask' => [
         'delete' => 'Está seguro de eliminar el Presupuesto %s?',
     ],
     'budgets-list' => 'Lista de Presupuestos',
     'customer' => 'Cliente',
     'date' => 'Fecha',
+    'date_from' => 'Desde',
+    'date_to' => 'Hasta',
+    'details' => 'Detalle',
     'discount' => 'Descuento (%)',
     'edit' => 'Editar Presupuesto',
+    'event' => 'Evento',
     'event-name' => 'Nombre de evento',
+    'from' => 'Desde',
+    'inventory' => 'Inventario',
+    'message' => [
+        'status-message' => 'ha %s el presupuesto.',
+    ],
     'name' => 'Nombre',
     'observations' => 'Observaciones',
     'product' => [
@@ -41,6 +46,9 @@ return [
         'quantity' => 'Cantidad',
         'price' => 'Precio',
     ],
-    'zone' => 'Zona',
+    'rejected' => 'Has rechazado este presupuesto',
+    'status' => 'Estado',
     'sub-zone' => 'Sub Zona',
+    'to' => 'Hasta',
+    'zone' => 'Zona',
 ];

@@ -3,8 +3,9 @@ $title = 'Not Found';
 $description = '';
 @endphp
 @extends('layout_full',[
-'title'=>$title,
-'description'=>$description
+'title' => $title,
+'description' => $description,
+'slot' => ''
 ])
 
 @section('content_right')

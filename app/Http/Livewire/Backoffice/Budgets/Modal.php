@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Backoffice\Budgets;
 
 use App\Models\Budget;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\SubZone;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Log;
@@ -64,10 +65,8 @@ class Modal extends Component
     {
         $zones = Zone::all();
         $subZones = SubZone::where('zone_id', $this->zone)->get();
-        // if (!empty($this->productName)) {
-        //     $this->productPrice = Product::where('id', $this->productName)->first()->price;
-        // }
+        $prices = ProductPrice::where('product_id', $this->productName)->get();
         $products = Product::all();
-        return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones'));
+        return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones', 'prices'));
     }
 }

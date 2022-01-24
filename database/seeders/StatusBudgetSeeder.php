@@ -17,5 +17,11 @@ class StatusBudgetSeeder extends Seeder
         StatusBudget::create([
             'name' => 'Confirmado'
         ]);
+        StatusBudget::create([
+            'name' => 'Aprobado'
+        ]);
+        StatusBudget::create([
+            'name' => 'Rechazado'
+        ]);
     }
 }

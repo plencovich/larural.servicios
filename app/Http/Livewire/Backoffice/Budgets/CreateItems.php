@@ -11,18 +11,27 @@ class CreateItems extends Component
 {
 
     public $budget;
+    public $event_from_at;
+    public $event_to_at;
 
     public function mount(Budget $budget)
     {
         $this->budget = $budget;
+        if ($budget->event_from_at) {
+            $this->event_from_at = $budget->event_from_at->format('Y-m-d');
+        }
+        if ($budget->event_to_at) {
+            $this->event_to_at = $budget->event_to_at->format('Y-m-d');
+        }
     }
 
     public function rules()
     {
         return [
             'budget.event_name' => ['required', 'unique:budgets,event_name,' . $this->budget->id],
-            'budget.event_at' => ['required', 'unique:budgets,event_at,' . $this->budget->id],
-            'budget.disccount' => ['required', 'integer'],
+            'event_from_at' => ['required', 'unique:budgets,event_from_at,' . $this->budget->id],
+            'event_to_at' => ['required', 'unique:budgets,event_from_at,' . $this->budget->id],
+            'budget.discount' => ['required', 'integer'],
             'budget.observations' => ['required'],
             'budget.customer_id' => ['required'],
         ];
@@ -31,8 +40,10 @@ class CreateItems extends Component
     public function store()
     {
         $this->validate();
+        $this->budget->event_from_at = $this->event_from_at;
+        $this->budget->event_to_at = $this->event_to_at;
         $this->budget->save();
-        $this->budget->customer->notify(new BudgetNewNotification());
+        $this->budget->customer->notify(new BudgetNewNotification($this->budget));
         //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
         $this->reset();
         $this->emit('customerShow', false);
