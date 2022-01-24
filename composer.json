@@ -19,7 +19,8 @@
         "livewire/livewire": "^2.6",
         "rappasoft/laravel-livewire-tables": "^1.15",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-permission": "^4.3"
+        "spatie/laravel-permission": "^4.3",
+        "tecnickcom/tcpdf": "^6.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

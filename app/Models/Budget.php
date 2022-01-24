@@ -103,4 +103,14 @@ class Budget extends Model
     {
         return number_format(($this->items->sum(fn ($item) => $item->product_qty * $item->product_price) * $this->discount) / 100, 2);
     }
+
+    /**
+     * Get the total without discount
+     *
+     * @return string
+     */
+    public function getTotalWithoutDiscountAttribute()
+    {
+        return number_format($this->items->sum(fn ($item) => $item->product_qty * $item->product_price), 2);
+    }
 }

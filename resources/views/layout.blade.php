@@ -40,6 +40,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('/js/modals.js') }}"></script>
     <script src="{{ asset('/js/notify.js') }}"></script>
+    <script src="{{ asset('/js/remito.js') }}"></script>
     @yield('scripts')
 </body>
 
