@@ -14,11 +14,27 @@ class StatusProductSeeder extends Seeder
      */
     public function run()
     {
-        StatusProduct::create([
-            'name' => 'Disponible',
-            'name' => 'En Uso',
-            'name' => 'Mantenimiento',
-            'name' => 'Reservado',
+        StatusProduct::insert([
+            [
+                'name' => 'Disponible',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'En Uso',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Mantenimiento',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Reservado',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

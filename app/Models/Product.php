@@ -10,20 +10,11 @@ class Product extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'code',
-        'name',
-        'description',
-        'image',
-        'quantity',
-        'category_id',
-        'status_product_id',
-        'status_operation_id',
-    ];
+    protected $guarded = [];
 
     public function category()
     {

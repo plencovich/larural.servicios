@@ -1,4 +1,7 @@
 <x-livewire-tables::bs5.table.cell>
+    <img src="{{ asset('storage/' . $row->image) }}" style="max-width: 5rem;">
+</x-livewire-tables::bs5.table.cell>
+<x-livewire-tables::bs5.table.cell>
     {{ $row->code }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell>

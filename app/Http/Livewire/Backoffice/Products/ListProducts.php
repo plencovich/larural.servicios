@@ -15,6 +15,7 @@ class ListProducts extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make(__('products.products.image'), 'image'),
             Column::make(__('products.products.code'), 'code')->sortable(),
             Column::make(__('products.products.name'), 'name')->sortable(),
             Column::make(__('products.products.description'), 'description')->sortable(),

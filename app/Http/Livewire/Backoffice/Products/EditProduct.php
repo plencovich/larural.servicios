@@ -2,17 +2,20 @@
 
 namespace App\Http\Livewire\Backoffice\Products;
 
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductPriceType;
-use App\Models\StatusOperation;
-use App\Models\StatusProduct;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\StatusProduct;
+use Livewire\WithFileUploads;
+use App\Models\StatusOperation;
+use App\Models\ProductPriceType;
 
 class EditProduct extends Component
 {
+    use WithFileUploads;
 
     public $product;
+    public $image;
     public $internal_day_a = 0;
     public $internal_day_b = 0;
     public $internal_day_c = 0;
@@ -69,6 +72,13 @@ class EditProduct extends Component
     {
         $this->validate();
         $this->product->save();
+
+        // Store image
+        if ($this->image) {
+            $this->product->update([
+                'image' => $this->image->store('products', 'public')
+            ]);
+        }
 
         // Save prices
         if (filled($this->product->productPrices()->where('product_price_type_id', ProductPriceType::INTERNAL))) {

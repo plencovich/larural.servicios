@@ -45,6 +45,7 @@ return [
     ],
     'products' => [
         'code' => 'Código',
+        'image' => 'Imagen',
         'products' => 'Productos',
         'description' => 'Descripción',
         'quantity' => 'Cantidad',

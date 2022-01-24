@@ -1,6 +1,12 @@
 <div>
     <div class="card"></div>
     <x-form action="store">
+        <div class="col-md-12">
+            <x-input label="{{ __('products.products.image') }}" type="file" name="image" />
+            @if ($image)
+                <img src="{{ $image->temporaryUrl() }}" class="w-40">
+            @endif
+        </div>
         <div class="col-md-6">
             <x-input label="{{ __('products.products.code') }}" type="text" name="code" />
         </div>

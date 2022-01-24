@@ -2,18 +2,22 @@
 
 namespace App\Http\Livewire\Backoffice\Products;
 
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductPriceType;
-use App\Models\StatusOperation;
-use App\Models\StatusProduct;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\StatusProduct;
+use Livewire\WithFileUploads;
+use App\Models\StatusOperation;
+use App\Models\ProductPriceType;
 
 class CreateProduct extends Component
 {
+    use WithFileUploads;
+
     public $code;
     public $name;
     public $description;
+    public $image;
     public $quantity;
     public $category;
     public $statusProduct;
@@ -37,6 +41,7 @@ class CreateProduct extends Component
             'code' => ['required', 'unique:products'],
             'name' => ['required', 'unique:products'],
             'description' => ['required'],
+            'image' => ['nullable', 'image'],
             'quantity' => ['required', 'integer'],
             'internal_day_a' => ['required', 'numeric', 'min:0'],
             'internal_day_b' => ['required', 'numeric', 'min:0'],
@@ -63,6 +68,13 @@ class CreateProduct extends Component
             'status_product_id' => $this->statusProduct,
             'status_operation_id' => $this->statusOperation,
         ]);
+
+        // Store image
+        if ($this->image) {
+            $product->update([
+                'image' => $this->image->store('products', 'public')
+            ]);
+        }
 
         // Add product prices
         $product->productPrices()->create([

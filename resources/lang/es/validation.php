@@ -150,6 +150,21 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'category' => 'categoría',
+        'code' => 'código',
+        'description' => 'descripción',
+        'external_day_a' => 'precio para día 1',
+        'external_day_b' => 'precio para 2 a 5 días',
+        'external_day_c' => 'precio para 6 a 10 días',
+        'image' => 'imagen',
+        'internal_day_a' => 'precio para día 1',
+        'internal_day_b' => 'precio para 2 a 5 días',
+        'internal_day_c' => 'precio para 6 a 10 días',
+        'name' => 'nombre',
+        'quantity' => 'cantidad',
+        'statusOperation' => 'estado operación',
+        'statusProduct' => 'estado producto',
+    ],
 
 ];
