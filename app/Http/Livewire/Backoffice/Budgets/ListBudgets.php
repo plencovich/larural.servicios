@@ -11,79 +11,91 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 class ListBudgets extends DataTableComponent
 {
 
-    public function columns(): array
-    {
-        return [
-            Column::make(__('budgets.name'), 'event_name')->sortable(),
-            Column::make(__('budgets.customer'), 'event_from_at')->sortable(),
-            Column::make(__('budgets.status'), 'status')->sortable(),
-            Column::make(__('budgets.date_from'), 'event_to_at')->sortable(),
-            Column::make(__('budgets.date_to'), 'customer.name')->sortable(),
-            Column::make(null)->addClass('text-end'),
-        ];
+  public function columns(): array
+  {
+    return [
+      Column::make(__('budgets.name'), 'event_name')->sortable(),
+      Column::make(__('budgets.customer'), 'event_from_at')->sortable(),
+      Column::make(__('budgets.status'), 'status')->sortable(),
+      Column::make(__('budgets.date_from'), 'event_to_at')->sortable(),
+      Column::make(__('budgets.date_to'), 'customer.name')->sortable(),
+      Column::make(null)->addClass('text-end'),
+    ];
+  }
+
+  public function rowView(): string
+  {
+    return 'livewire.backoffice.budgets.row-budgets';
+  }
+
+  public function query(): Builder
+  {
+    return Budget::query()->when(
+      $this->getFilter('search'),
+      fn ($query, $term) => $query
+        ->where('event_name', 'like', '%' . $term . '%')
+        ->orWhereHas('customer', fn ($q) => $q->where('name', 'like', '%' . $term . '%')->orWhere('lastname', 'like', '%' . $term . '%'))
+    );
+  }
+
+  /**
+   * Print Remito
+   *
+   * @return mixed
+   */
+  public function printRemito($id)
+  {
+    $budget = Budget::find($id);
+
+    // Get new PDF invoice name
+    $number = "LR-" . time();
+    $pdfName = $number . ".pdf";
+
+    // Start PDF document
+    $pdf = new \TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
+    $pdf->SetTitle('Remito');
+    $pdf->SetHeaderMargin(30);
+    $pdf->SetTopMargin(20);
+    $pdf->setFooterMargin(20);
+    $pdf->SetAutoPageBreak(true, 30);
+    $pdf->SetAuthor('La Rural');
+    $pdf->SetDisplayMode('real', 'default');
+    $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+    $pdf->SetPrintHeader(false);
+    $pdf->SetPrintFooter(false);
+    $pdf->AddPage();
+
+    // Set text
+    $eventFrom = $budget->event_from_at ? $budget->event_from_at->format('d/m/Y') : null;
+    $eventTo = $budget->event_to_at ? $budget->event_to_at->format('d/m/Y') : null;
+
+    // Set date text
+    $dateRangeText = __('remito.no-dates');
+    if ($eventFrom && $eventTo) {
+      $dateRangeText = $eventFrom . ' ' . __('remito.to') . ' ' . $eventTo;
+    } elseif ($eventFrom && !$eventTo) {
+      $dateRangeText = $eventFrom;
     }
 
-    public function rowView(): string
-    {
-        return 'livewire.backoffice.budgets.row-budgets';
-    }
+    $text = [
+      'address1' => Str::upper(__('remito.address1')),
+      'address2' => Str::upper(__('remito.address2')),
+      'company' => __('remito.company'),
+      'date' => __('remito.date'),
+      'date_range' => $dateRangeText,
+      'description' => __('remito.description'),
+      'discount' => __('remito.discount'),
+      'quantity' => __('remito.quantity'),
+      'sign' => Str::upper(__('remito.sign')),
+      'social' => Str::upper(__('remito.social')),
+      'sr' => Str::upper(__('remito.sr')),
+      'subtotal' => __('remito.subtotal'),
+      'total' => __('remito.total'),
+      'zone' => __('remito.zone'),
+    ];
 
-    public function query(): Builder
-    {
-        return Budget::query()->when(
-            $this->getFilter('search'),
-            fn ($query, $term) => $query
-                ->where('event_name', 'like', '%' . $term . '%')
-                ->orWhereHas('customer', fn ($q) => $q->where('name', 'like', '%' . $term . '%')->orWhere('lastname', 'like', '%' . $term . '%'))
-        );
-    }
-
-    /**
-     * Print Remito
-     *
-     * @return mixed
-     */
-    public function printRemito($id)
-    {
-        $budget = Budget::find($id);
-
-        // Get new PDF invoice name
-        $number = "LR-" . time();
-        $pdfName = $number . ".pdf";
-
-        // Start PDF document
-        $pdf = new \TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
-        $pdf->SetTitle('Remito');
-        $pdf->SetHeaderMargin(30);
-        $pdf->SetTopMargin(20);
-        $pdf->setFooterMargin(20);
-        $pdf->SetAutoPageBreak(true, 30);
-        $pdf->SetAuthor('La Rural');
-        $pdf->SetDisplayMode('real', 'default');
-        $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
-        $pdf->SetPrintHeader(false);
-        $pdf->SetPrintFooter(false);
-        $pdf->AddPage();
-
-        // Set text
-        $text = [
-          'address1' => Str::upper(__('remito.address1')),
-          'address2' => Str::upper(__('remito.address2')),
-          'company' => __('remito.company'),
-          'date' => __('remito.date'),
-          'description' => __('remito.description'),
-          'discount' => __('remito.discount'),
-          'quantity' => __('remito.quantity'),
-          'sign' => Str::upper(__('remito.sign')),
-          'social' => Str::upper(__('remito.social')),
-          'sr' => Str::upper(__('remito.sr')),
-          'subtotal' => __('remito.subtotal'),
-          'total' => __('remito.total'),
-          'zone' => __('remito.zone'),
-        ];
-
-        // Start PDF content
-        $html = '<table style="width: 100%; padding:3px;">
+    // Start PDF content
+    $html = '<table style="width: 100%; padding:3px;">
             <tbody style="border-left: 6px solid #0087C3;">
             <tr>
               <td style="font-size: 20px;">' . $text['company'] . '</td>
@@ -106,7 +118,7 @@ class ListBudgets extends DataTableComponent
           </tbody>
         </table>';
 
-        $html .= '<table style="width: 100%; margin-top: 20px; padding:3px;">
+    $html .= '<table style="width: 100%; margin-top: 20px; padding:3px;">
             <tbody>
               <tr>
                 <td colspan="3">___________________________________________________________________________________________________________________</td>
@@ -114,7 +126,7 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td><span style="font-weight: bold;">' . $text['sr'] . ':</span> ' . $budget->customer->full_name . '</td>
                 <td></td>
-                <td style="text-align: right;"><span style="font-weight: bold;">' . $text['date'] . ':</span> ' . $budget->event_from_at->format('d/m/Y') . ' al ' . $budget->event_to_at->format('d/m/Y') . '</td>
+                <td style="text-align: right;"><span style="font-weight: bold;">' . $text['date'] . ':</span> ' . $text['date_range'] . '</td>
               </tr>
               <tr>
                 <td><span style="font-weight: bold;">' . $text['social'] . ':</span> ' . $budget->customer->business_name . '</td>
@@ -128,7 +140,7 @@ class ListBudgets extends DataTableComponent
           </table>';
 
 
-        $html .= '<table border="0" style="padding: 3px;">
+    $html .= '<table border="0" style="padding: 3px;">
             <thead>
               <tr>
                 <th style="width:10%; font-weight: bold;">' . $text['quantity'] . '</th>
@@ -138,19 +150,19 @@ class ListBudgets extends DataTableComponent
             </thead>
             <tbody>';
 
-        // Add lines to invoice
-        if ($budget->items->count() > 0) {
-            // Multiple lines
-            foreach ($budget->items as $item) {
-                $html .= '<tr>
+    // Add lines to invoice
+    if ($budget->items->count() > 0) {
+      // Multiple lines
+      foreach ($budget->items as $item) {
+        $html .= '<tr>
                         <td style="width:10%;text-align: center;">' . $item->product_qty . '</td>
                         <td style="width:60%;">' . $item->product->name . '</td>
                         <td style="width:60%;">' . $item->zone->name . ', ' . $item->subZone->name . '</td>
                       </tr>';
-            }
-        }
+      }
+    }
 
-        $html .= '</tbody>
+    $html .= '</tbody>
             <tfoot>
             <tr>
                 <td colspan="3">___________________________________________________________________________________________________________________</td>
@@ -166,7 +178,7 @@ class ListBudgets extends DataTableComponent
                 </td>
               </tr>';
 
-        $html .= '
+    $html .= '
 
               <tr>
                 <td></td>
@@ -176,7 +188,7 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td></td>
                 <td></td>
-                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['total'] .':</span> $' . $budget->total . '</td>
+                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['total'] . ':</span> $' . $budget->total . '</td>
               </tr>
               <tr>
                 <td colspan="3"></td>
@@ -201,18 +213,18 @@ class ListBudgets extends DataTableComponent
           ';
 
 
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+    $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
-        if (!is_dir(public_path('uploads'))) {
-            mkdir(public_path('uploads'), 755);
-        }
-        if (!is_dir(public_path('uploads/remitos'))) {
-            mkdir(public_path('uploads/remitos'), 755);
-        }
-
-        $pdf->Output(public_path('uploads/remitos/' . $pdfName), 'F');
-
-        $this->emit('newRemito', asset('uploads/remitos/' . $pdfName));
-        return $pdf;
+    if (!is_dir(public_path('uploads'))) {
+      mkdir(public_path('uploads'), 755);
     }
+    if (!is_dir(public_path('uploads/remitos'))) {
+      mkdir(public_path('uploads/remitos'), 755);
+    }
+
+    $pdf->Output(public_path('uploads/remitos/' . $pdfName), 'F');
+
+    $this->emit('newRemito', asset('uploads/remitos/' . $pdfName));
+    return $pdf;
+  }
 }
