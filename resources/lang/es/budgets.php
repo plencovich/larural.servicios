@@ -29,6 +29,7 @@ return [
     'date' => 'Fecha',
     'date_from' => 'Desde',
     'date_to' => 'Hasta',
+    'delete' => 'Eliminar Presupuesto',
     'details' => 'Detalle',
     'discount' => 'Descuento (%)',
     'edit' => 'Editar Presupuesto',
@@ -37,6 +38,7 @@ return [
     'from' => 'Desde',
     'inventory' => 'Inventario',
     'message' => [
+        'delete' => 'El presupuesto %s se ha eliminado correctamente',
         'status-message' => 'ha %s el presupuesto.',
     ],
     'name' => 'Nombre',
@@ -48,6 +50,7 @@ return [
     ],
     'rejected' => 'Has rechazado este presupuesto',
     'status' => 'Estado',
+    'success_delete' => '¡Presupuesto eliminado correctamente!',
     'sub-zone' => 'Sub Zona',
     'to' => 'Hasta',
     'zone' => 'Zona',
