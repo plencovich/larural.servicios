@@ -101,7 +101,10 @@ class Budget extends Model
      */
     public function getTotalAttribute()
     {
-        return number_format(($this->items->sum(fn ($item) => $item->product_qty * $item->product_price) * $this->discount) / 100, 2);
+        $total = $this->items->sum(fn ($item) => $item->product_qty * $item->product_price);
+        $discount = ($total * $this->discount) / 100;
+
+        return number_format($total - $discount, 2);
     }
 
     /**
@@ -112,5 +115,15 @@ class Budget extends Model
     public function getTotalWithoutDiscountAttribute()
     {
         return number_format($this->items->sum(fn ($item) => $item->product_qty * $item->product_price), 2);
+    }
+
+    /**
+     * Get the discount formatted
+     *
+     * @return string
+     */
+    public function getDiscountFormattedAttribute()
+    {
+        return number_format($this->discount ?? 0, 2);
     }
 }

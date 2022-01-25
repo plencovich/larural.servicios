@@ -183,7 +183,7 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td></td>
                 <td></td>
-                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['discount'] . ':</span> ' . $budget->discount . '%</td>
+                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['discount'] . ':</span> ' . $budget->discount_formatted . '%</td>
               </tr>
               <tr>
                 <td></td>
