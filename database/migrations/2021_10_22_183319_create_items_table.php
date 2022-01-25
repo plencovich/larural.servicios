@@ -21,7 +21,7 @@ class CreateItemsTable extends Migration
             $table->integer('product_qty');
             $table->float('product_price');
             $table->unsignedBigInteger('budget_id');
-            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->foreign('budget_id')->references('id')->on('budgets')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

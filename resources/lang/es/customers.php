@@ -18,7 +18,7 @@ return [
     'email' => 'Email',
     'lastname' => 'Apellido',
     'message_create' => 'El cliente %s se ha creado correctamente',
-    'message_delete' => 'El cliente %s se ha elimado correctamente',
+    'message_delete' => 'El cliente %s se ha eliminado correctamente',
     'message_edit' => 'El cliente %s se ha editado correctamente',
     'name' => 'Nombre',
     'success_create' => '¡Cliente creado correctamente!',
