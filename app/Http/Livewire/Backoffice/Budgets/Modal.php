@@ -8,6 +8,7 @@ use App\Models\ProductPrice;
 use App\Models\SubZone;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Modal extends Component
@@ -27,12 +28,18 @@ class Modal extends Component
 
     public function rules()
     {
+        $product = Product::find($this->productName);
+        $max = '0';
+        if ($product) {
+            $max = $product->quantity;
+        }
+
         return [
             'zone' => ['required'],
             'subZone' => ['required'],
-            'productName' => ['required'],
-            'productQty' => ['required'],
-            'productPrice' => ['required'],
+            'productName' => ['required', Rule::unique('items', 'product_name')->where(fn($query) => $query->where('budget_id', $this->budget->id))],
+            'productQty' => ['required', 'numeric', 'min:0', 'max:' . $max],
+            'productPrice' => ['required', 'numeric', 'min:0'],
         ];
     }
 
@@ -44,6 +51,7 @@ class Modal extends Component
     public function store()
     {
         $this->validate();
+
         $this->budget->items()->create([
             'zone_name' => $this->zone,
             'sub_zone_name' => $this->subZone,
