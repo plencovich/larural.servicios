@@ -17,7 +17,7 @@ class Item extends Model
     protected $fillable = [
         'zone_name',
         'sub_zone_name',
-        'product_name',
+        'product_id',
         'product_qty',
         'product_price',
     ];
@@ -49,6 +49,6 @@ class Item extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_name');
+        return $this->belongsTo(Product::class);
     }
 }

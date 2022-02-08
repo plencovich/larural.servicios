@@ -40,4 +40,20 @@ class Product extends Model
     {
         return $this->belongsTo(StatusOperation::class);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Scope a query to only include products for rent
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForRent($query)
+    {
+        return $query->where('status_operation_id', StatusOperation::getForRentId());
+    }
 }

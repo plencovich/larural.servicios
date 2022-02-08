@@ -5,31 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusOperation extends Model
+class Event extends Model
 {
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $guarded = [];
 
     /*
     |--------------------------------------------------------------------------
-    | Special Methods
+    | Relationships
     |--------------------------------------------------------------------------
     */
     /**
-     * Get the ID of the operation for rent
+     * Get all of the budgets for the Event
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public static function getForRentId()
+    public function budgets()
     {
-        return 1;
+        return $this->hasMany(Budget::class);
     }
 }

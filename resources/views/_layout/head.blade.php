@@ -40,6 +40,7 @@
 @yield('css')
 <!-- Vendor Styles End -->
 <!-- Template Base Styles Start -->
+<link rel="stylesheet" href="{{ asset('/css/vanilla-datetimerange-picker.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/main.css') }}"/>
 <!-- Template Base Styles End -->

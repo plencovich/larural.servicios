@@ -10,7 +10,39 @@
     <script src="{{ asset('js/vendor/fullcalendar/main.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // console.log(document.querySelector('.datepicker'));
+            Livewire.on('showBootstrapModal', e => {
+                document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
+                    new DateRangePicker(document.querySelector('.datepicker'), {
+                        // options here
+                    }, function (start, end) {
+                        // callback
+                        alert(start.format() + " - " + end.format());
+                    })
+                })
+            })
+
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+                dateClick: function(info) {
+                    // Swal.fire({
+                    //     title: '¿Quieres agregar un evento para esta fecha?',
+                    //     showCancelButton: true,
+                    //     confirmButtonText: 'Sí',
+                    //     cancelButtonText: 'No',
+                    //     confirmButtonColor: '#191b27',
+                    //     cancelButtonColor: '#cf2637',
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         Livewire.emit('showModal', 'backoffice.events.add', info.dateStr);
+                    //     }
+                    // })
+                    // console.log(info.date.getTime());
+                    // console.log(new Date().setHours(0,0,0,0));
+                    // console.log(info.date.getTime() >= new Date().setHours(0,0,0,0));
+                    if (info.date.getTime() >= new Date().setHours(0,0,0,0)) {
+                        Livewire.emit('showModal', 'backoffice.events.add', info.dateStr);
+                    }
+                },
                 eventClick: function(info) {
                     var eventObj = info.event;
 

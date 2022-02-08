@@ -20,7 +20,7 @@
                 </x-select>
             </div>
             <div class="col-md-12">
-                <x-select name="productName" label="{{ __('budgets.product.product') }}">
+                <x-select name="product_id" label="{{ __('budgets.product.product') }}">
                     @foreach ($products as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}

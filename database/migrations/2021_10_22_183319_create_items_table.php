@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('zone_name');
             $table->string('sub_zone_name');
-            $table->string('product_name');
+            $table->string('product_id');
             $table->integer('product_qty');
             $table->float('product_price');
             $table->unsignedBigInteger('budget_id');

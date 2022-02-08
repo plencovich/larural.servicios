@@ -162,7 +162,7 @@ return [
         'internal_day_b' => 'precio para 2 a 5 días',
         'internal_day_c' => 'precio para 6 a 10 días',
         'name' => 'nombre',
-        'productName' => 'producto',
+        'product_id' => 'producto',
         'productPrice' => 'precio',
         'productQty' => 'cantidad',
         'quantity' => 'cantidad',

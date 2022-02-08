@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\SubZone;
 use App\Models\Zone;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -17,7 +16,7 @@ class Modal extends Component
     public $budget;
     public $zone = 0;
     public $subZone;
-    public $productName;
+    public $product_id;
     public $productQty;
     public $productPrice;
 
@@ -28,7 +27,7 @@ class Modal extends Component
 
     public function rules()
     {
-        $product = Product::find($this->productName);
+        $product = Product::find($this->product_id);
         $max = '0';
         if ($product) {
             $max = $product->quantity;
@@ -37,7 +36,7 @@ class Modal extends Component
         return [
             'zone' => ['required'],
             'subZone' => ['required'],
-            'productName' => ['required', Rule::unique('items', 'product_name')->where(fn($query) => $query->where('budget_id', $this->budget->id))],
+            'product_id' => ['required', Rule::unique('items')->where(fn ($query) => $query->where('budget_id', $this->budget->id))],
             'productQty' => ['required', 'numeric', 'min:0', 'max:' . $max],
             'productPrice' => ['required', 'numeric', 'min:0'],
         ];
@@ -55,14 +54,14 @@ class Modal extends Component
         $this->budget->items()->create([
             'zone_name' => $this->zone,
             'sub_zone_name' => $this->subZone,
-            'product_name' => $this->productName,
+            'product_id' => $this->product_id,
             'product_qty' => $this->productQty,
             'product_price' => $this->productPrice,
         ]);
         $this->reset(
             'zone',
             'subZone',
-            'productName',
+            'product_id',
             'productQty',
             'productPrice',
         );
@@ -73,8 +72,10 @@ class Modal extends Component
     {
         $zones = Zone::all();
         $subZones = SubZone::where('zone_id', $this->zone)->get();
-        $prices = ProductPrice::where('product_id', $this->productName)->get();
-        $products = Product::all();
+        $prices = ProductPrice::where('product_id', $this->product_id)->get();
+
+        // Only products for rent
+        $products = Product::forRent()->get();
         return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones', 'prices'));
     }
 }
