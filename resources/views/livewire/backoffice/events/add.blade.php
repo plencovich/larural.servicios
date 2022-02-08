@@ -4,11 +4,8 @@
             <div class="col-md-12">
                 <x-input label="{{ __('events.name') }}" type="text" name="name" />
             </div>
-            <div class="col-md-6">
-                <x-input label="{{ __('budgets.from') }}" type="text" class="datepicker" name="from_date" timezone="{{ config('app.timezone') }}" />
-            </div>
-            <div class="col-md-6">
-                <x-input label="{{ __('budgets.to') }}" type="text" class="datepicker" name="to_date" />
+            <div class="col-md-12">
+                <x-input label="{{ __('events.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />
             </div>
         </x-form>
     </x-slot>

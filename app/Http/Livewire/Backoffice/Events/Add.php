@@ -7,16 +7,37 @@ use Livewire\Component;
 class Add extends Component
 {
     public $name;
-    public $from_date;
-    public $to_date;
+    public $date_range;
 
-    public function mount($from_date)
+    protected $listeners = ['changeDateRange' => 'changeDateRange'];
+
+    public function mount($date_range)
     {
-        $this->from_date = $from_date;
+        $this->date_range = $date_range;
     }
 
     public function render()
     {
         return view('livewire.backoffice.events.add');
+    }
+
+    /**
+     * Change date range
+     *
+     * @return mixed
+     */
+    public function changeDateRange($start, $end)
+    {
+        dd($start, $end);
+    }
+
+    /**
+     * Store the event
+     *
+     * @return mixed
+     */
+    public function store()
+    {
+        dd($this->date_range);
     }
 }
