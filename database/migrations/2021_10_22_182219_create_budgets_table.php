@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +16,9 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->string('event_name')->unique();
-            $table->timestamp('event_from_at')->unique()->nullable();
-            $table->timestamp('event_to_at')->unique()->nullable();
+            $table->foreignIdFor(Event::class)->constrained();
+            $table->timestamp('event_from')->unique()->nullable();
+            $table->timestamp('event_to')->unique()->nullable();
             $table->float('discount')->nullable();
             $table->text('observations')->nullable();
             $table->unsignedBigInteger('customer_id');

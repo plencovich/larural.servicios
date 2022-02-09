@@ -7,3 +7,12 @@ Livewire.on('success', (title, message) => {
         },
     );
 });
+Livewire.on('alert-message', (type, title, message) => {
+    jQuery.notify(
+        { title: title, message: message },
+        {
+            type: type,
+            delay: 5000,
+        },
+    );
+});

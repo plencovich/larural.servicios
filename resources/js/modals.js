@@ -10,9 +10,20 @@ modalsElement.addEventListener('hidden.bs.modal', () => {
 Livewire.on('showBootstrapModal', () => {
     let modal = bootstrap.Modal.getInstance(modalsElement);
 
-    console.log(modalsElement);
     if (!modal) {
         modal = new bootstrap.Modal(modalsElement);
+    }
+
+    if ($('.select2').length) {
+        $('.select2').select2({
+            language: "es",
+            dropdownParent: $(modalsElement),
+            width: '100%'
+        });
+        $('.select2').on('change', function (e) {
+            var data = $(this).select2("val");
+            Livewire.emit('updateSelect',$(this).attr('name'), data);
+        });
     }
 
     modal.show();

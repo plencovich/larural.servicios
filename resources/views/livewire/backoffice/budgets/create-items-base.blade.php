@@ -21,8 +21,8 @@
                 <div class="card">
                     <div class="card-body">
                         <x-form action="store" id="budget-update">
-                            <div class="col-md-12">
-                                <x-select name="budget.customer_id" label="{{ __('budgets.customer') }}">
+                            <div class="col-md-12" wire:ignore>
+                                <x-select name="budget.customer_id" label="{{ __('budgets.customer') }}" class="form-control select2">
                                     @foreach ($customers as $value)
                                         <option value="{{ $value->id }}">
                                             {{ $value->name }}
@@ -31,15 +31,20 @@
                                 </x-select>
                             </div>
                             <div class="col-md-5">
-                                <x-input label="{{ __('budgets.event') }}" type="text" name="budget.event_name" />
+                                <div class="col-md-12" wire:ignore>
+                                    <x-select name="budget.event_id" label="{{ __('budgets.event') }}" class="form-control select2">
+                                        @foreach ($events as $value)
+                                            <option value="{{ $value->id }}">
+                                                {{ $value->name }}
+                                            </option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <x-input label="{{ __('budgets.from') }}" type="date" name="event_from_at" />
+                            <div class="col-md-5">
+                                <x-input label="{{ __('events.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />
                             </div>
-                            <div class="col-md-3">
-                                <x-input label="{{ __('budgets.to') }}" type="date" name="event_to_at" />
-                            </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <x-input label="{{ __('budgets.discount') }}" type="number"
                                     name="budget.discount" />
                             </div>
@@ -77,4 +82,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        globals.initSelect2();
+
+        // Initialize picker
+        globals.initDatePicker();
+    </script>
 </div>

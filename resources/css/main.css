@@ -1,1 +1,5 @@
 /* This file is reserved for overriding and extending the template styles. */
+
+.select2 b[role=presentation] {
+    display: none;
+}

@@ -37,6 +37,8 @@
 <!-- Vendor Styles Start -->
 <link rel="stylesheet" href="{{ asset('/css/vendor/bootstrap.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/css/vendor/OverlayScrollbars.min.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/vendor/select2.min.css') }}">
+
 @yield('css')
 <!-- Vendor Styles End -->
 <!-- Template Base Styles Start -->

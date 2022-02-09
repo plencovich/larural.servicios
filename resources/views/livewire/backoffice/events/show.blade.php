@@ -33,49 +33,7 @@
                             $('input[autofocus=autofocus]').focus();
 
                             // Initialize picker
-                            new DateRangePicker(document.querySelector('.datepicker'), {
-                                // "autoApply": true,
-                                "minDate": "{{ now()->format('d/m/Y') }}",
-                                "startDate": selectedDate,
-                                "endDate": selectedDate,
-                                "locale": {
-                                    "format": "DD/MM/YYYY",
-                                    "separator": " - ",
-                                    "applyLabel": "{{ __('date.apply') }}",
-                                    "cancelLabel": "{{ __('date.cancel') }}",
-                                    "fromLabel": "{{ __('date.from') }}",
-                                    "toLabel": "{{ __('date.to') }}",
-                                    "customRangeLabel": "{{ __('date.custom') }}",
-                                    "weekLabel": "{{ __('date.week-letter') }}",
-                                    "daysOfWeek": [
-                                        "{{ __('date.su') }}",
-                                        "{{ __('date.mo') }}",
-                                        "{{ __('date.tu') }}",
-                                        "{{ __('date.we') }}",
-                                        "{{ __('date.th') }}",
-                                        "{{ __('date.fr') }}",
-                                        "{{ __('date.sa') }}"
-                                    ],
-                                    "monthNames": [
-                                        "{{ __('date.january') }}",
-                                        "{{ __('date.february') }}",
-                                        "{{ __('date.march') }}",
-                                        "{{ __('date.april') }}",
-                                        "{{ __('date.may') }}",
-                                        "{{ __('date.june') }}",
-                                        "{{ __('date.july') }}",
-                                        "{{ __('date.august') }}",
-                                        "{{ __('date.september') }}",
-                                        "{{ __('date.october') }}",
-                                        "{{ __('date.november') }}",
-                                        "{{ __('date.december') }}"
-                                    ],
-                                    "firstDay": 1
-                                },
-                            }, function (start, end) {
-                                // Set date range to livewire
-                                Livewire.emit('changeDateRange', start, `${globals.formattedDate(end._d).year}-${globals.formattedDate(end._d).month}-${globals.formattedDate(end._d).day}`);
-                            })
+                            globals.initDatePicker();
                         })
                     })
                 },

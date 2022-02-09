@@ -1,8 +1,8 @@
 <x-modal title="{{ __('budgets.add') }}">
     <x-slot name="body">
         <x-form action="store" id="budget-create">
-            <div class="col-md-12">
-                <x-select name="customerId" label="{{ __('budgets.customer') }}">
+            <div class="col-md-12" wire:ignore>
+                <x-select name="customer_id" label="{{ __('budgets.customer') }}" class="form-control select2">
                     @foreach ($customers as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}
@@ -10,8 +10,14 @@
                     @endforeach
                 </x-select>
             </div>
-            <div class="col-md-12">
-                <x-input label="{{ __('budgets.event-name') }}" type="text" name="eventName" />
+            <div class="col-md-12" wire:ignore>
+                <x-select name="event_id" label="{{ __('budgets.event') }}" class="form-control select2">
+                    @foreach ($events as $value)
+                        <option value="{{ $value->id }}" {{ $value->id == $event_id ? 'selected' : null }}>
+                            {{ $value->name }}
+                        </option>
+                    @endforeach
+                </x-select>
             </div>
         </x-form>
     </x-slot>

@@ -153,7 +153,9 @@ return [
     'attributes' => [
         'category' => 'categoría',
         'code' => 'código',
+        'customer_id' => 'cliente',
         'description' => 'descripción',
+        'event_id' => 'evento',
         'external_day_a' => 'precio para día 1',
         'external_day_b' => 'precio para 2 a 5 días',
         'external_day_c' => 'precio para 6 a 10 días',

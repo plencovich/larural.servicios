@@ -37,4 +37,20 @@ class Event extends Model
     {
         return $this->hasMany(Budget::class);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Scope a query to only include events from now on
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFromNowOn($query)
+    {
+        return $query->whereDate('event_from', '>=', now()->startOfDay());
+    }
 }
