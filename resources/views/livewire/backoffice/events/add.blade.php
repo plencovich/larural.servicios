@@ -2,7 +2,7 @@
     <x-slot name="body">
         <x-form action="store" id="event-create">
             <div class="col-md-12">
-                <x-input label="{{ __('events.name') }}" type="text" name="name" />
+                <x-input label="{{ __('events.name') }}" type="text" name="name" autofocus />
             </div>
             <div class="col-md-12">
                 <x-input label="{{ __('events.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />

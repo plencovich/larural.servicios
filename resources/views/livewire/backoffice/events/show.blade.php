@@ -18,25 +18,20 @@
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                 dateClick: function(info) {
                     if (info.date.getTime() >= new Date().setHours(0,0,0,0)) {
+                        // Show the event creation only if the selected date is greater than or equal to today
                         Livewire.emit('showModal', 'backoffice.events.add', info.dateStr);
                     }
 
-                    let day = info.date.getDate()
-                    let month = info.date.getMonth() + 1
-                    let year = info.date.getFullYear()
-
-                    if (month < 10){
-                        month = '0' + month;
-                    }
-                    if (day < 10){
-                        day = '0' + day;
-                    }
-                    let selectedDate = `${day}/${month}/${year}`;
+                    // Get selected date to set as the start date of the range
+                    let selectedDate = `${globals.formattedDate(info.date).day}/${globals.formattedDate(info.date).month}/${globals.formattedDate(info.date).year}`;
 
                     // Initialize date range picker on modal
                     Livewire.on('showBootstrapModal', e => {
                         // Select modal and handle shown event
                         document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
+                            // Focus event name
+                            $('input[autofocus=autofocus]').focus();
+
                             // Initialize picker
                             new DateRangePicker(document.querySelector('.datepicker'), {
                                 // "autoApply": true,
@@ -78,8 +73,8 @@
                                     "firstDay": 1
                                 },
                             }, function (start, end) {
-                                console.log(start, end);
-                                Livewire.emit('changeDateRange', start, end);
+                                // Set date range to livewire
+                                Livewire.emit('changeDateRange', start, `${globals.formattedDate(end._d).year}-${globals.formattedDate(end._d).month}-${globals.formattedDate(end._d).day}`);
                             })
                         })
                     })
@@ -117,14 +112,24 @@
 
             calendar.setOption('locale', '{{ app()->getLocale() }}');
             calendar.setOption('buttonText', {
-                today: '{{ __('calendar.text.today') }}',
-                month: '{{ __('calendar.text.month') }}',
-                week: '{{ __('calendar.text.week') }}',
-                day: '{{ __('calendar.text.day') }}',
-                list: '{{ __('calendar.text.list') }}'
+                today: "{{ __('calendar.text.today') }}",
+                month: "{{ __('calendar.text.month') }}",
+                week: "{{ __('calendar.text.week') }}",
+                day: "{{ __('calendar.text.day') }}",
+                list: "{{ __('calendar.text.list') }}"
             });
 
             calendar.render();
+
+            // Dynamically add events
+            Livewire.on('addEvent', event => {
+                calendar.addEvent({
+                    title: event.title,
+                    start: event.start,
+                    end: event.end,
+                    url: event.url
+                });
+            });
         });
     </script>
 @endsection

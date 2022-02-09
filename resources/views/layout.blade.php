@@ -39,6 +39,7 @@
     {{-- TODO: revisar donde lo vamos a poner. --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{ asset('/js/globals.js') }}"></script>
     <script src="{{ asset('/js/modals.js') }}"></script>
     <script src="{{ asset('/js/notify.js') }}"></script>
     <script src="{{ asset('/js/remito.js') }}"></script>
