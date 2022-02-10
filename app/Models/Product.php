@@ -16,6 +16,11 @@ class Product extends Model
      */
     protected $guarded = [];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -31,6 +36,16 @@ class Product extends Model
         return $this->hasMany(ProductPrice::class);
     }
 
+    /**
+     * Get all of the productReservations for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productReservations()
+    {
+        return $this->hasMany(Item::class, 'product_id');
+    }
+
     public function statusProduct()
     {
         return $this->belongsTo(StatusProduct::class);
@@ -39,6 +54,24 @@ class Product extends Model
     public function statusOperation()
     {
         return $this->belongsTo(StatusOperation::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Additional methods
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Get the available stock on a date range
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return mixed
+     */
+    public function availableStockForDateRange($dateFrom, $dateTo)
+    {
+        $initialStock = $this->quantity;
+        $amountFromReservations = $this->productReservations()->whereHas('budget', fn($q) => $q->whereBetween('event_from', ['2022-02-14', '2022-02-14']))->get();
     }
 
     /*

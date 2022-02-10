@@ -22,6 +22,31 @@ class Item extends Model
         'product_price',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Get the budget that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
+    }
+
+    /**
+     * Get the product that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     /**
      * Get the zone that owns the Item
      *
@@ -40,15 +65,5 @@ class Item extends Model
     public function subZone()
     {
         return $this->belongsTo(SubZone::class, 'sub_zone_name');
-    }
-
-    /**
-     * Get the product that owns the Item
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
     }
 }

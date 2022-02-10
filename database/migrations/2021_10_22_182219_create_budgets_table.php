@@ -17,8 +17,8 @@ class CreateBudgetsTable extends Migration
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Event::class)->constrained();
-            $table->timestamp('event_from')->unique()->nullable();
-            $table->timestamp('event_to')->unique()->nullable();
+            $table->timestamp('event_from')->nullable();
+            $table->timestamp('event_to')->nullable();
             $table->float('discount')->nullable();
             $table->text('observations')->nullable();
             $table->unsignedBigInteger('customer_id');

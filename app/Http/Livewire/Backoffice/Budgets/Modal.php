@@ -32,7 +32,7 @@ class Modal extends Component
         $product = Product::find($this->product_id);
         $max = '0';
         if ($product) {
-            $max = $product->quantity;
+            // $max = $product->availableStockForDateRange($this->budget->event_from, $this->budget->event_to);
         }
 
         return [

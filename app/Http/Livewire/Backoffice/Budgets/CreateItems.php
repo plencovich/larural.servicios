@@ -61,8 +61,8 @@ class CreateItems extends Component
     {
         return [
             'budget.event_id' => ['required', 'unique:budgets,event_id,' . $this->budget->id],
-            'event_from' => ['required', 'unique:budgets,event_from,' . $this->budget->id],
-            'event_to' => ['required', 'unique:budgets,event_from,' . $this->budget->id],
+            'event_from' => ['required'],
+            'event_to' => ['required'],
             'budget.discount' => ['required', 'integer'],
             'budget.observations' => ['required'],
             'budget.customer_id' => ['required'],

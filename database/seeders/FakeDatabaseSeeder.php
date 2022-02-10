@@ -42,6 +42,13 @@ class FakeDatabaseSeeder extends Seeder
             'code' => 'AB123',
             'email' => 'albus@dumbledore.com'
         ]);
+        Customer::create([
+            'name' => 'Gandalf',
+            'lastname' => 'Mithrandir',
+            'business_name' => 'Middle Earth',
+            'code' => 'AB124',
+            'email' => 'gandalf@mithrandir.com'
+        ]);
 
         // Create fake category
         Category::create([
