@@ -18,8 +18,8 @@ class CreateProductReservationsTable extends Migration
             $table->id();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('amount');
-            $table->timestamp('from_date');
-            $table->timestamp('to_date');
+            $table->timestamp('from_date')->nullable();
+            $table->timestamp('to_date')->nullable();
             $table->timestamps();
         });
     }
