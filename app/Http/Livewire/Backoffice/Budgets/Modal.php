@@ -20,6 +20,8 @@ class Modal extends Component
     public $productQty;
     public $productPrice;
 
+    protected $listeners = ['updateSelect' => 'updateSelect'];
+
     public function mount(Budget $budget)
     {
         $this->budget = $budget;
@@ -77,5 +79,16 @@ class Modal extends Component
         // Only products for rent
         $products = Product::forRent()->get();
         return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones', 'prices'));
+    }
+
+    /**
+     * Update select 2 model
+     *
+     * @return mixed
+     */
+    public function updateSelect($property, $value)
+    {
+        $this->$property = $value;
+        $this->emit('resetSelect2');
     }
 }

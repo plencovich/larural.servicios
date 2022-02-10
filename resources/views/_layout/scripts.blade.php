@@ -25,3 +25,4 @@
 <script src="{{ asset('/js/common.js') }}"></script>
 <!-- Page Specific Scripts End -->
 <script src="{{ asset('/js/scripts.js') }}"></script>
+<script src="{{ asset('/js/larural.js') }}"></script>

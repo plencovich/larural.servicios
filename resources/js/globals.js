@@ -73,16 +73,20 @@ function lang(value, choice = null) {
     return trans;
 }
 
+function select2Options() {
+    return {
+        language: "es",
+        width: '100%'
+    };
+}
+
 globals = {
     formattedDate: date => {
         return formattedDate(date);
     },
     initSelect2: () => {
         if ($('.select2').length) {
-            $('.select2').select2({
-                language: "es",
-                width: '100%'
-            });
+            $('.select2').select2(select2Options());
             $('.select2').on('change', function (e) {
                 var data = $(this).select2("val");
                 Livewire.emit('updateSelect', $(this).attr('name'), data);
@@ -135,5 +139,11 @@ globals = {
     },
     lang: (value, choice = null) => {
         return lang(value, choice = null);
+    },
+    select2Options: () => {
+        return {
+            language: "es",
+            width: '100%'
+        };
     }
 }

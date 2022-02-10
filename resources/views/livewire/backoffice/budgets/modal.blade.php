@@ -2,7 +2,7 @@
     <x-slot name="body">
         <x-form action="store" id="zone-edit">
             <div class="col-md-6">
-                <x-select name="zone" label="{{ __('budgets.zone') }}">
+                <x-select name="zone" label="{{ __('budgets.zone') }}" class="form-control select2">
                     @foreach ($zones as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}
@@ -11,7 +11,7 @@
                 </x-select>
             </div>
             <div class="col-md-6">
-                <x-select name="subZone" label="{{ __('budgets.sub-zone') }}">
+                <x-select name="subZone" label="{{ __('budgets.sub-zone') }}" class="form-control select2">
                     @foreach ($subZones as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}
@@ -19,8 +19,8 @@
                     @endforeach
                 </x-select>
             </div>
-            <div class="col-md-12">
-                <x-select name="product_id" label="{{ __('budgets.product.product') }}">
+            <div class="col-md-12" wire:ignore>
+                <x-select name="product_id" label="{{ __('budgets.product.product') }}" class="form-control select2">
                     @foreach ($products as $value)
                         <option value="{{ $value->id }}">
                             {{ $value->name }}
@@ -29,7 +29,7 @@
                 </x-select>
             </div>
             <div class="col-md-6">
-                <x-select name="productPrice" label="{{ __('budgets.product.price') }}">
+                <x-select name="productPrice" label="{{ __('budgets.product.price') }}" class="form-control select2">
                     @foreach ($prices as $price)
                         <option value="{{ $price->day_a }}">
                             ${{ $price->day_a }} ({{ $price->productPriceType->name }})

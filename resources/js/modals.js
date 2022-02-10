@@ -14,17 +14,7 @@ Livewire.on('showBootstrapModal', () => {
         modal = new bootstrap.Modal(modalsElement);
     }
 
-    if ($('.select2').length) {
-        $('.select2').select2({
-            language: "es",
-            dropdownParent: $(modalsElement),
-            width: '100%'
-        });
-        $('.select2').on('change', function (e) {
-            var data = $(this).select2("val");
-            Livewire.emit('updateSelect',$(this).attr('name'), data);
-        });
-    }
+    globals.initSelect2();
 
     modal.show();
 });

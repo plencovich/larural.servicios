@@ -53,6 +53,11 @@
                                     name="budget.observations" />
                             </div>
                         </x-form>
+
+                        <x-button type="button" wire:click="update"
+                            class="btn-primary mt-4">
+                            {{ __('button.save') }}
+                        </x-button>
                     </div>
                 </div>
             </div>

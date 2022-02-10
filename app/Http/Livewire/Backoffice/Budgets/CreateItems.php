@@ -19,7 +19,7 @@ class CreateItems extends Component
 
     public $fromUrl;
 
-    protected $listeners = ['changeDateRange' => 'changeDateRange'];
+    protected $listeners = ['changeDateRange' => 'changeDateRange', 'updateSelect' => 'updateSelect'];
 
     public function mount(Budget $budget)
     {
@@ -60,7 +60,7 @@ class CreateItems extends Component
     public function rules()
     {
         return [
-            'budget.event_id' => ['required', 'unique:budgets,' . $this->budget->id],
+            'budget.event_id' => ['required', 'unique:budgets,event_id,' . $this->budget->id],
             'event_from' => ['required', 'unique:budgets,event_from,' . $this->budget->id],
             'event_to' => ['required', 'unique:budgets,event_from,' . $this->budget->id],
             'budget.discount' => ['required', 'integer'],
@@ -86,6 +86,25 @@ class CreateItems extends Component
         }
     }
 
+    public function update()
+    {
+        $this->validate();
+        $this->budget->event_from = $this->event_from;
+        $this->budget->event_to = $this->event_to;
+        $this->budget->save();
+
+        $this->emit('success', __('budgets.alert.updated.saved'), __('budgets.alert.updated.saved-message'));
+    }
+
+    /**
+     * Update select 2 model
+     *
+     * @return mixed
+     */
+    public function updateSelect($property, $value)
+    {
+        $this->$property = $value;
+    }
 
     public function render()
     {

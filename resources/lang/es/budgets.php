@@ -19,6 +19,10 @@ return [
             'rejected' => '¡Presupuesto rechazado correctamente!',
             'unauthorized' => 'No estás autorizado a realizar esta acción.',
         ],
+        'updated' => [
+            'saved' => 'Datos actualizados!',
+            'saved-message' => 'Presupuesto actualizado correctamente.',
+        ]
     ],
     'approved' => 'Has aprobado este presupuesto',
     'ask' => [
