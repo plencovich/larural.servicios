@@ -8,9 +8,9 @@
         </div>
         <div class="mb-5">
             <p class="h6">{{ __('view.budget.info') }}:</p>
-            <p class="h6"><strong>{{ __('view.budget.event') }}</strong>: {{ $budget->event_name }}</p>
-            <p class="h6"><strong>{{ __('budgets.date_from') }}</strong>: {{ $budget->event_from_at ? $budget->event_from_at->isoFormat('LL') : '' }}</p>
-            <p class="h6"><strong>{{ __('budgets.date_to') }}</strong>: {{ $budget->event_to_at ? $budget->event_to_at->isoFormat('LL') : '' }}</p>
+            <p class="h6"><strong>{{ __('view.budget.event') }}</strong>: {{ $budget->event->name }}</p>
+            <p class="h6"><strong>{{ __('budgets.date_from') }}</strong>: {{ $budget->event_from ? $budget->event_from->isoFormat('LL') : '' }}</p>
+            <p class="h6"><strong>{{ __('budgets.date_to') }}</strong>: {{ $budget->event_to ? $budget->event_to->isoFormat('LL') : '' }}</p>
             <p class="h6"><strong>{{ __('view.budget.discount') }}</strong>: {{ $budget->discount }}%</p>
             <p class="h6"><strong>{{ __('view.budget.observations') }}</strong>: {{ $budget->observations }}</p>
         </div>
@@ -22,7 +22,7 @@
 
                 {{-- Items --}}
                 @foreach ($items as $item)
-                    <p class="h6">{{ $item->product_qty }}x {{ $item->product->name }} ${{ $item->product_price }}</p>
+                    <p class="h6">{{ $item->product_qty }}x {{ $item->product->name }} ${{ number_format($item->product_price, 2) }}</p>
                 @endforeach
 
                 <hr>

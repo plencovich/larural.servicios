@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Event;
 use App\Models\Product;
 use App\Models\Zone;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,18 @@ class FakeDatabaseSeeder extends Seeder
         $zone->subZones()->create([
             'name' => 'Cabeza De Puerco'
         ]);
+        $zone = Zone::create([
+            'name' => 'Middle Earth',
+        ]);
+        $zone->subZones()->create([
+            'name' => 'Rivendel'
+        ]);
+        $zone->subZones()->create([
+            'name' => 'Isengard'
+        ]);
+        $zone->subZones()->create([
+            'name' => 'Dol Guldur'
+        ]);
 
         // Create fake customer
         Customer::create([
@@ -45,7 +58,7 @@ class FakeDatabaseSeeder extends Seeder
         Customer::create([
             'name' => 'Gandalf',
             'lastname' => 'Mithrandir',
-            'business_name' => 'Middle Earth',
+            'business_name' => 'El Concilio Blanco',
             'code' => 'AB124',
             'email' => 'gandalf@mithrandir.com'
         ]);
@@ -77,6 +90,13 @@ class FakeDatabaseSeeder extends Seeder
             'day_a' => 5,
             'day_b' => 6,
             'day_c' => 7,
+        ]);
+
+        // Create an event for the following 5 days
+        Event::create([
+            'name' => 'Fiesta en Rivendel',
+            'event_from' => now()->addDay()->startOfDay(),
+            'event_to' => now()->addDays(6)->startOfDay(),
         ]);
     }
 }

@@ -121,10 +121,22 @@ class Budget extends Model
      */
     public function getTotalAttribute()
     {
+        // Sum the totals from the items
         $total = $this->items->sum(fn ($item) => $item->product_qty * $item->product_price);
-        $discount = ($total * $this->discount) / 100;
 
-        return number_format($total - $discount, 2);
+        // Get the discount percent and convert NULL to 0
+        $discountPercent = $this->discount > 0 ? $this->discount : 0;
+
+        // Calculate total amount
+        $discount = ($total * $discountPercent) / 100;
+
+        // Get total with discount
+        $totalWithDiscount = $total - $discount;
+
+        // Get the total discount per products
+        $productsDiscount = ($totalWithDiscount * $this->items->sum->discount) / 100;
+
+        return number_format($total - $discount - $productsDiscount, 2);
     }
 
     /**

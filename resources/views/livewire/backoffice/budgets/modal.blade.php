@@ -19,7 +19,7 @@
                     @endforeach
                 </x-select>
             </div>
-            <div class="col-md-12" wire:ignore>
+            <div class="col-md-12">
                 <x-select name="product_id" label="{{ __('budgets.product.product') }}" class="form-control select2">
                     @foreach ($products as $value)
                         <option value="{{ $value->id }}">
@@ -45,6 +45,9 @@
             </div>
             <div class="col-md-6">
                 <x-input label="{{ __('budgets.product.quantity') }}" type="number" name="productQty" />
+            </div>
+            <div class="col-md-6">
+                <x-input label="{{ __('budgets.discount') }}" type="number" name="discount" />
             </div>
         </x-form>
     </x-slot>

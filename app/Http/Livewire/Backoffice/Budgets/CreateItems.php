@@ -19,7 +19,7 @@ class CreateItems extends Component
 
     public $fromUrl;
 
-    protected $listeners = ['changeDateRange' => 'changeDateRange', 'updateSelect' => 'updateSelect'];
+    protected $listeners = ['changeDateRange' => 'changeDateRange', 'updateSelect' => 'updateSelect', 'refreshBudgetTotal' => 'refreshBudgetTotal'];
 
     public function mount(Budget $budget)
     {
@@ -57,14 +57,24 @@ class CreateItems extends Component
         $this->date_range = $new_event_from->format('d/m/Y') . ' - ' . $new_event_to->format('d/m/Y');
     }
 
+    /**
+     * Refresh the budget to get the new total
+     *
+     * @return mixed
+     */
+    public function refreshBudgetTotal()
+    {
+        $this->budget = $this->budget->fresh();
+    }
+
     public function rules()
     {
         return [
             'budget.event_id' => ['required', 'unique:budgets,event_id,' . $this->budget->id],
             'event_from' => ['required'],
             'event_to' => ['required'],
-            'budget.discount' => ['required', 'integer'],
-            'budget.observations' => ['required'],
+            'budget.discount' => ['required', 'numeric', 'min:0', 'max:100'],
+            'budget.observations' => ['nullable'],
             'budget.customer_id' => ['required'],
         ];
     }

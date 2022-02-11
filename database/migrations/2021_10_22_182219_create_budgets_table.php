@@ -19,7 +19,7 @@ class CreateBudgetsTable extends Migration
             $table->foreignIdFor(Event::class)->constrained();
             $table->timestamp('event_from')->nullable();
             $table->timestamp('event_to')->nullable();
-            $table->float('discount')->nullable();
+            $table->decimal('discount', 15, 2)->default(0);
             $table->text('observations')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');

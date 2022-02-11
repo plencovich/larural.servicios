@@ -8,7 +8,7 @@
 
 <select {!! $attributes->merge(['class' => 'form-control ' . $errorClass]) !!} wire:model="{{ $name }}"
     name="{{ $name }}">
-    <option value="">Seleccionar una opcion...</option>
+    <option value="">{{ __('globals.select_option') }}</option>
     {{ $slot }}
 </select>
 @error($name)

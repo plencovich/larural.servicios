@@ -81,7 +81,7 @@
                         @livewire('backoffice.budgets.list-items', ['budget' => $budget])
                     </div>
                     <div class="class card-footer">
-                        Totales
+                        <h3><strong>{{ __('view.budget.total') }}: ${{ $budget->total }}</strong></h3>
                     </div>
                 </div>
             </div>

@@ -14,11 +14,12 @@ class Modal extends Component
 {
 
     public $budget;
-    public $zone = 0;
-    public $subZone;
-    public $product_id;
+    public $zone = '';
+    public $subZone = '';
+    public $product_id = '';
     public $productQty;
-    public $productPrice;
+    public $productPrice = '';
+    public $discount = 0;
 
     protected $listeners = ['updateSelect' => 'updateSelect'];
 
@@ -32,8 +33,11 @@ class Modal extends Component
         $product = Product::find($this->product_id);
         $max = '0';
         if ($product) {
+            $max = $product->quantity;
             // $max = $product->availableStockForDateRange($this->budget->event_from, $this->budget->event_to);
         }
+
+        $this->emit('resetSelect2');
 
         return [
             'zone' => ['required'],
@@ -41,6 +45,7 @@ class Modal extends Component
             'product_id' => ['required', Rule::unique('items')->where(fn ($query) => $query->where('budget_id', $this->budget->id))],
             'productQty' => ['required', 'numeric', 'min:0', 'max:' . $max],
             'productPrice' => ['required', 'numeric', 'min:0'],
+            'discount' => ['required', 'numeric', 'min:0', 'max:100'],
         ];
     }
 
@@ -59,6 +64,7 @@ class Modal extends Component
             'product_id' => $this->product_id,
             'product_qty' => $this->productQty,
             'product_price' => $this->productPrice,
+            'discount' => $this->discount,
         ]);
         $this->reset(
             'zone',
@@ -66,8 +72,11 @@ class Modal extends Component
             'product_id',
             'productQty',
             'productPrice',
+            'discount',
         );
         $this->emit('refresh');
+        $this->emit('refreshBudgetTotal');
+        $this->emit('resetSelect2');
     }
 
     public function render()
@@ -77,7 +86,9 @@ class Modal extends Component
         $prices = ProductPrice::where('product_id', $this->product_id)->get();
 
         // Only products for rent
-        $products = Product::forRent()->get();
+        $products = Product::forRent()
+            ->whereDoesntHave('productReservations', fn ($q) => $q->where('budget_id', $this->budget->id))
+            ->get();
         return view('livewire.backoffice.budgets.modal', compact('zones', 'products', 'subZones', 'prices'));
     }
 
