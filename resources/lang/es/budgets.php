@@ -22,7 +22,10 @@ return [
         'updated' => [
             'saved' => 'Datos actualizados!',
             'saved-message' => 'Presupuesto actualizado correctamente.',
-        ]
+        ],
+        'warning' => [
+            'not-enough-stock' => 'No hay suficiente stock para este evento. Este es el stock disponible para los días en conflicto:',
+        ],
     ],
     'approved' => 'Has aprobado este presupuesto',
     'ask' => [

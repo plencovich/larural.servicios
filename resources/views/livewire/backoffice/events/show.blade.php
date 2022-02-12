@@ -38,16 +38,19 @@
                     })
                 },
                 eventClick: function(info) {
-                    var eventObj = info.event;
+                    // Show the event edit modal
+                    Livewire.emit('showModal', 'backoffice.events.edit', info.event.id);
 
-                    if (eventObj.url) {
-                        window.open(eventObj.url);
+                    // var eventObj = info.event;
 
-                        // prevents browser from following link in current tab.
-                        info.jsEvent.preventDefault();
-                    } else {
-                        alert('Clicked ' + eventObj.title);
-                    }
+                    // if (eventObj.url) {
+                    //     window.open(eventObj.url);
+
+                    //     // prevents browser from following link in current tab.
+                    //     info.jsEvent.preventDefault();
+                    // } else {
+                    //     alert('Clicked ' + eventObj.title);
+                    // }
                 },
                 allDayText: '{{ __('calendar.text.all-day') }}',
                 initialView: 'dayGridMonth',
@@ -82,11 +85,20 @@
             // Dynamically add events
             Livewire.on('addEvent', event => {
                 calendar.addEvent({
+                    id: event.id,
                     title: event.title,
                     start: event.start,
                     end: event.end,
-                    url: event.url
                 });
+            });
+
+            // Update event
+            Livewire.on('updateEvent', event => {
+                calendar.getEvents().forEach(calendarEvent => {
+                    if (calendarEvent.id == event.id) {
+                        calendarEvent.setProp('title', event.title)
+                    }
+                })
             });
         });
     </script>

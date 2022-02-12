@@ -70,7 +70,7 @@ class CreateItems extends Component
     public function rules()
     {
         return [
-            'budget.event_id' => ['required', 'unique:budgets,event_id,' . $this->budget->id],
+            'budget.event_id' => ['required'],
             'event_from' => ['required'],
             'event_to' => ['required'],
             'budget.discount' => ['required', 'numeric', 'min:0', 'max:100'],

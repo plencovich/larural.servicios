@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -70,8 +71,44 @@ class Product extends Model
      */
     public function availableStockForDateRange($dateFrom, $dateTo)
     {
-        $initialStock = $this->quantity;
-        $amountFromReservations = $this->productReservations()->whereHas('budget', fn($q) => $q->whereBetween('event_from', ['2022-02-14', '2022-02-14']))->get();
+        // Convert date range to carbon
+        $start = (new Carbon($dateFrom))->startOfDay();
+        $end = (new Carbon($dateTo))->startOfDay();
+
+        // Initialize days array
+        $reservationDays = [];
+        $days = [];
+
+        // Get reservations from the selected date range
+        $reservations = $this
+            ->productReservations()
+            ->join('budgets', 'budgets.id', '=', 'items.budget_id')
+            ->whereBetween('event_from', [$start, $end])
+            ->orWhereBetween('event_to', [$start, $end])
+            ->orWhereRaw('? BETWEEN event_from and event_to', [$start])
+            ->orWhereRaw('? BETWEEN event_from and event_to', [$end])
+            ->groupBy('budget_id')
+            ->selectRaw('event_from, event_to, sum(product_qty) as total_products_reserved')
+            ->get();
+
+        // Loop trough each reservation
+        foreach ($reservations as $reservation) {
+            // Get every day with their reserved quantity
+            for ($i = new Carbon($reservation->event_from); $i <= $reservation->event_to; $i->modify('+1 day')) {
+                $reservationDays[$i->format("Y-m-d")] = isset($reservationDays[$i->format("Y-m-d")])
+                 ? $reservation->total_products_reserved + $reservation->total_products_reserved
+                 : $reservation->total_products_reserved;
+            }
+        }
+
+        // Loop trough each date range
+        // Get every day with their reserved quantity
+        for ($i = $start; $i <= $end; $i->modify('+1 day')) {
+            $days[$i->format("Y-m-d")] = isset($reservationDays[$i->format("Y-m-d")]) ?  $this->quantity - $reservationDays[$i->format("Y-m-d")] : $this->quantity;
+        }
+
+        // Return days
+        return collect($days);
     }
 
     /*

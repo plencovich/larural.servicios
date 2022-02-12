@@ -3,3 +3,7 @@
 .select2 b[role=presentation] {
     display: none;
 }
+
+.alert-warning {
+    z-index: 99999 !important;
+}

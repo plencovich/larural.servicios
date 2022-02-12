@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\SubZone;
 use App\Models\Zone;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -30,12 +31,12 @@ class Modal extends Component
 
     public function rules()
     {
-        $product = Product::find($this->product_id);
-        $max = '0';
-        if ($product) {
-            $max = $product->quantity;
-            // $max = $product->availableStockForDateRange($this->budget->event_from, $this->budget->event_to);
-        }
+        // $product = Product::find($this->product_id);
+        // $max = '0';
+        // if ($product) {
+        //     $max = $product->quantity;
+        // $max = $product->availableStockForDateRange($this->budget->event_from, $this->budget->event_to);
+        // }
 
         $this->emit('resetSelect2');
 
@@ -43,7 +44,7 @@ class Modal extends Component
             'zone' => ['required'],
             'subZone' => ['required'],
             'product_id' => ['required', Rule::unique('items')->where(fn ($query) => $query->where('budget_id', $this->budget->id))],
-            'productQty' => ['required', 'numeric', 'min:0', 'max:' . $max],
+            'productQty' => ['required', 'numeric', 'min:0'],
             'productPrice' => ['required', 'numeric', 'min:0'],
             'discount' => ['required', 'numeric', 'min:0', 'max:100'],
         ];
@@ -51,6 +52,9 @@ class Modal extends Component
 
     public function updated($propertyName)
     {
+        // Validate stock on quantity update
+        $this->notEnoughStockWarning($propertyName);
+
         $this->validateOnly($propertyName);
     }
 
@@ -100,6 +104,51 @@ class Modal extends Component
     public function updateSelect($property, $value)
     {
         $this->$property = $value;
+
+        // Validate stock on quantity update
+        $this->notEnoughStockWarning($property);
+
         $this->emit('resetSelect2');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Private method
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Get warning if product doesn't have enough stock
+     *
+     * @return mixed
+     */
+    private function notEnoughStockWarning($propertyName)
+    {
+        if ($propertyName == 'productQty' || $propertyName == 'product_id') {
+            // Find product
+            $product = Product::find($this->product_id);
+
+            if ($product) {
+                // Get the available stock of the product for the budget's date range
+                $missingStockPerDay = $product->availableStockForDateRange($this->budget->event_from, $this->budget->event_to)->filter(fn ($stock) => $stock < $this->$propertyName);
+
+                // If there are missing stocks per day, proceed with warning
+                if (filled($missingStockPerDay)) {
+                    // Initialize waning text
+                    $warning = '<p>' . __('budgets.alert.warning.not-enough-stock') . '</p>';
+
+                    // Loop through each day
+                    foreach ($missingStockPerDay as $day => $stock) {
+                        // Format the day
+                        $formattedDay = (new Carbon($day))->isoFormat('LL');
+
+                        // Get the warnings
+                        $warning .= '<li>' . $formattedDay  . ': ' . $stock . "\n</li>";
+                    }
+
+                    // Emit the warning
+                    $this->emit('alert-message', 'warning', __('warning.warning'), $warning);
+                }
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ Livewire.on('alert-message', (type, title, message) => {
         { title: title, message: message },
         {
             type: type,
-            delay: 5000,
+            delay: 10000,
         },
     );
 });

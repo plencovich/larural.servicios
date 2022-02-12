@@ -51,6 +51,6 @@ class Event extends Model
      */
     public function scopeFromNowOn($query)
     {
-        return $query->whereDate('event_from', '>=', now()->startOfDay());
+        return $query->whereDate('event_to', '>=', now()->startOfDay());
     }
 }

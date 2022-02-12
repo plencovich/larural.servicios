@@ -25,7 +25,7 @@
                                 <x-select name="budget.customer_id" label="{{ __('budgets.customer') }}" class="form-control select2">
                                     @foreach ($customers as $value)
                                         <option value="{{ $value->id }}">
-                                            {{ $value->name }}
+                                            {{ $value->full_name }}
                                         </option>
                                     @endforeach
                                 </x-select>
