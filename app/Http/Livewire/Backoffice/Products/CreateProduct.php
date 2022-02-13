@@ -25,9 +25,11 @@ class CreateProduct extends Component
     public $internal_day_a;
     public $internal_day_b;
     public $internal_day_c;
+    public $internal_day_d;
     public $external_day_a;
     public $external_day_b;
     public $external_day_c;
+    public $external_day_d;
 
 
     public function updated($propertyName)
@@ -46,9 +48,11 @@ class CreateProduct extends Component
             'internal_day_a' => ['required', 'numeric', 'min:0'],
             'internal_day_b' => ['required', 'numeric', 'min:0'],
             'internal_day_c' => ['required', 'numeric', 'min:0'],
+            'internal_day_d' => ['required', 'numeric', 'min:0'],
             'external_day_a' => ['required', 'numeric', 'min:0'],
             'external_day_b' => ['required', 'numeric', 'min:0'],
             'external_day_c' => ['required', 'numeric', 'min:0'],
+            'external_day_d' => ['required', 'numeric', 'min:0'],
             'category' => ['required'],
             'statusProduct' => ['required'],
             'statusOperation' => ['required'],
@@ -81,12 +85,14 @@ class CreateProduct extends Component
             'day_a' => $this->internal_day_a,
             'day_b' => $this->internal_day_b,
             'day_c' => $this->internal_day_c,
+            'day_d' => $this->internal_day_d,
             'product_price_type_id' => ProductPriceType::INTERNAL
         ]);
         $product->productPrices()->create([
             'day_a' => $this->external_day_a,
             'day_b' => $this->external_day_b,
             'day_c' => $this->external_day_c,
+            'day_d' => $this->external_day_d,
             'product_price_type_id' => ProductPriceType::EXTERNAL
         ]);
 

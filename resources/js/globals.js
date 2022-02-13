@@ -77,8 +77,24 @@ function lang(value, choice = null) {
 
 function select2Options() {
     return {
-        language: "es",
-        width: '100%'
+        language: {
+            noResults: function() {
+                return lang('globals.no-results-found');
+            }
+        },
+        width: '100%',
+    };
+}
+
+function select2ModalOptions() {
+    return {
+        language: {
+            noResults: function() {
+                return lang('globals.no-results-found');
+            }
+        },
+        width: '100%',
+        dropdownParent: $("#laravel-livewire-modals")
     };
 }
 
@@ -90,6 +106,13 @@ globals = {
         if ($('.select2').length) {
             $('.select2').select2(select2Options());
             $('.select2').on('change', function (e) {
+                var data = $(this).select2("val");
+                Livewire.emit('updateSelect', $(this).attr('name'), data);
+            });
+        }
+        if ($('.select2-modal').length) {
+            $('.select2-modal').select2(select2ModalOptions());
+            $('.select2-modal').on('change', function (e) {
                 var data = $(this).select2("val");
                 Livewire.emit('updateSelect', $(this).attr('name'), data);
             });
@@ -149,9 +172,9 @@ globals = {
         return lang(value, choice = null);
     },
     select2Options: () => {
-        return {
-            language: "es",
-            width: '100%'
-        };
-    }
+        return select2Options();
+    },
+    select2ModalOptions: () => {
+        return select2ModalOptions();
+    },
 }

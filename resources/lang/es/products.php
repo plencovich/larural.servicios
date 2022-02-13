@@ -44,6 +44,7 @@ return [
         'day_a' => 'Precio para 1 día',
         'day_b' => 'Precio para 2 a 5 días',
         'day_c' => 'Precio para 6 a 10 días',
+        'day_d' => 'Precio para otros días',
         'external' => 'Precios Externos',
         'internal' => 'Precios Internos',
     ],

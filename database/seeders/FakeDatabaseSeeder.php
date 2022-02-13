@@ -84,12 +84,14 @@ class FakeDatabaseSeeder extends Seeder
             'day_a' => 2,
             'day_b' => 3,
             'day_c' => 4,
+            'day_d' => 5,
         ]);
         $product->productPrices()->create([
             'product_price_type_id' => 2,
             'day_a' => 5,
             'day_b' => 6,
             'day_c' => 7,
+            'day_d' => 8,
         ]);
 
         // Create an event for the following 5 days

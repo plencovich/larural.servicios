@@ -21,6 +21,7 @@ class CreateProductPricesTable extends Migration
             $table->decimal('day_a', 13, 2);
             $table->decimal('day_b', 13, 2);
             $table->decimal('day_c', 13, 2);
+            $table->decimal('day_d', 13, 2);
             $table->foreignIdFor(ProductPriceType::class)->constrained();
             $table->timestamps();
         });
