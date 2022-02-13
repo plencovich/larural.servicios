@@ -2,9 +2,11 @@
 let modalsElement = document.getElementById('laravel-livewire-modals');
 
 
-modalsElement.addEventListener('hidden.bs.modal', () => {
-    Livewire.emit('resetModal');
-});
+if (modalsElement) {
+    modalsElement.addEventListener('hidden.bs.modal', () => {
+        Livewire.emit('resetModal');
+    });
+}
 
 
 Livewire.on('showBootstrapModal', () => {
@@ -14,10 +16,12 @@ Livewire.on('showBootstrapModal', () => {
         modal = new bootstrap.Modal(modalsElement);
     }
 
-    document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
-        // Initialize picker
-        globals.initDatePicker();
-    })
+    if (document.getElementById('laravel-livewire-modals')) {
+        document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
+            // Initialize picker
+            globals.initDatePicker();
+        })
+    }
 
     globals.initSelect2();
 

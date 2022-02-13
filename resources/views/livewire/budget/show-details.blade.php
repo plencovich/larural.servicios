@@ -41,15 +41,57 @@
         <div class="mb-5">
             <x-button type="button"
                 class="btn btn-primary"
-                wire:click="approve">
+                id="approval-button">
                 {{ __('button.approve') }}
             </x-button>
 
             <x-button type="button"
                 class="btn btn-danger"
-                wire:click="reject">
+                id="reject-button">
                 {{ __('button.reject') }}
             </x-button>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>
+        $(() => {
+            // Show confirmation window for appoval
+            $('#approval-button').on('click', function() {
+                Swal.fire({
+                    title: "{{ __('budgets.alert.confirmation.approval.title') }}",
+                    text: "{{ __('budgets.alert.confirmation.approval.body') }}",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#191b27',
+                    cancelButtonColor: '#cf2637',
+                    cancelButtonText: "{{ __('button.cancel') }}",
+                    confirmButtonText: "{{ __('button.approve') }}",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.approve();
+                    }
+                })
+            });
+
+            // Show confirmation window for reject
+            $('#reject-button').on('click', function() {
+                Swal.fire({
+                    title: "{{ __('budgets.alert.confirmation.reject.title') }}",
+                    text: "{{ __('budgets.alert.confirmation.reject.body') }}",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#191b27',
+                    cancelButtonColor: '#cf2637',
+                    cancelButtonText: "{{ __('button.cancel') }}",
+                    confirmButtonText: "{{ __('button.reject') }}",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.reject();
+                    }
+                })
+            });
+        })
+    </script>
+@endsection

@@ -91,7 +91,7 @@ class CreateItems extends Component
             return redirect()->route('backoffice.events');
         } else {
             //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
-            $this->reset();
+            // $this->reset();
             $this->emit('customerShow', false);
         }
     }

@@ -12,6 +12,16 @@ return [
 
     'add' => 'Agregar Presupuesto',
     'alert' => [
+        'confirmation' => [
+            'approval' => [
+                'body' => 'Esta acción no se podrá deshacer',
+                'title' => '¿Deseas aprobar este presupuesto?',
+            ],
+            'reject' => [
+                'body' => 'Esta acción no se podrá deshacer. En caso de quererlo nuevamente se deberá represupuestar.',
+                'title' => '¿Deseas rechazar este presupuesto?',
+            ],
+        ],
         'status' => [
             'approved-message' => 'Presupuesto %s aprobado correctamente.',
             'approved' => '¡Presupuesto aprobado correctamente!',

@@ -18,8 +18,10 @@
         </div>
     </div>
 
-    @include('_layout.scripts')
     @livewireScripts
+    @include('_layout.scripts')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('scripts')
 </body>
 
 </html>

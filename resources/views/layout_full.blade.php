@@ -33,11 +33,13 @@
         </div>
     </div>
 
-    @include('_layout.scripts')
     @livewireScripts
+    @include('_layout.scripts')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('/js/modals.js') }}"></script>
     <script src="{{ asset('/js/notify.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>
