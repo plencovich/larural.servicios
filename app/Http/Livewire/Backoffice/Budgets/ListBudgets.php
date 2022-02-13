@@ -48,7 +48,7 @@ class ListBudgets extends DataTableComponent
     $budget = Budget::find($id);
 
     // Get new PDF invoice name
-    $number = "LR-" . time();
+    $number = "RM-" . sprintf("%08s", $id);
     $pdfName = $number . ".pdf";
 
     // Start PDF document
@@ -163,7 +163,9 @@ class ListBudgets extends DataTableComponent
     }
 
     $html .= '</tbody>
-            <tfoot>
+          </table>
+          <table>
+            <tbody>
             <tr>
                 <td colspan="3">___________________________________________________________________________________________________________________</td>
               </tr>
@@ -173,7 +175,7 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td></td>
                 <td></td>
-                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['subtotal'] . ':</span>
+                <td style="font-size: 12px; text-align: right;"><span style="font-weight: bold;">' . $text['subtotal'] . ':</span>
                   $' . $budget->total_without_discount . '
                 </td>
               </tr>';
@@ -183,18 +185,20 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td></td>
                 <td></td>
-                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['discount'] . ':</span> ' . $budget->discount_formatted . '%</td>
+                <td style="font-size: 12px; text-align: right;"><span style="font-weight: bold;">' . $text['discount'] . ':</span> ' . $budget->discount_formatted . '%</td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
-                <td style="font-size: 12px;"><span style="font-weight: bold;">' . $text['total'] . ':</span> $' . $budget->total . '</td>
+                <td style="font-size: 12px; text-align: right;"><span style="font-weight: bold;">' . $text['total'] . ':</span> $' . $budget->total . '</td>
               </tr>
               <tr>
-                <td colspan="3"></td>
+                <td colspan="3" style="text-align: right;">
+                  <span style="font-size: 10px; color: #4e4e4e;">' . __('remito.footer-note') . '</span>
+                </td>
               </tr>
               <tr>
-                <td colspan="3"></td>
+                <td colspan="3">' . $budget->observations . '</td>
               </tr>
               <tr>
                 <td colspan="3"></td>
@@ -208,7 +212,7 @@ class ListBudgets extends DataTableComponent
               <tr>
                 <td colspan="3" style="">' . $text['sign'] . ' ________________________________________________________________________________</td>
               </tr>
-            </tfoot>
+            </tbody>
           </table>
           ';
 

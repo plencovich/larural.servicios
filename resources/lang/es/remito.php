@@ -16,6 +16,7 @@ return [
     'date' => 'Fecha',
     'description' => 'Descripción',
     'discount' => 'Descuento',
+    'footer-note' => 'Los valores expresados no incluyen impuestos',
     'no-dates' => 'No especificada',
     'quantity' => 'Cantidad',
     'sign' => 'Recibí Conforme',
