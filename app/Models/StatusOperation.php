@@ -17,4 +17,19 @@ class StatusOperation extends Model
     protected $fillable = [
         'name',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Special Methods
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Get the ID of the operation for rent
+     *
+     * @return mixed
+     */
+    public static function getForRentId()
+    {
+        return 1;
+    }
 }

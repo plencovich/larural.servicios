@@ -52,7 +52,7 @@ class ShowDetails extends Component
             $this->budget->update([
                 'status_budget_id' => StatusBudget::getApprovedStatusId()
             ]);
-            $this->emit('success', __('budgets.alert.status.approved'), sprintf(__('products.products.alert.create.approved-message'), $this->budget->event_name));
+            $this->emit('success', __('budgets.alert.status.approved'), sprintf(__('budgets.alert.status.approved-message'), $this->budget->event_name));
 
             // Send email to admins
             Notification::route('mail', 'admin1@larural.com')->notify(new BudgetNewStatusNotification($this->budget->fresh()));
@@ -74,7 +74,7 @@ class ShowDetails extends Component
             $this->budget->update([
                 'status_budget_id' => StatusBudget::getRejectedStatusId()
             ]);
-            $this->emit('success', __('budgets.alert.status.rejected'), sprintf(__('products.products.alert.create.rejected-message'), $this->budget->event_name));
+            $this->emit('success', __('budgets.alert.status.rejected'), sprintf(__('budgets.alert.status.rejected-message'), $this->budget->event_name));
 
             // Send email to admins
             Notification::route('mail', 'admin1@larural.com')->notify(new BudgetNewStatusNotification($this->budget->fresh()));

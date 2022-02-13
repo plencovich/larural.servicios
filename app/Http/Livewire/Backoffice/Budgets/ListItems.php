@@ -27,7 +27,10 @@ class ListItems extends DataTableComponent
             Column::make(__('budgets.sub-zone'), 'subZone.name'),
             Column::make(__('budgets.product.product'), 'product.name'),
             Column::make(__('budgets.product.quantity'), 'product_qty'),
-            Column::make(__('budgets.product.price'), 'product_price'),
+            Column::make(__('budgets.product.price'), 'product_price')->format(function ($value) {
+                return '$' . number_format($value, 2);
+            }),
+            Column::make(__('budgets.discount'), 'discount'),
         ];
     }
 

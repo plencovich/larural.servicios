@@ -3,7 +3,10 @@
 @if ($label)
     <label class="form-label">{{ $label }}</label>
 @endisset
-<input type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" @if ($name)wire:model.debounce.500ms="{{ $name }}" @endif placeholder="{{ $placeholder }}" @if ($readonly) readonly @endif />
+@php
+    $errorClass = $errors->has($name) ? 'is-invalid' : null;
+@endphp
+<input type="{{ $type }}" {!! $attributes->merge(['class' => 'form-control ' . $errorClass]) !!} @if ($name)wire:model.debounce.500ms="{{ $name }}" @endif placeholder="{{ $placeholder }}" @if ($readonly) readonly @endif />
 
 @if ($help)
     <small id="help-{{ $name }}" class="form-text text-muted">{!! $help !!}</small>

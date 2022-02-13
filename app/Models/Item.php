@@ -10,17 +10,36 @@ class Item extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'zone_name',
-        'sub_zone_name',
-        'product_name',
-        'product_qty',
-        'product_price',
-    ];
+    protected $guarded = [];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Get the budget that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
+    }
+
+    /**
+     * Get the product that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     /**
      * Get the zone that owns the Item
@@ -40,15 +59,5 @@ class Item extends Model
     public function subZone()
     {
         return $this->belongsTo(SubZone::class, 'sub_zone_name');
-    }
-
-    /**
-     * Get the product that owns the Item
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_name');
     }
 }

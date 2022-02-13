@@ -2,30 +2,32 @@
 
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Logout;
-use App\Http\Livewire\Auth\PasswordForgot;
+use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Budget\ShowStatus;
 use App\Http\Livewire\Auth\PasswordReset;
-use App\Http\Livewire\Backoffice\Budgets\Create as BudgetsCreate;
-use App\Http\Livewire\Backoffice\Budgets\Show as BudgetsShow;
-use App\Http\Livewire\Backoffice\Customers\Show as CustomersShow;
-use App\Http\Livewire\Backoffice\Events\Show as EventsShow;
+use App\Http\Livewire\Budget\ShowDetails;
+use App\Http\Livewire\Auth\PasswordForgot;
+use App\Http\Controllers\JSLanguageController;
 use App\Http\Livewire\Backoffice\Home\Dashboard;
+use App\Http\Livewire\Backoffice\Setting\Office;
+use App\Http\Livewire\Backoffice\Setting\Company;
+use App\Http\Livewire\Backoffice\Budgets\CreateItems;
 use App\Http\Livewire\Backoffice\Products\Categories;
 use App\Http\Livewire\Backoffice\Products\EditProduct;
 use App\Http\Livewire\Backoffice\Products\ProductsShow;
-use App\Http\Livewire\Backoffice\Security\PasswordChange;
-use App\Http\Livewire\Backoffice\Setting\Company;
-use App\Http\Livewire\Backoffice\Setting\Index as SettingIndex;
 use App\Http\Livewire\Backoffice\Setting\MailReception;
-use App\Http\Livewire\Backoffice\Setting\MaintenanceMode;
-use App\Http\Livewire\Backoffice\Setting\Office;
 use App\Http\Livewire\Backoffice\Setting\PaymentMethods;
 use App\Http\Livewire\Backoffice\Setting\SocialNetworks;
-use App\Http\Livewire\Backoffice\Users\Confirms as UsersConfirms;
+use App\Http\Livewire\Backoffice\Security\PasswordChange;
+use App\Http\Livewire\Backoffice\Setting\MaintenanceMode;
 use App\Http\Livewire\Backoffice\Users\Show as UsersShow;
 use App\Http\Livewire\Backoffice\Zones\Show as ZonesShow;
-use App\Http\Livewire\Budget\ShowDetails;
-use App\Http\Livewire\Budget\ShowStatus;
-use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Backoffice\Events\Show as EventsShow;
+use App\Http\Livewire\Backoffice\Budgets\Show as BudgetsShow;
+use App\Http\Livewire\Backoffice\Setting\Index as SettingIndex;
+use App\Http\Livewire\Backoffice\Budgets\Create as BudgetsCreate;
+use App\Http\Livewire\Backoffice\Customers\Show as CustomersShow;
+use App\Http\Livewire\Backoffice\Users\Confirms as UsersConfirms;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,10 @@ use Illuminate\Support\Facades\Route;
 
 // Redirect home
 Route::redirect('/', '/backoffice/home');
+
+// JavaScript Localization
+Route::get('/js/lang.js', JSLanguageController::class)->name('assets.lang');
+
 /*
 |--------------------------------------------------------------------------
 | App
@@ -62,6 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/backoffice/products/{product}/edit', EditProduct::class)->name('backoffice.products.edit');
         Route::get('/backoffice/products/categories', Categories::class)->name('backoffice.products.categories');
         Route::get('/backoffice/budgets/list', BudgetsShow::class)->name('backoffice.budgets.list');
+        Route::get('/backoffice/budgets/{budget}/edit', CreateItems::class)->name('backoffice.budgets.edit');
         Route::get('/backoffice/events', EventsShow::class)->name('backoffice.events');
         Route::get('/backoffice/setting/company', Company::class)->name('backoffice.setting.company');
         Route::get('/backoffice/setting/office', Office::class)->name('backoffice.setting.office');

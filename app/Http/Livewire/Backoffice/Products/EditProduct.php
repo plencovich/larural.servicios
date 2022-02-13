@@ -19,9 +19,11 @@ class EditProduct extends Component
     public $internal_day_a = 0;
     public $internal_day_b = 0;
     public $internal_day_c = 0;
+    public $internal_day_d = 0;
     public $external_day_a = 0;
     public $external_day_b = 0;
     public $external_day_c = 0;
+    public $external_day_d = 0;
 
     public $fromUrl;
 
@@ -35,12 +37,14 @@ class EditProduct extends Component
             $this->internal_day_a = $product->productPrices->where('product_price_type_id', ProductPriceType::INTERNAL)->first()->day_a;
             $this->internal_day_b = $product->productPrices->where('product_price_type_id', ProductPriceType::INTERNAL)->first()->day_b;
             $this->internal_day_c = $product->productPrices->where('product_price_type_id', ProductPriceType::INTERNAL)->first()->day_c;
+            $this->internal_day_d = $product->productPrices->where('product_price_type_id', ProductPriceType::INTERNAL)->first()->day_d;
         }
 
         if (filled($product->productPrices->where('product_price_type_id', ProductPriceType::EXTERNAL))) {
             $this->external_day_a = $product->productPrices->where('product_price_type_id', ProductPriceType::EXTERNAL)->first()->day_a;
             $this->external_day_b = $product->productPrices->where('product_price_type_id', ProductPriceType::EXTERNAL)->first()->day_b;
             $this->external_day_c = $product->productPrices->where('product_price_type_id', ProductPriceType::EXTERNAL)->first()->day_c;
+            $this->external_day_d = $product->productPrices->where('product_price_type_id', ProductPriceType::EXTERNAL)->first()->day_d;
         }
     }
 
@@ -55,9 +59,11 @@ class EditProduct extends Component
             'internal_day_a' => ['required', 'numeric', 'min:0'],
             'internal_day_b' => ['required', 'numeric', 'min:0'],
             'internal_day_c' => ['required', 'numeric', 'min:0'],
+            'internal_day_d' => ['required', 'numeric', 'min:0'],
             'external_day_a' => ['required', 'numeric', 'min:0'],
             'external_day_b' => ['required', 'numeric', 'min:0'],
             'external_day_c' => ['required', 'numeric', 'min:0'],
+            'external_day_d' => ['required', 'numeric', 'min:0'],
             'product.category_id' => ['required'],
             'product.status_product_id' => ['required'],
             'product.status_operation_id' => ['required'],
@@ -86,6 +92,7 @@ class EditProduct extends Component
                 'day_a' => $this->internal_day_a,
                 'day_b' => $this->internal_day_b,
                 'day_c' => $this->internal_day_c,
+                'day_d' => $this->internal_day_d,
             ]);
         }
         if (filled($this->product->productPrices()->where('product_price_type_id', ProductPriceType::EXTERNAL))) {
@@ -93,6 +100,7 @@ class EditProduct extends Component
                 'day_a' => $this->external_day_a,
                 'day_b' => $this->external_day_b,
                 'day_c' => $this->external_day_c,
+                'day_d' => $this->external_day_d,
             ]);
         }
 

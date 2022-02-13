@@ -17,11 +17,12 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('zone_name');
             $table->string('sub_zone_name');
-            $table->string('product_name');
+            $table->string('product_id');
             $table->integer('product_qty');
-            $table->float('product_price');
+            $table->decimal('product_price', 15, 2);
+            $table->decimal('discount', 15, 2)->default(0);
             $table->unsignedBigInteger('budget_id');
-            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->foreign('budget_id')->references('id')->on('budgets')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

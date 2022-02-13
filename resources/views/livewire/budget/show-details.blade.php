@@ -8,9 +8,9 @@
         </div>
         <div class="mb-5">
             <p class="h6">{{ __('view.budget.info') }}:</p>
-            <p class="h6"><strong>{{ __('view.budget.event') }}</strong>: {{ $budget->event_name }}</p>
-            <p class="h6"><strong>{{ __('budgets.date_from') }}</strong>: {{ $budget->event_from_at ? $budget->event_from_at->isoFormat('LL') : '' }}</p>
-            <p class="h6"><strong>{{ __('budgets.date_to') }}</strong>: {{ $budget->event_to_at ? $budget->event_to_at->isoFormat('LL') : '' }}</p>
+            <p class="h6"><strong>{{ __('view.budget.event') }}</strong>: {{ $budget->event->name }}</p>
+            <p class="h6"><strong>{{ __('budgets.date_from') }}</strong>: {{ $budget->event_from ? $budget->event_from->isoFormat('LL') : '' }}</p>
+            <p class="h6"><strong>{{ __('budgets.date_to') }}</strong>: {{ $budget->event_to ? $budget->event_to->isoFormat('LL') : '' }}</p>
             <p class="h6"><strong>{{ __('view.budget.discount') }}</strong>: {{ $budget->discount }}%</p>
             <p class="h6"><strong>{{ __('view.budget.observations') }}</strong>: {{ $budget->observations }}</p>
         </div>
@@ -22,7 +22,12 @@
 
                 {{-- Items --}}
                 @foreach ($items as $item)
-                    <p class="h6">{{ $item->product_qty }}x {{ $item->product->name }} ${{ $item->product_price }}</p>
+                    <p class="h6">
+                        {{ $item->product_qty }}x {{ $item->product->name }} ${{ number_format($item->product_price, 2) }}
+                        @if ($item->discount > 0)
+                            ({{ __('view.budget.product_discount', ['percent' => number_format($item->discount, 2)]) }})
+                        @endif
+                    </p>
                 @endforeach
 
                 <hr>
@@ -36,15 +41,57 @@
         <div class="mb-5">
             <x-button type="button"
                 class="btn btn-primary"
-                wire:click="approve">
+                id="approval-button">
                 {{ __('button.approve') }}
             </x-button>
 
             <x-button type="button"
                 class="btn btn-danger"
-                wire:click="reject">
+                id="reject-button">
                 {{ __('button.reject') }}
             </x-button>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>
+        $(() => {
+            // Show confirmation window for appoval
+            $('#approval-button').on('click', function() {
+                Swal.fire({
+                    title: "{{ __('budgets.alert.confirmation.approval.title') }}",
+                    text: "{{ __('budgets.alert.confirmation.approval.body') }}",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#191b27',
+                    cancelButtonColor: '#cf2637',
+                    cancelButtonText: "{{ __('button.cancel') }}",
+                    confirmButtonText: "{{ __('button.approve') }}",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.approve();
+                    }
+                })
+            });
+
+            // Show confirmation window for reject
+            $('#reject-button').on('click', function() {
+                Swal.fire({
+                    title: "{{ __('budgets.alert.confirmation.reject.title') }}",
+                    text: "{{ __('budgets.alert.confirmation.reject.body') }}",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#191b27',
+                    cancelButtonColor: '#cf2637',
+                    cancelButtonText: "{{ __('button.cancel') }}",
+                    confirmButtonText: "{{ __('button.reject') }}",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.reject();
+                    }
+                })
+            });
+        })
+    </script>
+@endsection

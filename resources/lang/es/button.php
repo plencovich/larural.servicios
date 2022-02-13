@@ -21,8 +21,10 @@ return [
     'delete' => 'Si, eliminar!',
     'edit' => 'Editar',
     'login' => 'Ingresar',
+    'print' => 'Imprimir',
     'reject' => 'Rechazar',
     'reset' => 'Restablecer',
     'save' => 'Guardar',
+    'search' => 'Buscar',
     'send' => 'Enviar',
 ];

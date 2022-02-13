@@ -49,28 +49,34 @@
         <fieldset>
             <legend>{{ __('products.prices.internal') }}</legend>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_a') }}" type="number" name="internal_day_a" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_b') }}" type="number" name="internal_day_b" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_c') }}" type="number" name="internal_day_c" />
+                </div>
+                <div class="col-md-3">
+                    <x-input label="{{ __('products.prices.day_d') }}" type="number" name="internal_day_d" />
                 </div>
             </div>
         </fieldset>
         <fieldset>
             <legend>{{ __('products.prices.external') }}</legend>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_a') }}" type="number" name="external_day_a" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_b') }}" type="number" name="external_day_b" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-input label="{{ __('products.prices.day_c') }}" type="number" name="external_day_c" />
+                </div>
+                <div class="col-md-3">
+                    <x-input label="{{ __('products.prices.day_d') }}" type="number" name="external_day_d" />
                 </div>
             </div>
         </fieldset>

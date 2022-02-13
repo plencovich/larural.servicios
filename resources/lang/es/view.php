@@ -19,6 +19,7 @@ return [
         'hello' => 'Hola',
         'info' => 'Esta es la información acerca de tu nuevo presupuesto',
         'no-sub-zones' => 'Aún no se han ingresado sub zonas.',
+        'product_discount' => ':percent% de descuento',
         'observations' => 'Observaciones',
         'sub-zones' => 'Sub zonas',
         'total' => 'Total',

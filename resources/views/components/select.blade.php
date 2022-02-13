@@ -1,9 +1,14 @@
 @if (!empty($label))
     <label class="form-label">{{ $label }}</label>
 @endif
-<select class="form-select @error($name) is-invalid @enderror" wire:model="{{ $name }}"
+
+@php
+    $errorClass = $errors->has($name) ? 'is-invalid' : null;
+@endphp
+
+<select {!! $attributes->merge(['class' => 'form-control ' . $errorClass]) !!} wire:model="{{ $name }}"
     name="{{ $name }}">
-    <option value="">Seleccionar una opcion...</option>
+    <option value="">{{ __('globals.select_option') }}</option>
     {{ $slot }}
 </select>
 @error($name)
