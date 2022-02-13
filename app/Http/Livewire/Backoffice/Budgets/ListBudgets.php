@@ -14,7 +14,7 @@ class ListBudgets extends DataTableComponent
   public function columns(): array
   {
     return [
-      Column::make(__('budgets.name'), 'event_name')->sortable(),
+      Column::make(__('budgets.event'), 'event_name')->sortable(),
       Column::make(__('budgets.customer'), 'event_from_at')->sortable(),
       Column::make(__('budgets.status'), 'status')->sortable(),
       Column::make(__('budgets.date_from'), 'event_to_at')->sortable(),

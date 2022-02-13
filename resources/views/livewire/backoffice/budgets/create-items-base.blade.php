@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <x-input label="{{ __('events.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />
+                                <x-input label="{{ __('globals.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />
                             </div>
                             <div class="col-md-2">
                                 <x-input label="{{ __('budgets.discount') }}" type="number"

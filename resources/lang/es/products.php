@@ -36,6 +36,10 @@ return [
             'delete' => 'Está seguro de eliminar la categoría %s?',
         ],
     ],
+    'change-date-range' => 'Cambiar rango de fecha',
+    'consult-stock' => 'Consultar stock por rango de fecha',
+    'consulting-date' => 'Mostrando stocks desde el :from hasta el :to',
+    'consulting-today' => 'Mostrando stocks para el día de hoy',
     'prices' => [
         'day_a' => 'Precio para 1 día',
         'day_b' => 'Precio para 2 a 5 días',
@@ -59,6 +63,7 @@ return [
         'list' => 'Listado Productos',
         'delete' => 'Eliminar Producto',
         'show-qr' => 'Código QR',
+        'stock' => 'Stock',
         'alert' => [
             'create' => [
                 'message' => 'Producto %s creada correctamente',

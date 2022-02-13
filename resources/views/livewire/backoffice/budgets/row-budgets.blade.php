@@ -1,5 +1,5 @@
 <x-livewire-tables::bs5.table.cell>
-    {{ $row->event_name }}
+    {{ $row->event->name }}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell>
     {{ $row->customer->full_name }}

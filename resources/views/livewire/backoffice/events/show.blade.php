@@ -31,9 +31,6 @@
                         document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
                             // Focus event name
                             $('input[autofocus=autofocus]').focus();
-
-                            // Initialize picker
-                            globals.initDatePicker();
                         })
                     })
                 },

@@ -5,7 +5,7 @@
                 <x-input label="{{ __('events.name') }}" type="text" name="name" autofocus />
             </div>
             <div class="col-md-12">
-                <x-input label="{{ __('events.date_range') }}" type="text" value="{{ $event->event_from->format('d/m/Y') }} - {{ $event->event_to->format('d/m/Y') }}" readonly />
+                <x-input label="{{ __('globals.date_range') }}" type="text" value="{{ $event->event_from->format('d/m/Y') }} - {{ $event->event_to->format('d/m/Y') }}" readonly />
             </div>
         </x-form>
     </x-slot>

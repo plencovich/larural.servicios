@@ -1,3 +1,5 @@
+window.dateRangePickerElement = null;
+
 function formattedDate(date) {
     let day = date.getDate()
     let month = date.getMonth() + 1
@@ -96,7 +98,11 @@ globals = {
     initDatePicker: () => {
         let date = new Date();
         if (document.querySelector('.datepicker')) {
-            new DateRangePicker(document.querySelector('.datepicker'), {
+            // Initialize date range picker if not initialized already
+            if (window.dateRangePickerElement) {
+                $('.daterangepicker').remove();
+            }
+            window.dateRangePickerElement = new DateRangePicker(document.querySelector('.datepicker'), {
                 // "autoApply": true,
                 "minDate": `${formattedDate(date).day}/${formattedDate(date).month}/${formattedDate(date).year}`,
                 "locale": {

@@ -22,7 +22,6 @@ return [
         ],
     ],
     'budgets' => 'Presupuestos del evento',
-    'date_range' => 'Rango de fecha',
     'edit' => '¿Deseas editar el nombre de este evento?',
     'name' => 'Nombre del evento',
 ];

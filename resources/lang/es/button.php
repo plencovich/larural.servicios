@@ -24,5 +24,6 @@ return [
     'reject' => 'Rechazar',
     'reset' => 'Restablecer',
     'save' => 'Guardar',
+    'search' => 'Buscar',
     'send' => 'Enviar',
 ];

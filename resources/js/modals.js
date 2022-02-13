@@ -14,6 +14,11 @@ Livewire.on('showBootstrapModal', () => {
         modal = new bootstrap.Modal(modalsElement);
     }
 
+    document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
+        // Initialize picker
+        globals.initDatePicker();
+    })
+
     globals.initSelect2();
 
     modal.show();

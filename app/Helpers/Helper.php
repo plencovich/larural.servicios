@@ -2,8 +2,21 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
+
 class Helper
 {
+    /**
+     * Get date in Spanish format d/m/Y
+     *
+     * @param string $date
+     * @return mixed
+     */
+    public static function formatEs($date)
+    {
+        return (new Carbon($date))->format('d/m/Y');
+    }
+
     /**
      * Get the event array data
      *

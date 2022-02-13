@@ -96,8 +96,8 @@ class Product extends Model
             // Get every day with their reserved quantity
             for ($i = new Carbon($reservation->event_from); $i <= $reservation->event_to; $i->modify('+1 day')) {
                 $reservationDays[$i->format("Y-m-d")] = isset($reservationDays[$i->format("Y-m-d")])
-                 ? $reservation->total_products_reserved + $reservation->total_products_reserved
-                 : $reservation->total_products_reserved;
+                    ? $reservation->total_products_reserved + $reservation->total_products_reserved
+                    : $reservation->total_products_reserved;
             }
         }
 
@@ -109,6 +109,39 @@ class Product extends Model
 
         // Return days
         return collect($days);
+    }
+
+    /**
+     * Get the formatted available stock
+     *
+     * @return mixed
+     */
+    public function availableStockForDateRangeFormatted($dateFrom, $dateTo)
+    {
+        // Get stocks per date
+        $perDateStocks = $this->availableStockForDateRange($dateFrom, $dateTo);
+
+        // If there's only one date, return the stock
+        if ($perDateStocks->count() == 1) {
+            return $perDateStocks->first();
+        }
+
+        // Initialize list for multiple dates
+        $list = '<ul>';
+
+        // Loop through each date
+        foreach ($perDateStocks as $date => $stock) {
+            // Get date and stock
+            $list .= '<li>';
+            $list .= $date . ': ' . $stock;
+            $list .= '</li>';
+        }
+
+        // Close list
+        $list .= '</ul>';
+
+        // Return list
+        return $list;
     }
 
     /*

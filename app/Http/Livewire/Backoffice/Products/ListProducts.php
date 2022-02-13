@@ -10,7 +10,15 @@ use App\Models\Product;
 class ListProducts extends DataTableComponent
 {
 
-    protected $listeners = ['refresh' => 'query'];
+    protected $listeners = ['refresh' => 'query', 'refreshQuery' => 'refreshData'];
+    public $event_from;
+    public $event_to;
+
+    public function mount()
+    {
+        $this->event_from = request()->has('event_from') ? request()->get('event_from') : now();
+        $this->event_to = request()->has('event_to') ? request()->get('event_to') : now();
+    }
 
     public function columns(): array
     {
@@ -20,11 +28,20 @@ class ListProducts extends DataTableComponent
             Column::make(__('products.products.name'), 'name')->sortable(),
             Column::make(__('products.products.description'), 'description')->sortable(),
             Column::make(__('products.products.quantity'), 'quantity')->sortable(),
+            Column::make(__('products.products.stock'), 'quantity')->sortable(),
             Column::make(__('products.products.category'), 'category_id')->sortable(),
             Column::make(__('products.products.status-product'), 'status_product_id')->sortable(),
             Column::make(__('products.products.status-operation'), 'status_operation_id')->sortable(),
             Column::make(null)->addClass('text-end'),
         ];
+    }
+
+    public function refreshData($event_from, $event_to)
+    {
+        $this->event_from = $event_from;
+        $this->event_to = $event_to;
+
+        $this->resetPage();
     }
 
     public function rowView(): string
