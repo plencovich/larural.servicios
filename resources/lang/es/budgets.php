@@ -23,6 +23,8 @@ return [
             ],
         ],
         'status' => [
+            'cannot-send' => 'No puede enviar este presupuesto.',
+            'cannot-send-message' => 'El presupuesto :budget ya fue :status, no se puede volver a enviar.',
             'approved-message' => 'Presupuesto %s aprobado correctamente.',
             'approved' => '¡Presupuesto aprobado correctamente!',
             'rejected-message' => 'Presupuesto %s rechazado correctamente.',
