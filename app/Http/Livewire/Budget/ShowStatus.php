@@ -20,8 +20,8 @@ class ShowStatus extends Component
         $budget = Budget::findOrFail(decrypt($hash));
         $this->budget = $budget;
 
-        // If budget is not confirmed redirect to details
-        if ($this->budget->isConfirmed()) {
+        // If budget is not sent redirect to details
+        if ($this->budget->isSent()) {
             return redirect()->route('budget.customer-view', encrypt($this->budget->id));
         }
 

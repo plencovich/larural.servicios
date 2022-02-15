@@ -15,7 +15,10 @@ class StatusBudgetSeeder extends Seeder
     public function run()
     {
         StatusBudget::create([
-            'name' => 'Confirmado'
+            'name' => 'Pendiente'
+        ]);
+        StatusBudget::create([
+            'name' => 'Enviado'
         ]);
         StatusBudget::create([
             'name' => 'Aprobado'

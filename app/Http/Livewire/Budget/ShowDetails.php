@@ -24,7 +24,7 @@ class ShowDetails extends Component
         $this->budget = $budget;
 
         // If budget is not confirmed redirect to status
-        if (!$this->budget->isConfirmed()) {
+        if ($this->budget->isApproved() || $this->budget->isRejected()) {
             return redirect()->route('budget.customer-status', encrypt($this->budget->id));
         }
 
@@ -48,7 +48,7 @@ class ShowDetails extends Component
      */
     public function approve()
     {
-        if ($this->budget->isConfirmed()) {
+        if ($this->budget->isSent()) {
             $this->budget->update([
                 'status_budget_id' => StatusBudget::getApprovedStatusId()
             ]);
@@ -70,7 +70,7 @@ class ShowDetails extends Component
      */
     public function reject()
     {
-        if ($this->budget->isConfirmed()) {
+        if ($this->budget->isSent()) {
             $this->budget->update([
                 'status_budget_id' => StatusBudget::getRejectedStatusId()
             ]);

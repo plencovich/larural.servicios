@@ -10,7 +10,7 @@
             <x-button form="budget-update" type="submit"
                 class="btn-outline-primary btn-icon btn-icon-start w-100 w-md-auto ms-2">
                 <i class="bi bi-file-plus"></i>
-                {{ __('button.confirms') }}
+                {{ __('button.send') }}
             </x-button>
         </div>
     </x-page-title-container>

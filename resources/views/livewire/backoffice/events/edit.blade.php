@@ -15,7 +15,7 @@
                 <h4>{{ __('events.budgets') }}:</h4>
                 <ul>
                     @foreach ($budgets as $budget)
-                        <li>{{ $budget->customer->full_name }}: ${{ number_format($budget->total, 2) }}</li>
+                        <li>{{ $budget->customer->full_name }}: ${{ $budget->total }}</li>
                     @endforeach
                 </ul>
             </div>

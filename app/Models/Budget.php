@@ -71,13 +71,13 @@ class Budget extends Model
     }
 
     /**
-     * Check if the budget is confirmed
+     * Check if the budget is pending
      *
      * @return mixed
      */
-    public function isConfirmed()
+    public function isPending()
     {
-        return $this->status_budget_id == StatusBudget::getConfirmedStatusId();
+        return $this->status_budget_id == StatusBudget::getPendingStatusId();
     }
 
     /**
@@ -88,6 +88,16 @@ class Budget extends Model
     public function isRejected()
     {
         return $this->status_budget_id == StatusBudget::getRejectedStatusId();
+    }
+
+    /**
+     * Check if the budget is sent
+     *
+     * @return mixed
+     */
+    public function isSent()
+    {
+        return $this->status_budget_id == StatusBudget::getSentStatusId();
     }
 
     /*
@@ -103,8 +113,10 @@ class Budget extends Model
      */
     public function getStatusAttribute()
     {
-        if ($this->isConfirmed()) {
-            return 'Confirmado';
+        if ($this->isPending()) {
+            return 'Pendiente';
+        } else if ($this->isSent()) {
+            return 'Enviado';
         } else if ($this->isApproved()) {
             return 'Aprobado';
         } else if ($this->isRejected()) {

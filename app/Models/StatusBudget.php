@@ -29,13 +29,13 @@ class StatusBudget extends Model
     }
 
     /**
-     * Get the confirmed status ID
+     * Get the pending status ID
      *
      * @return mixed
      */
-    public static function getConfirmedStatusId()
+    public static function getPendingStatusId()
     {
-        return self::where('name', 'Confirmado')->first()->id;
+        return self::where('name', 'Pendiente')->first()->id;
     }
 
     /**
@@ -46,5 +46,15 @@ class StatusBudget extends Model
     public static function getRejectedStatusId()
     {
         return self::where('name', 'Rechazado')->first()->id;
+    }
+
+    /**
+     * Get the Sent status ID
+     *
+     * @return mixed
+     */
+    public static function getSentStatusId()
+    {
+        return self::where('name', 'Enviado')->first()->id;
     }
 }

@@ -51,10 +51,16 @@ class ListProducts extends DataTableComponent
 
     public function query(): Builder
     {
-        return Product::query()->when($this->getFilter('search'), fn ($query, $term) => $query
-            ->where('code', 'like', '%' . $term . '%')
-            ->where('name', 'like', '%' . $term . '%')
-            ->orWhere('description', 'like', '%' . $term . '%')
-            ->orWhere('quantity', 'like', '%' . $term . '%'));
+        return Product::query()->when(
+            $this->getFilter('search'),
+            fn ($query, $term) => $query
+                ->where('code', 'like', '%' . $term . '%')
+                ->orWhere('name', 'like', '%' . $term . '%')
+                ->orWhere('description', 'like', '%' . $term . '%')
+                ->orWhere('quantity', 'like', '%' . $term . '%')
+                ->orWhereHas('category', fn($q) => $q->where('name', 'like', '%' . $term . '%'))
+                ->orWhereHas('statusProduct', fn($q) => $q->where('name', 'like', '%' . $term . '%'))
+                ->orWhereHas('statusOperation', fn($q) => $q->where('name', 'like', '%' . $term . '%'))
+        );
     }
 }

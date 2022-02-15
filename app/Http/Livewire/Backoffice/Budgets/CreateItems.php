@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Budget;
 use Livewire\Component;
 use App\Models\Customer;
+use App\Models\StatusBudget;
 use App\Notifications\BudgetNewNotification;
 
 class CreateItems extends Component
@@ -84,6 +85,7 @@ class CreateItems extends Component
         $this->validate();
         $this->budget->event_from = $this->event_from;
         $this->budget->event_to = $this->event_to;
+        $this->budget->status_budget_id = StatusBudget::getSentStatusId();
         $this->budget->save();
         $this->budget->customer->notify(new BudgetNewNotification($this->budget));
 
