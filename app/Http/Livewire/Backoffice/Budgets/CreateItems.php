@@ -82,19 +82,26 @@ class CreateItems extends Component
 
     public function store()
     {
-        $this->validate();
-        $this->budget->event_from = $this->event_from;
-        $this->budget->event_to = $this->event_to;
-        $this->budget->status_budget_id = StatusBudget::getSentStatusId();
-        $this->budget->save();
-        $this->budget->customer->notify(new BudgetNewNotification($this->budget));
+        if (!$this->budget->isApproved() && !$this->budget->isRejected()) {
+            $this->validate();
+            $this->budget->event_from = $this->event_from;
+            $this->budget->event_to = $this->event_to;
+            $this->budget->status_budget_id = StatusBudget::getSentStatusId();
+            $this->budget->save();
+            $this->budget->customer->notify(new BudgetNewNotification($this->budget));
 
-        if ($this->fromUrl) {
-            return redirect()->route('backoffice.events');
+            if ($this->fromUrl) {
+                return redirect()->route('backoffice.events');
+            } else {
+                //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
+                // $this->reset();
+                $this->emit('customerShow', false);
+            }
         } else {
-            //$this->emit('success', __('budgets.alert.create.success'), sprintf(__('budgets.alert.create.message'), $this->eventName));
-            // $this->reset();
-            $this->emit('customerShow', false);
+            $this->emit('alert-message', 'danger', __('budgets.alert.status.cannot-send'), __('budgets.alert.status.cannot-send-message', [
+                'budget' => $this->budget->event->name,
+                'status' => $this->budget->getStatusAttribute()
+            ]));
         }
     }
 
