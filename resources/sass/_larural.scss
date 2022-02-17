@@ -1,0 +1,12 @@
+.select2 b[role=presentation] {
+    display: none;
+}
+
+.alert-warning {
+    z-index: 99999 !important;
+}
+
+.select2-dropdown {
+    max-height: 15rem;
+    overflow-y: auto;
+}

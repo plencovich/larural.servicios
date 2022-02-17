@@ -1,5 +1,4 @@
 {
-    "/css/styles.css": "/css/styles.css",
     "/favicon.ico": "/favicon.ico",
     "/css/main.css": "/css/main.css",
     "/css/vanilla-datetimerange-picker.css": "/css/vanilla-datetimerange-picker.css",
@@ -10,5 +9,6 @@
     "/js/notify.js": "/js/notify.js",
     "/js/remito.js": "/js/remito.js",
     "/js/scripts.js": "/js/scripts.js",
-    "/js/vanilla-datetimerange-picker.js": "/js/vanilla-datetimerange-picker.js"
+    "/js/vanilla-datetimerange-picker.js": "/js/vanilla-datetimerange-picker.js",
+    "/css/styles.css": "/css/styles.css"
 }
