@@ -6,3 +6,11 @@
 node_modules
 tests
 storage
+gitStatusTelegramBot.sh
+exclude-public.txt
+tests
+phpunit.xml
+README.md
+server.php
+yarn.lock
+webpack.mix.js
