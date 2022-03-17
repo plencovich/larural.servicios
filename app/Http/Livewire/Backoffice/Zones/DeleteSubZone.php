@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Backoffice\Zones;
 
 use App\Models\SubZone;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DeleteSubZone extends Component
 {
+    use AuthorizesRequests;
 
     public $subZone;
 
@@ -17,6 +19,7 @@ class DeleteSubZone extends Component
 
     public function delete()
     {
+        $this->authorize('delete', $this->subZone->singleZone);
         $this->subZone->delete();
         $this->emit('success', __('zones.sub-zones.alert.delete.success'), sprintf(__('zones.sub-zones.alert.delete.message'), $this->subZone->name));
         $this->emit('hideModal');

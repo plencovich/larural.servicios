@@ -5,11 +5,14 @@ namespace App\Http\Livewire\Backoffice\Events;
 use App\Helpers\Helper;
 use App\Models\Event;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Add extends Component
 {
+    use AuthorizesRequests;
+
     public $name;
     public $date_range;
     public $event_from;
@@ -24,6 +27,7 @@ class Add extends Component
 
     public function render()
     {
+        $this->authorize('create', Event::class);
         return view('livewire.backoffice.events.add');
     }
 
@@ -55,6 +59,8 @@ class Add extends Component
      */
     public function store()
     {
+        $this->authorize('create', Event::class);
+
         $this->validate();
 
         // Create event

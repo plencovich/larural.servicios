@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Backoffice\Zones;
 
-use App\Models\SubZone;
 use App\Models\Zone;
+use App\Models\SubZone;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateSubZones extends Component
 {
+    use AuthorizesRequests;
 
     public $name;
 
@@ -32,6 +34,7 @@ class CreateSubZones extends Component
 
     public function store()
     {
+        $this->authorize('create', Zone::class);
         $this->validate();
         $this->zone->subZones()->create(
             [

@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Backoffice\Customers;
 
 use App\Models\Customer;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Create extends Component
 {
+    use AuthorizesRequests;
+
     public $code;
     public $businessName;
     public $name;
@@ -31,6 +34,7 @@ class Create extends Component
 
     public function store()
     {
+        $this->authorize('create', Customer::class);
         $this->validate();
         Customer::create([
             'code' => $this->code,

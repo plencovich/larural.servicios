@@ -4,11 +4,14 @@ namespace App\Http\Livewire\Backoffice\Events;
 
 use App\Models\Event;
 use App\Helpers\Helper;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
 class Edit extends Component
 {
+    use AuthorizesRequests;
+
     public $event;
     public $name;
 
@@ -20,6 +23,7 @@ class Edit extends Component
 
     public function render()
     {
+        $this->authorize('update', $this->event);
         return view('livewire.backoffice.events.edit', [
             'budgets' => $this->event->budgets
         ]);
@@ -39,6 +43,8 @@ class Edit extends Component
      */
     public function update()
     {
+        $this->authorize('update', $this->event);
+
         $this->validate();
 
         // Create event

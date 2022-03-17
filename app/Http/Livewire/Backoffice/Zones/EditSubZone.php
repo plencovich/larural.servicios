@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Backoffice\Zones;
 
 use App\Models\SubZone;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EditSubZone extends Component
 {
+    use AuthorizesRequests;
 
     public $subZone;
 
@@ -29,6 +31,7 @@ class EditSubZone extends Component
 
     public function store()
     {
+        $this->authorize('update', $this->subZone->singleZone);
         $this->validate();
         $this->subZone->save();
         $this->emit('success', __('zones.sub-zones.alert.edit.success'), sprintf(__('zones.sub-zones.alert.edit.message'), $this->subZone->name));

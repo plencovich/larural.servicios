@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Backoffice\Setting;
 
+use App\Models\User;
 use Livewire\Component;
-use App\Helpers\Setting as SettingHelper;
 use App\Models\Setting as ModelsSetting;
+use App\Helpers\Setting as SettingHelper;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Company extends Component
 {
+    use AuthorizesRequests;
 
     public $projectName;
     public $projectSlogan;
@@ -35,6 +38,7 @@ class Company extends Component
 
     public function store()
     {
+        $this->authorize('viewConfig', User::class);
         $this->validate();
         $this->updateDB('project_name', $this->projectName);
         $this->updateDB('project_slogan', $this->projectSlogan);
@@ -46,6 +50,7 @@ class Company extends Component
 
     private function updateDB($name, $value)
     {
+        $this->authorize('viewConfig', User::class);
         ModelsSetting::where('name', $name)
             ->where(
                 function ($query) use ($value) {
@@ -57,6 +62,7 @@ class Company extends Component
 
     public function render()
     {
+        $this->authorize('viewConfig', User::class);
         return view('livewire.backoffice.setting.company');
     }
 }

@@ -23,4 +23,14 @@ class SubZone extends Model
     {
         return $this->hasOne(Zone::class);
     }
+
+    /**
+     * Get the singleZone that owns the SubZone
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function singleZone()
+    {
+        return $this->belongsTo(Zone::class, 'zone_id');
+    }
 }

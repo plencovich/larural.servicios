@@ -5,11 +5,13 @@ namespace App\Http\Livewire\Backoffice\Budgets;
 use App\Models\Budget;
 use App\Models\Customer;
 use App\Models\Event;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Create extends Component
 {
+    use AuthorizesRequests;
 
     public $customer_id;
     public $event_id;
@@ -31,6 +33,8 @@ class Create extends Component
 
     public function store()
     {
+        $this->authorize('create', Budget::class);
+
         $this->validate();
 
         // Get event

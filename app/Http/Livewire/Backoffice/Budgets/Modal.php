@@ -8,11 +8,13 @@ use App\Models\ProductPrice;
 use App\Models\SubZone;
 use App\Models\Zone;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Modal extends Component
 {
+    use AuthorizesRequests;
 
     public $budget;
     public $zone = '';
@@ -60,6 +62,7 @@ class Modal extends Component
 
     public function store()
     {
+        $this->authorize('view', $this->budget);
         $this->validate();
 
         $this->budget->items()->create([
@@ -85,6 +88,7 @@ class Modal extends Component
 
     public function render()
     {
+        $this->authorize('view', $this->budget);
         $zones = Zone::all();
         $subZones = SubZone::where('zone_id', $this->zone)->get();
         $prices = ProductPrice::where('product_id', $this->product_id)->get();

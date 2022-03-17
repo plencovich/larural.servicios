@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Backoffice\Products;
 
 use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class CategoryEdit extends Component
 {
+    use AuthorizesRequests;
 
     public $category;
 
@@ -29,6 +31,7 @@ class CategoryEdit extends Component
 
     public function store()
     {
+        $this->authorize('update', $this->category);
         $this->validate();
         $this->category->save();
         $this->emit('success', __('products.categories.alert.edit.success'), sprintf(__('products.categories.alert.edit.message'), $this->category->name));

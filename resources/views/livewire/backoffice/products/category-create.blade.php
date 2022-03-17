@@ -4,10 +4,12 @@
         <div class="card-body">
             <x-form action="store">
                 <div class="col-md-12">
-                    <x-input label="{{ __('users.name') }}" type="text" name="name" />
+                    <x-input label="{{ __('users.name') }}" type="text" name="name" :readonly="! auth()->user()->can('create', App\Models\Category::class)" />
                 </div>
                 <div class="col-12">
-                    <x-buttons.create />
+                    @can('create', App\Models\Category::class)
+                        <x-buttons.create />
+                    @endcan
                 </div>
             </x-form>
         </div>

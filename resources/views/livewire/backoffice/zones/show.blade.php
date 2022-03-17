@@ -16,11 +16,13 @@
                         <div class="card-body">
                             <x-form action="store">
                                 <div class="col-md-12">
-                                    <x-input label="{{ __('zones.zones.zone') }}" type="text" name="name" />
+                                    <x-input label="{{ __('zones.zones.zone') }}" type="text" name="name" :readonly="! auth()->user()->can('create', App\Models\Zone::class)" />
                                 </div>
-                                <div class="col-12">
-                                    <x-buttons.create />
-                                </div>
+                                @can('create', App\Models\Zone::class)
+                                    <div class="col-12">
+                                        <x-buttons.create />
+                                    </div>
+                                @endcan
                             </x-form>
                         </div>
                     </div>

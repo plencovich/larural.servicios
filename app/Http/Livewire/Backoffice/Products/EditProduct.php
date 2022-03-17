@@ -9,10 +9,11 @@ use App\Models\StatusProduct;
 use Livewire\WithFileUploads;
 use App\Models\StatusOperation;
 use App\Models\ProductPriceType;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EditProduct extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, AuthorizesRequests;
 
     public $product;
     public $image;
@@ -76,6 +77,7 @@ class EditProduct extends Component
     }
     public function store()
     {
+        $this->authorize('update', $this->product);
         $this->validate();
         $this->product->save();
 

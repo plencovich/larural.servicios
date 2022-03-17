@@ -9,9 +9,11 @@ use Livewire\Component;
 use App\Models\Customer;
 use App\Models\StatusBudget;
 use App\Notifications\BudgetNewNotification;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateItems extends Component
 {
+    use AuthorizesRequests;
 
     public $budget;
     public $event_from;
@@ -82,6 +84,7 @@ class CreateItems extends Component
 
     public function store()
     {
+        $this->authorize('update', $this->budget);
         if (!$this->budget->isApproved() && !$this->budget->isRejected()) {
             $this->validate();
             $this->budget->event_from = $this->event_from;
@@ -107,6 +110,7 @@ class CreateItems extends Component
 
     public function update()
     {
+        $this->authorize('update', $this->budget);
         $this->validate();
         $this->budget->event_from = $this->event_from;
         $this->budget->event_to = $this->event_to;
@@ -127,6 +131,7 @@ class CreateItems extends Component
 
     public function render()
     {
+        $this->authorize('view', $this->budget);
         $customers = Customer::all();
         $events = Event::fromNowOn()->get();
         return view('livewire.backoffice.budgets.create-items', compact('customers', 'events'));

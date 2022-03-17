@@ -2,7 +2,9 @@
 <div>
     <x-page-title-container>
         @if (!$componentShow)
-            <x-page-title-add-button show="backoffice.users.create" />
+            @can('create', App\Models\User::class)
+                <x-page-title-add-button show="backoffice.users.create" />
+            @endcan
         @endif
     </x-page-title-container>
 

@@ -116,13 +116,15 @@
                     <span class="label">Usuarios</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('backoffice.setting') }}"
-                    class="{{ Request::routeIs('backoffice.setting') ? 'active' : '' }}">
-                    <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
-                    <span class="label">Configuración</span>
-                </a>
-            </li>
+            @can('viewConfig', App\Models\User::class)
+                <li>
+                    <a href="{{ route('backoffice.setting') }}"
+                        class="{{ Request::routeIs('backoffice.setting') ? 'active' : '' }}">
+                        <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
+                        <span class="label">Configuración</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
     <!-- Menu End -->

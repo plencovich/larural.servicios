@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire\Backoffice\Zones;
 
-use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Zone;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class ListZones extends DataTableComponent
 {
-
     protected $listeners = ['refresh' => 'query'];
 
     public function columns(): array

@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Backoffice\Zones;
 
 use App\Models\Zone;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Show extends Component
 {
+    use AuthorizesRequests;
 
     protected $listeners = ['customerShow'];
     public $name;
@@ -34,6 +36,7 @@ class Show extends Component
 
     public function store()
     {
+        $this->authorize('create', Zone::class);
         $this->validate();
         $zone = Zone::create([
             'name' => $this->name,
@@ -45,6 +48,7 @@ class Show extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Zone::class);
         return view('livewire.backoffice.zones.show');
     }
 }

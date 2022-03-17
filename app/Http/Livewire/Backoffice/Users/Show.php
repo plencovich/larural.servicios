@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire\Backoffice\Users;
 
+use App\Models\User;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Show extends Component
 {
+    use AuthorizesRequests;
+
     protected $listeners = ['customerShow'];
     public $componentShow;
     public $params;
@@ -18,6 +22,7 @@ class Show extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', User::class);
         return view('livewire.backoffice.users.show');
     }
 }

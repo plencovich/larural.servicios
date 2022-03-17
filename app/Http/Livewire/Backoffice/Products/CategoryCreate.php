@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Backoffice\Products;
 
 use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class CategoryCreate extends Component
 {
+    use AuthorizesRequests;
 
     public $name;
 
@@ -24,6 +26,7 @@ class CategoryCreate extends Component
 
     public function store()
     {
+        $this->authorize('create', Category::class);
         $this->validate();
         Category::create([
             'name' => $this->name,

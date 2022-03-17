@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire\Backoffice\Zones;
 
-use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\SubZone;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ListSubZones extends DataTableComponent
 {
-
     protected $listeners = ['refresh' => 'query'];
     public $zoneId;
 

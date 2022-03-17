@@ -29,6 +29,12 @@
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell class="text-end">
     <x-buttons.small-qr-code wire:click="$emit('showModal','backoffice.products.show-qr', {{ $row }})" />
-    <x-buttons.small-pen wire:click="$emit('customerShow','backoffice.products.edit-product', {{ $row }})" />
-    <x-buttons.small-trash wire:click="$emit('showModal', 'backoffice.products.delete-product', {{ $row }})" />
+
+    @can('update', $row)
+        <x-buttons.small-pen wire:click="$emit('customerShow','backoffice.products.edit-product', {{ $row }})" />
+    @endcan
+
+    @can('delete', $row)
+        <x-buttons.small-trash wire:click="$emit('showModal', 'backoffice.products.delete-product', {{ $row }})" />
+    @endcan
 </x-livewire-tables::bs5.table.cell>

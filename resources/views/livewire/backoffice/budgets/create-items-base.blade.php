@@ -7,11 +7,13 @@
                 {{ __('button.back') }}
             </x-button>
 
-            <x-button form="budget-update" type="submit"
-                class="btn-outline-primary btn-icon btn-icon-start w-100 w-md-auto ms-2">
-                <i class="bi bi-file-plus"></i>
-                {{ __('button.send') }}
-            </x-button>
+            @can('update', $this->budget)
+                <x-button form="budget-update" type="submit"
+                    class="btn-outline-primary btn-icon btn-icon-start w-100 w-md-auto ms-2">
+                    <i class="bi bi-file-plus"></i>
+                    {{ __('button.send') }}
+                </x-button>
+            @endcan
         </div>
     </x-page-title-container>
     <div class="row">
@@ -22,7 +24,7 @@
                     <div class="card-body">
                         <x-form action="store" id="budget-update">
                             <div class="col-md-12" wire:ignore>
-                                <x-select name="budget.customer_id" label="{{ __('budgets.customer') }}" class="form-control select2">
+                                <x-select name="budget.customer_id" label="{{ __('budgets.customer') }}" class="form-control {{ auth()->user()->can('update', $this->budget) ? 'select2' : '' }}" :readonly="! auth()->user()->can('update', $this->budget)">
                                     @foreach ($customers as $value)
                                         <option value="{{ $value->id }}">
                                             {{ $value->full_name }}
@@ -32,7 +34,7 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="col-md-12" wire:ignore>
-                                    <x-select name="budget.event_id" label="{{ __('budgets.event') }}" class="form-control select2">
+                                    <x-select name="budget.event_id" label="{{ __('budgets.event') }}" class="form-control {{ auth()->user()->can('update', $this->budget) ? 'select2' : '' }}" :readonly="! auth()->user()->can('update', $this->budget)">
                                         @foreach ($events as $value)
                                             <option value="{{ $value->id }}">
                                                 {{ $value->name }}
@@ -42,22 +44,24 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <x-input label="{{ __('globals.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" />
+                                <x-input label="{{ __('globals.date_range') }}" type="text" class="datepicker" name="date_range" timezone="{{ config('app.timezone') }}" :readonly="! auth()->user()->can('update', $this->budget)" />
                             </div>
                             <div class="col-md-2">
                                 <x-input label="{{ __('budgets.discount') }}" type="number"
-                                    name="budget.discount" />
+                                    name="budget.discount" :readonly="! auth()->user()->can('update', $this->budget)" />
                             </div>
                             <div class="col-md-12">
                                 <x-input label="{{ __('budgets.observations') }}" type="text"
-                                    name="budget.observations" />
+                                    name="budget.observations" :readonly="! auth()->user()->can('update', $this->budget)" />
                             </div>
                         </x-form>
 
-                        <x-button type="button" wire:click="update"
-                            class="btn-primary mt-4">
-                            {{ __('button.save') }}
-                        </x-button>
+                        @can('update', $this->budget)
+                            <x-button type="button" wire:click="update"
+                                class="btn-primary mt-4">
+                                {{ __('button.save') }}
+                            </x-button>
+                        @endcan
                     </div>
                 </div>
             </div>
