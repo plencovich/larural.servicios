@@ -51,7 +51,20 @@
                 {{ __('button.reject') }}
             </x-button>
         </div>
+
+        {{-- Important notes --}}
+        <div class="mb-5">
+            <x-button type="button"
+                class="btn btn-link"
+                data-bs-toggle="modal"
+                data-bs-target="#important-notes">
+                <i class="bi bi-info-circle"></i>
+                {{ __('button.important-notes') }}
+            </x-button>
+        </div>
     </div>
+
+    @include('livewire.budget.important-notes-modal')
 </div>
 
 @section('scripts')
