@@ -3,6 +3,7 @@
 .editorconfig
 .gitattributes
 .gitignore
+.git
 node_modules
 tests
 storage
@@ -14,3 +15,5 @@ README.md
 server.php
 yarn.lock
 webpack.mix.js
+public/storage
+public/uploads
