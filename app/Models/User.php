@@ -54,4 +54,24 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['deleted_at'];
+
+    /**
+     * Get all of the eventRequests for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function eventRequests()
+    {
+        return $this->hasMany(EventRequest::class);
+    }
+
+    /**
+     * Get the full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->lastname;
+    }
 }

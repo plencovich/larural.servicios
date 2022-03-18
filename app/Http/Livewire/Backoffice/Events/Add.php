@@ -63,18 +63,29 @@ class Add extends Component
 
         $this->validate();
 
-        // Create event
-        $event = Event::create([
+        // Get event data
+        $data = [
             'name' => $this->name,
             'event_from' => $this->event_from,
             'event_to' => $this->event_to,
-        ]);
+        ];
 
-        // Emit message if success
-        $this->emit('success', __('events.alert.create.success'), sprintf(__('events.alert.create.message'), $this->name));
+        // If user is "Comercial 1" then just send a request to create the event. The Admin will have to approve it
+        if (auth()->user()->hasRole(['Comercial 1'])) {
+            auth()->user()->eventRequests()->create($data);
 
-        // Emit event to dynamically add event to the calendar
-        $this->emit('addEvent', Helper::getEventData($event));
+            // Emit message if success
+            $this->emit('success', __('events.alert.request.success'), sprintf(__('events.alert.request.message'), $this->name));
+        } else {
+            // Create event
+            $event = Event::create($data);
+
+            // Emit message if success
+            $this->emit('success', __('events.alert.create.success'), sprintf(__('events.alert.create.message'), $this->name));
+
+            // Emit event to dynamically add event to the calendar
+            $this->emit('addEvent', Helper::getEventData($event));
+        }
 
         // Reset data and hide modal
         $this->reset();

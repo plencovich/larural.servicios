@@ -60,13 +60,38 @@
                     <span class="label">Inicio</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('backoffice.events') }}"
-                    class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
-                    <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
-                    <span class="label">Eventos</span>
-                </a>
-            </li>
+            @cannot('viewAny', App\Models\EventRequest::class)
+                <li>
+                    <a href="{{ route('backoffice.events') }}"
+                        class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
+                        <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
+                        <span class="label">Eventos</span>
+                    </a>
+                </li>
+            @endcannot
+            @can('viewAny', App\Models\EventRequest::class)
+                <li>
+                    <a href="#events" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
+                        class="{{ Request::segment(2) == 'events' ? 'active' : '' }}">
+                        <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
+                        <span class="label">Eventos</span>
+                    </a>
+                    <ul id="events" class="collapse">
+                        <li>
+                            <a href="{{ route('backoffice.events') }}"
+                                class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
+                                <span class="label">Listado</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('backoffice.events.requests') }}"
+                                class="{{ Request::routeIs('backoffice.events.requests') ? 'active' : '' }}">
+                                <span class="label">Solicitudes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             <li>
                 <a href="{{ route('backoffice.budgets.list') }}"
                     class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Event;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Database\Seeder;
 
@@ -46,6 +47,17 @@ class FakeDatabaseSeeder extends Seeder
         $zone->subZones()->create([
             'name' => 'Dol Guldur'
         ]);
+
+        // Create test comercial user
+        $comercial = User::create([
+            'name' => 'Comercial',
+            'lastname' => 'Usuario',
+            'email' => 'comercial@user.com',
+            'password' => '$2y$10$6/A8f3HRJkc06OESgy1hteITCpKmr2yoCOQgtpKkoEOVQPoZ6s0Ym', // 11111111
+            'account_verified_at' => now()
+        ]);
+
+        $comercial->assignRole('Comercial 1');
 
         // Create fake customer
         Customer::create([
