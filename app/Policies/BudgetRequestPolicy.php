@@ -18,7 +18,7 @@ class BudgetRequestPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Comercial 1']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Comercial 1']);
     }
 
     /**
@@ -30,6 +30,6 @@ class BudgetRequestPolicy
      */
     public function update(User $user, BudgetRequest $budgetRequest)
     {
-        return $user->hasAnyRole(['Admin']) && is_null($budgetRequest->status);
+        return $user->hasAnyRole(['Super Admin', 'Admin']) && is_null($budgetRequest->status);
     }
 }

@@ -29,7 +29,7 @@ class EventPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Comercial 1']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Comercial 1']);
     }
 
     /**
@@ -41,7 +41,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 
     /**
