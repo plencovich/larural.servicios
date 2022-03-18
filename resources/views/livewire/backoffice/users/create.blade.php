@@ -9,8 +9,8 @@
         <div class="col-md-6">
             <x-input label="{{ __('users.email') }}" type="email" name="email" />
         </div>
-        <div class="col-md-6">
-            <x-select name="role" label="{{ __('users.role') }}">
+        <div class="col-md-6" wire:ignore>
+            <x-select name="role" label="{{ __('users.role') }}" class="form-control select2">
                 @foreach ($roles as $value)
                     <option value="{{ $value->name }}">
                         {{ $value->name }}
@@ -23,4 +23,8 @@
             <x-buttons.create />
         </div>
     </x-form>
+
+    <script>
+        globals.initSelect2();
+    </script>
 </div>

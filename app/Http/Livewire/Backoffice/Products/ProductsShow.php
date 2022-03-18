@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire\Backoffice\Products;
 
+use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProductsShow extends Component
 {
+    use AuthorizesRequests;
+
     protected $listeners = ['customerShow'];
     public $componentShow;
     public $params;
@@ -27,6 +31,7 @@ class ProductsShow extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Product::class);
         return view('livewire.backoffice.products.products-show');
     }
 }

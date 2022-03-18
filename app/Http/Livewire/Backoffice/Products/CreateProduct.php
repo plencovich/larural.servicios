@@ -9,10 +9,11 @@ use App\Models\StatusProduct;
 use Livewire\WithFileUploads;
 use App\Models\StatusOperation;
 use App\Models\ProductPriceType;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateProduct extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, AuthorizesRequests;
 
     public $code;
     public $name;
@@ -61,6 +62,7 @@ class CreateProduct extends Component
 
     public function store()
     {
+        $this->authorize('create', Product::class);
         $this->validate();
         $product = Product::create([
             'code' => $this->code,

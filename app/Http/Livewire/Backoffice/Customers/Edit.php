@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Backoffice\Customers;
 
 use App\Models\Customer;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Edit extends Component
 {
+    use AuthorizesRequests;
 
     public $customer;
 
@@ -32,6 +34,7 @@ class Edit extends Component
     }
     public function store()
     {
+        $this->authorize('update', $this->customer);
         $this->validate();
         $this->customer->save();
         $this->emit('success', __('customers.success_edit'), sprintf(__('customers.message_edit'), $this->customer->business_name));

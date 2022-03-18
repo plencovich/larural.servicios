@@ -17,22 +17,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                 dateClick: function(info) {
-                    if (info.date.getTime() >= new Date().setHours(0,0,0,0)) {
-                        // Show the event creation only if the selected date is greater than or equal to today
-                        Livewire.emit('showModal', 'backoffice.events.add', info.dateStr);
-                    }
+                    @can('create', App\Models\Event::class)
+                        if (info.date.getTime() >= new Date().setHours(0,0,0,0)) {
+                            // Show the event creation only if the selected date is greater than or equal to today
+                            Livewire.emit('showModal', 'backoffice.events.add', info.dateStr);
+                        }
 
-                    // Get selected date to set as the start date of the range
-                    let selectedDate = `${globals.formattedDate(info.date).day}/${globals.formattedDate(info.date).month}/${globals.formattedDate(info.date).year}`;
+                        // Get selected date to set as the start date of the range
+                        let selectedDate = `${globals.formattedDate(info.date).day}/${globals.formattedDate(info.date).month}/${globals.formattedDate(info.date).year}`;
 
-                    // Initialize date range picker on modal
-                    Livewire.on('showBootstrapModal', e => {
-                        // Select modal and handle shown event
-                        document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
-                            // Focus event name
-                            $('input[autofocus=autofocus]').focus();
+                        // Initialize date range picker on modal
+                        Livewire.on('showBootstrapModal', e => {
+                            // Select modal and handle shown event
+                            document.getElementById('laravel-livewire-modals').addEventListener('shown.bs.modal', function (event) {
+                                // Focus event name
+                                $('input[autofocus=autofocus]').focus();
+                            })
                         })
-                    })
+                    @endcan
                 },
                 eventClick: function(info) {
                     // Show the event edit modal

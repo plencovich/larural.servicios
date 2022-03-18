@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Backoffice\Users;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Edit extends Component
 {
+    use AuthorizesRequests;
 
     public $user;
 
@@ -30,6 +32,7 @@ class Edit extends Component
     }
     public function store()
     {
+        $this->authorize('update', $this->user);
         $this->validate();
         //$this->user->save();
         $this->emit('success', __('users.success_edit'), sprintf(__('users.message_edit'), $this->user->email));

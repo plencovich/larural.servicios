@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Backoffice\Products;
 
-use App\Models\Category;
 use Livewire\Component;
+use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CategoryDelete extends Component
 {
+    use AuthorizesRequests;
 
     public $category;
 
@@ -17,6 +19,7 @@ class CategoryDelete extends Component
 
     public function delete()
     {
+        $this->authorize('delete', $this->category);
         $this->category->delete();
         $this->emit('success', __('products.categories.alert.delete.success'), sprintf(__('products.categories.alert.delete.message'), $this->category->name));
         $this->emit('hideModal');

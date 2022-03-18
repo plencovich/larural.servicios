@@ -5,7 +5,9 @@
     @else
         <x-page-title-container>
             @if (!$componentShow)
-                <x-page-title-add-button title="showModal" show="backoffice.budgets.create" />
+                @can('create', App\Models\Budget::class)
+                    <x-page-title-add-button title="showModal" show="backoffice.budgets.create" />
+                @endcan
             @endif
         </x-page-title-container>
         <x-scroll-section>

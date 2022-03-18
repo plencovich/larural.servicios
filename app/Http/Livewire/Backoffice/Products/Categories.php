@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Backoffice\Products;
 
 use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Categories extends Component
 {
+    use AuthorizesRequests;
+
     protected $listeners = ['show'];
     public $show = false;
     public $params;
@@ -20,6 +23,7 @@ class Categories extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Category::class);
         return view('livewire.backoffice.products.categories');
     }
 }

@@ -60,20 +60,71 @@
                     <span class="label">Inicio</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('backoffice.events') }}"
-                    class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
-                    <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
-                    <span class="label">Eventos</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('backoffice.budgets.list') }}"
-                    class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
-                    <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
-                    <span class="label">Presupuesto</span>
-                </a>
-            </li>
+            @cannot('viewAny', App\Models\EventRequest::class)
+                <li>
+                    <a href="{{ route('backoffice.events') }}"
+                        class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
+                        <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
+                        <span class="label">Eventos</span>
+                    </a>
+                </li>
+            @endcannot
+            @can('viewAny', App\Models\EventRequest::class)
+                <li>
+                    <a href="#events" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
+                        class="{{ Request::segment(2) == 'events' ? 'active' : '' }}">
+                        <i data-cs-icon="calendar" class="icon" data-cs-size="18"></i>
+                        <span class="label">Eventos</span>
+                    </a>
+                    <ul id="events" class="collapse">
+                        <li>
+                            <a href="{{ route('backoffice.events') }}"
+                                class="{{ Request::routeIs('backoffice.events') ? 'active' : '' }}">
+                                <span class="label">Listado</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('backoffice.events.requests') }}"
+                                class="{{ Request::routeIs('backoffice.events.requests') ? 'active' : '' }}">
+                                <span class="label">Solicitudes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
+            @cannot('viewAny', App\Models\BudgetRequest::class)
+                <li>
+                    <a href="{{ route('backoffice.budgets.list') }}"
+                        class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
+                        <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
+                        <span class="label">Presupuesto</span>
+                    </a>
+                </li>
+            @endcannot
+            @can('viewAny', App\Models\BudgetRequest::class)
+                <li>
+                    <a href="#budgets" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
+                        class="{{ Request::segment(2) == 'budgets' ? 'active' : '' }}">
+                        <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
+                        <span class="label">Presupuesto</span>
+                    </a>
+                    <ul id="budgets" class="collapse">
+                        <li>
+                            <a href="{{ route('backoffice.budgets.list') }}"
+                                class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
+                                <span class="label">Listado</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('backoffice.budgets.requests') }}"
+                                class="{{ Request::routeIs('backoffice.budgets.requests') ? 'active' : '' }}">
+                                <span class="label">Solicitudes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             <li>
                 <a href="#products" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
                     class="{{ Request::segment(2) == 'products' ? 'active' : '' }}">
@@ -116,13 +167,15 @@
                     <span class="label">Usuarios</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('backoffice.setting') }}"
-                    class="{{ Request::routeIs('backoffice.setting') ? 'active' : '' }}">
-                    <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
-                    <span class="label">Configuración</span>
-                </a>
-            </li>
+            @can('viewConfig', App\Models\User::class)
+                <li>
+                    <a href="{{ route('backoffice.setting') }}"
+                        class="{{ Request::routeIs('backoffice.setting') ? 'active' : '' }}">
+                        <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
+                        <span class="label">Configuración</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
     <!-- Menu End -->

@@ -5,9 +5,13 @@ namespace App\Http\Livewire\Backoffice\Setting;
 use Livewire\Component;
 use App\Helpers\Setting as SettingHelper;
 use App\Models\Setting as ModelsSetting;
+use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PaymentMethods extends Component
 {
+    use AuthorizesRequests;
+
     public $mpUserId;
     public $mpClientId;
     public $mpClientSecret;
@@ -23,6 +27,7 @@ class PaymentMethods extends Component
 
     public function store()
     {
+        $this->authorize('viewConfig', User::class);
         $this->updateDB('mp_user_id', $this->mpUserId);
         $this->updateDB('mp_client_id', $this->mpClientId);
         $this->updateDB('mp_client_secret', $this->mpClientSecret);
@@ -32,6 +37,7 @@ class PaymentMethods extends Component
 
     private function updateDB($name, $value)
     {
+        $this->authorize('viewConfig', User::class);
         ModelsSetting::where('name', $name)
             ->where(
                 function ($query) use ($value) {
@@ -42,6 +48,7 @@ class PaymentMethods extends Component
     }
     public function render()
     {
+        $this->authorize('viewConfig', User::class);
         return view('livewire.backoffice.setting.payment-methods');
     }
 }

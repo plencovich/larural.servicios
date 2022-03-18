@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Backoffice\Products;
 
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DeleteProduct extends Component
 {
+    use AuthorizesRequests;
 
     public $product;
 
@@ -17,6 +19,7 @@ class DeleteProduct extends Component
 
     public function delete()
     {
+        $this->authorize('delete', $this->product);
         $this->product->delete();
         $this->emit('success', __('products.products.alert.delete.success'), sprintf(__('products.categories.alert.delete.message'), $this->product->name));
         $this->emit('hideModal');

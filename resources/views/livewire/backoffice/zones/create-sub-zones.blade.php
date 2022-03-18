@@ -8,11 +8,14 @@
                     <div class="card-body">
                         <x-form action="store">
                             <div class="col-md-12">
-                                <x-input label="{{ __('zones.sub-zones.name') }}" type="text" name="name" />
+                                <x-input label="{{ __('zones.sub-zones.name') }}" type="text" name="name" :readonly="! auth()->user()->can('create', App\Models\Zone::class)" />
                             </div>
                             <div class="col-12">
                                 <x-buttons.back wire:click="$emit('customerShow',false)" />
-                                <x-buttons.create />
+
+                                @can('create', App\Models\Zone::class)
+                                    <x-buttons.create />
+                                @endcan
                             </div>
                         </x-form>
                     </div>
