@@ -92,13 +92,39 @@
                     </ul>
                 </li>
             @endcan
-            <li>
-                <a href="{{ route('backoffice.budgets.list') }}"
-                    class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
-                    <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
-                    <span class="label">Presupuesto</span>
-                </a>
-            </li>
+
+            @cannot('viewAny', App\Models\BudgetRequest::class)
+                <li>
+                    <a href="{{ route('backoffice.budgets.list') }}"
+                        class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
+                        <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
+                        <span class="label">Presupuesto</span>
+                    </a>
+                </li>
+            @endcannot
+            @can('viewAny', App\Models\BudgetRequest::class)
+                <li>
+                    <a href="#budgets" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
+                        class="{{ Request::segment(2) == 'budgets' ? 'active' : '' }}">
+                        <i data-cs-icon="money" class="icon" data-cs-size="18"></i>
+                        <span class="label">Presupuesto</span>
+                    </a>
+                    <ul id="budgets" class="collapse">
+                        <li>
+                            <a href="{{ route('backoffice.budgets.list') }}"
+                                class="{{ Request::routeIs('backoffice.budgets.list') ? 'active' : '' }}">
+                                <span class="label">Listado</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('backoffice.budgets.requests') }}"
+                                class="{{ Request::routeIs('backoffice.budgets.requests') ? 'active' : '' }}">
+                                <span class="label">Solicitudes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             <li>
                 <a href="#products" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
                     class="{{ Request::segment(2) == 'products' ? 'active' : '' }}">

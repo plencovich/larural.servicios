@@ -56,6 +56,16 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
     /**
+     * Get all of the budgetRequests for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function budgetRequests()
+    {
+        return $this->hasMany(BudgetRequest::class);
+    }
+
+    /**
      * Get all of the eventRequests for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -10,6 +10,7 @@ use App\Http\Livewire\Auth\PasswordForgot;
 use App\Http\Controllers\JSLanguageController;
 use App\Http\Livewire\Backoffice\Home\Dashboard;
 use App\Http\Livewire\Backoffice\Setting\Office;
+use App\Http\Livewire\Backoffice\Events\Requests;
 use App\Http\Livewire\Backoffice\Setting\Company;
 use App\Http\Livewire\Backoffice\Budgets\CreateItems;
 use App\Http\Livewire\Backoffice\Products\Categories;
@@ -27,8 +28,8 @@ use App\Http\Livewire\Backoffice\Budgets\Show as BudgetsShow;
 use App\Http\Livewire\Backoffice\Setting\Index as SettingIndex;
 use App\Http\Livewire\Backoffice\Budgets\Create as BudgetsCreate;
 use App\Http\Livewire\Backoffice\Customers\Show as CustomersShow;
-use App\Http\Livewire\Backoffice\Events\Requests;
 use App\Http\Livewire\Backoffice\Users\Confirms as UsersConfirms;
+use App\Http\Livewire\Backoffice\Budgets\Requests as BudgetRequests;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/backoffice/products/categories', Categories::class)->name('backoffice.products.categories');
         Route::get('/backoffice/budgets/list', BudgetsShow::class)->name('backoffice.budgets.list');
         Route::get('/backoffice/budgets/{budget}/edit', CreateItems::class)->name('backoffice.budgets.edit');
+        Route::get('/backoffice/budgets/requests', BudgetRequests::class)->name('backoffice.budgets.requests');
         Route::get('/backoffice/events', EventsShow::class)->name('backoffice.events');
         Route::get('/backoffice/events/requests', Requests::class)->name('backoffice.events.requests');
         Route::get('/backoffice/setting/company', Company::class)->name('backoffice.setting.company');

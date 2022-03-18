@@ -11,6 +11,7 @@ return [
     */
 
     'add' => 'Agregar Presupuesto',
+    'approve' => 'Aprobar',
     'alert' => [
         'confirmation' => [
             'approval' => [
@@ -21,6 +22,10 @@ return [
                 'body' => 'Esta acción no se podrá deshacer. En caso de quererlo nuevamente se deberá represupuestar.',
                 'title' => '¿Deseas rechazar este presupuesto?',
             ],
+        ],
+        'request' => [
+            'message' => '¡Solicitud de creación de presupuesto %s enviada correctamente',
+            'success' => '¡Solicitud de creación de presupuesto enviada correctamente!',
         ],
         'status' => [
             'cannot-send' => 'No puede enviar este presupuesto.',
@@ -41,6 +46,8 @@ return [
     ],
     'approved' => 'Has aprobado este presupuesto',
     'ask' => [
+        'approve' => 'Está seguro de aprobar la solicitud de creación de presupuesto %s?',
+        'decline' => 'Está seguro de declinar la solicitud de creación de presupuesto %s?',
         'delete' => 'Está seguro de eliminar el Presupuesto %s?',
     ],
     'budgets-list' => 'Lista de Presupuestos',
@@ -48,6 +55,7 @@ return [
     'date' => 'Fecha',
     'date_from' => 'Desde',
     'date_to' => 'Hasta',
+    'decline' => 'Declinar',
     'delete' => 'Eliminar Presupuesto',
     'details' => 'Detalle',
     'discount' => 'Descuento (%)',
@@ -57,6 +65,8 @@ return [
     'from' => 'Desde',
     'inventory' => 'Inventario',
     'message' => [
+        'approve' => '!La solicitud de creación de presupuesto %s se ha aprobado correctamente',
+        'decline' => '¡La solicitud de creación de presupuesto %s se ha declinado correctamente',
         'delete' => 'El presupuesto %s se ha eliminado correctamente',
         'status-message' => 'ha %s el presupuesto.',
     ],
@@ -67,8 +77,11 @@ return [
         'quantity' => 'Cantidad',
         'price' => 'Precio',
     ],
+    'requests-list' => 'Listado de solicitudes',
     'rejected' => 'Has rechazado este presupuesto',
     'status' => 'Estado',
+    'success_approve' => '¡Solicitud de creación de presupuesto aprobada correctamente!',
+    'success_decline' => '¡Solicitud de creación de presupuesto declinada correctamente!',
     'success_delete' => '¡Presupuesto eliminado correctamente!',
     'sub-zone' => 'Sub Zona',
     'to' => 'Hasta',
