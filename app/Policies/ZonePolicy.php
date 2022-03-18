@@ -29,7 +29,7 @@ class ZonePolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 
     /**
@@ -41,7 +41,7 @@ class ZonePolicy
      */
     public function update(User $user, Zone $zone)
     {
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 
     /**
@@ -53,6 +53,6 @@ class ZonePolicy
      */
     public function delete(User $user, Zone $zone)
     {
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 }

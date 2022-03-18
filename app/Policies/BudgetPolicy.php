@@ -30,7 +30,7 @@ class BudgetPolicy
      */
     public function view(User $user, Budget $budget)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
     }
 
     /**
@@ -41,7 +41,7 @@ class BudgetPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Comercial 1']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Comercial 1']);
     }
 
     /**
@@ -53,7 +53,7 @@ class BudgetPolicy
      */
     public function update(User $user, Budget $budget)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 
     /**
@@ -65,6 +65,6 @@ class BudgetPolicy
      */
     public function delete(User $user, Budget $budget)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 }

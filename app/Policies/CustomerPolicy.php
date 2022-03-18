@@ -29,7 +29,7 @@ class CustomerPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 
     /**
@@ -41,7 +41,7 @@ class CustomerPolicy
      */
     public function update(User $user, Customer $customer)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 
     /**
@@ -53,6 +53,6 @@ class CustomerPolicy
      */
     public function delete(User $user, Customer $customer)
     {
-        // return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2']);
     }
 }

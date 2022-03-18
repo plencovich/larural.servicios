@@ -18,7 +18,7 @@ class EventRequestPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Comercial 1']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Comercial 1']);
     }
 
     /**
@@ -30,6 +30,6 @@ class EventRequestPolicy
      */
     public function update(User $user, EventRequest $eventRequest)
     {
-        return $user->hasAnyRole(['Admin']) && is_null($eventRequest->status);
+        return $user->hasAnyRole(['Super Admin', 'Admin']) && is_null($eventRequest->status);
     }
 }

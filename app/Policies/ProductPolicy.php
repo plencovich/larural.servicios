@@ -29,7 +29,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
     }
 
     /**
@@ -53,6 +53,6 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->hasAnyRole(['Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Servicios Feriales 1', 'Servicios Feriales 2', 'Encargado de depósito']);
     }
 }

@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewConfig(User $user)
     {
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 
     /**
@@ -39,7 +39,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['Admin', 'Superior de operaciones']);
+        return $user->hasAnyRole(['Super Admin', 'Admin', 'Superior de operaciones']);
     }
 
     /**
@@ -56,7 +56,7 @@ class UserPolicy
             return $model->hasRole('Encargado trasladar mobiliario');
         }
 
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 
     /**
@@ -73,6 +73,6 @@ class UserPolicy
             return $model->hasRole('Encargado trasladar mobiliario');
         }
 
-        return $user->hasAnyRole(['Admin']);
+        return $user->hasAnyRole(['Super Admin', 'Admin']);
     }
 }
