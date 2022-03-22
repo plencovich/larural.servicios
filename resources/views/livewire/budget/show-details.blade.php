@@ -55,7 +55,7 @@
         {{-- Important notes --}}
         <div class="mb-5">
             <x-button type="button"
-                class="btn btn-link"
+                class="btn btn-link h3 ps-0"
                 data-bs-toggle="modal"
                 data-bs-target="#important-notes">
                 <i class="bi bi-info-circle"></i>

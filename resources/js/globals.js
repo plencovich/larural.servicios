@@ -78,7 +78,7 @@ function lang(value, choice = null) {
 function select2Options() {
     return {
         language: {
-            noResults: function() {
+            noResults: function () {
                 return lang('globals.no-results-found');
             }
         },
@@ -89,7 +89,7 @@ function select2Options() {
 function select2ModalOptions() {
     return {
         language: {
-            noResults: function() {
+            noResults: function () {
                 return lang('globals.no-results-found');
             }
         },
@@ -128,6 +128,53 @@ globals = {
             window.dateRangePickerElement = new DateRangePicker(document.querySelector('.datepicker'), {
                 // "autoApply": true,
                 "minDate": `${formattedDate(date).day}/${formattedDate(date).month}/${formattedDate(date).year}`,
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": lang('date.apply'),
+                    "cancelLabel": lang('date.cancel'),
+                    "fromLabel": lang('date.from'),
+                    "toLabel": lang('date.to'),
+                    "customRangeLabel": lang('date.custom'),
+                    "weekLabel": lang('date.week-letter'),
+                    "daysOfWeek": [
+                        lang('date.su'),
+                        lang('date.mo'),
+                        lang('date.tu'),
+                        lang('date.we'),
+                        lang('date.th'),
+                        lang('date.fr'),
+                        lang('date.sa'),
+                    ],
+                    "monthNames": [
+                        lang('date.january'),
+                        lang('date.february'),
+                        lang('date.march'),
+                        lang('date.april'),
+                        lang('date.may'),
+                        lang('date.june'),
+                        lang('date.july'),
+                        lang('date.august'),
+                        lang('date.september'),
+                        lang('date.october'),
+                        lang('date.november'),
+                        lang('date.december'),
+                    ],
+                    "firstDay": 1
+                },
+            }, function (start, end) {
+                // Set date range to livewire
+                window.livewire.emit('changeDateRange', start, `${formattedDate(end._d).year}-${formattedDate(end._d).month}-${formattedDate(end._d).day}`);
+            })
+        }
+    },
+    initDatePickerForBudget: () => {
+        if (document.querySelector('.datepicker')) {
+            // Initialize date range picker if not initialized already
+            if (window.dateRangePickerElement) {
+                $('.daterangepicker').remove();
+            }
+            window.dateRangePickerElement = new DateRangePicker(document.querySelector('.datepicker'), {
                 "locale": {
                     "format": "DD/MM/YYYY",
                     "separator": " - ",

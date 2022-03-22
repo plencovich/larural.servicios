@@ -35,7 +35,7 @@ class CreateItems extends Component
         if ($budget->event_to) {
             $this->event_to = $budget->event_to->format('Y-m-d');
         }
-        $this->changeDateRange($budget->event_from, $budget->event_to);
+        $this->changeDateRange($budget->event_from, $budget->event_to, true);
     }
 
     /**
@@ -43,7 +43,7 @@ class CreateItems extends Component
      *
      * @return mixed
      */
-    public function changeDateRange($event_from, $event_to)
+    public function changeDateRange($event_from, $event_to, $is_initial = false)
     {
         // Get new dates on carbon format
         $new_event_from = (new Carbon($event_from));
@@ -52,6 +52,12 @@ class CreateItems extends Component
         // Check if new dates are out of event range and show and alert
         if ($new_event_from < $this->budget->event->event_from || $new_event_to > $this->budget->event->event_to) {
             $this->emit('alert-message', 'warning', __('warning.warning'), __('warning.updating_event_date'));
+        }
+
+        // Check if new dates are before today
+        if (! $is_initial && ($new_event_from < today() || $new_event_to < today())) {
+            $this->emit('alert-message', 'warning', __('warning.warning'), __('warning.date_less_than_today'));
+            return false;
         }
 
         // Set new dates
