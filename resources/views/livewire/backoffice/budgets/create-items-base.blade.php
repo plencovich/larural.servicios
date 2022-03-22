@@ -96,6 +96,6 @@
         globals.initSelect2();
 
         // Initialize picker
-        globals.initDatePicker();
+        globals.initDatePickerForBudget();
     </script>
 </div>

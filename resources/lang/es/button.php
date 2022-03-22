@@ -21,7 +21,7 @@ return [
     'create' => 'Crear',
     'delete' => 'Si, eliminar!',
     'edit' => 'Editar',
-    'important-notes' => 'Aviso Importante',
+    'important-notes' => 'Términos y Condiciones',
     'login' => 'Ingresar',
     'print' => 'Imprimir',
     'reject' => 'Rechazar',
