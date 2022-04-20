@@ -161,6 +161,21 @@
                 </a>
             </li>
             <li>
+                <a href="#reports" data-bs-toggle="collapse" data-role="button" aria-expanded="false"
+                    class="{{ Request::segment(2) == 'reports' ? 'active' : '' }}">
+                    <i data-cs-icon="abacus" class="icon" data-cs-size="18"></i>
+                    <span class="label">Informes</span>
+                </a>
+                <ul id="reports" class="collapse">
+                    <li>
+                        <a href="{{ route('backoffice.reports.rented-products') }}"
+                            class="{{ Request::routeIs('backoffice.reports.rented-products') ? 'active' : '' }}">
+                            <span class="label">Productos Alquilados</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="{{ route('backoffice.users') }}"
                     class="{{ Request::routeIs('backoffice.users') ? 'active' : '' }}">
                     <i data-cs-icon="user" class="icon" data-cs-size="18"></i>

@@ -30,6 +30,7 @@ use App\Http\Livewire\Backoffice\Budgets\Create as BudgetsCreate;
 use App\Http\Livewire\Backoffice\Customers\Show as CustomersShow;
 use App\Http\Livewire\Backoffice\Users\Confirms as UsersConfirms;
 use App\Http\Livewire\Backoffice\Budgets\Requests as BudgetRequests;
+use App\Http\Livewire\Backoffice\Events\PrintInventory;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/backoffice/setting/maintenance-mode', MaintenanceMode::class)->name('backoffice.setting.maintenance-mode');
         Route::get('/backoffice/setting/payment-methods', PaymentMethods::class)->name('backoffice.setting.payment-methods');
         Route::get('/backoffice/setting/maintenance/{view_type}', [SettingController::class, 'maintenance'])->name('backoffice.setting.maintenance');
+
+        Route::get('/backoffice/events/{event}/print-inventory', PrintInventory::class)->name('event.print-inventory');
+        Route::get('/backoffice/reports/rented-products', ProductsShow::class)->name('backoffice.reports.rented-products');
     });
     Route::get('/backoffice/users/confirm', UsersConfirms::class)->name('backoffice.users.confirm');
 });
