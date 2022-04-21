@@ -13,6 +13,7 @@ return [
     'products' => [
         'by-date' => 'Por Fecha',
         'by-product' => 'Por Producto',
+        'events' => 'Eventos',
         'rented-products' => 'Productos Alquilados',
     ],
 ];
