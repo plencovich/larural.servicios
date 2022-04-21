@@ -65,6 +65,7 @@ return [
         'delete' => 'Eliminar Producto',
         'show-qr' => 'Código QR',
         'stock' => 'Stock',
+        'zones' => 'Zonas',
         'alert' => [
             'create' => [
                 'message' => 'Producto %s creada correctamente',
