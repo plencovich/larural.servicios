@@ -30,6 +30,7 @@ class ListRentedProducts extends DataTableComponent
             Column::make(__('products.products.quantity'), 'quantity')->sortable(),
             Column::make(__('products.products.stock'), 'quantity')->sortable(),
             Column::make(__('products.products.zones'), 'quantity')->sortable(),
+            Column::make(__('reports.products.events'), 'quantity')->sortable(),
         ];
     }
 
@@ -49,7 +50,7 @@ class ListRentedProducts extends DataTableComponent
     public function query(): Builder
     {
         return Product::query()
-            ->with(['productReservations.zone'])
+            ->with(['productReservations.zone', 'productReservations.budget.event'])
             ->rented()
             ->when(
                 $this->from_date,
@@ -72,6 +73,7 @@ class ListRentedProducts extends DataTableComponent
                     ->orWhere('description', 'like', '%' . $term . '%')
                     ->orWhere('quantity', 'like', '%' . $term . '%')
                     ->orWhereHas('productReservations', fn ($query) => $query->whereHas('zone', fn ($zoneQuery) => $zoneQuery->where('name', 'like', '%' . $term . '%')))
+                    ->orWhereHas('productReservations', fn ($query) => $query->whereHas('budget', fn ($budgetQuery) => $budgetQuery->whereHas('event', fn ($eventQuery) => $eventQuery->where('name', $term))))
             );
     }
 }

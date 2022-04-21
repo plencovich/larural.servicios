@@ -25,3 +25,10 @@
         @endforeach
     </ul>
 </x-livewire-tables::bs5.table.cell>
+<x-livewire-tables::bs5.table.cell>
+    <ul>
+        @foreach ($row->productReservations->pluck('budget.event.name') as $event)
+            <li>{{ $event }}</li>
+        @endforeach
+    </ul>
+</x-livewire-tables::bs5.table.cell>
