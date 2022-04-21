@@ -33,7 +33,7 @@ class ListBudgets extends DataTableComponent
     return Budget::query()->when(
       $this->getFilter('search'),
       fn ($query, $term) => $query
-        ->where('event_name', 'like', '%' . $term . '%')
+        ->whereHas('event', fn ($q) => $q->where('name', 'like', '%' . $term . '%'))
         ->orWhereHas('customer', fn ($q) => $q->where('name', 'like', '%' . $term . '%')->orWhere('lastname', 'like', '%' . $term . '%'))
     );
   }

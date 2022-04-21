@@ -27,7 +27,7 @@ class ProductFactory extends Factory
             'description' => $name,
             'quantity' => mt_rand(5, 50),
             'category_id' => 1,
-            'status_product_id' => 1,
+            'status_product_id' => $this->faker->randomElement([1, 2, 3]),
             'status_operation_id' => 1,
             'image' => ''
         ];
