@@ -158,4 +158,15 @@ class Product extends Model
     {
         return $query->where('status_operation_id', StatusOperation::getForRentId());
     }
+
+    /**
+     * Scope a query to only include products rented
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRented($query)
+    {
+        return $query->whereHas('productReservations', fn ($query) => $query->whereHas('budget', fn ($budgetQuery) => $budgetQuery->where('status_budget_id', '!=', StatusBudget::getRejectedStatusId())));
+    }
 }

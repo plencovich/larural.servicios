@@ -10,7 +10,7 @@ class ProductsShow extends Component
 {
     use AuthorizesRequests;
 
-    protected $listeners = ['customerShow'];
+    protected $listeners = ['customerShow', 'refreshQuery'];
     public $componentShow;
     public $params;
 
@@ -19,8 +19,8 @@ class ProductsShow extends Component
 
     public function mount()
     {
-        $this->event_from = request()->has('event_from') ? request()->get('event_from') : now();
-        $this->event_to = request()->has('event_to') ? request()->get('event_to') : now();
+        $this->event_from = request()->has('event_from') ? request()->get('event_from') : null;
+        $this->event_to = request()->has('event_to') ? request()->get('event_to') : null;
     }
 
     public function customerShow($component, ...$params)
@@ -33,5 +33,11 @@ class ProductsShow extends Component
     {
         $this->authorize('viewAny', Product::class);
         return view('livewire.backoffice.products.products-show');
+    }
+
+    public function refreshQuery($event_from, $event_to)
+    {
+        $this->event_from = $event_from;
+        $this->event_to = $event_to;
     }
 }

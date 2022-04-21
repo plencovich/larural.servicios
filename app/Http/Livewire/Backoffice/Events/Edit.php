@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Backoffice\Events;
 
 use App\Models\Event;
 use App\Helpers\Helper;
+use App\Models\Item;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,12 @@ class Edit extends Component
     {
         $this->authorize('update', $this->event);
         return view('livewire.backoffice.events.edit', [
-            'budgets' => $this->event->budgets
+            'budgets' => $this->event->budgets->load('customer'),
+            'items' => Item::with(['product'])
+                ->whereIn('budget_id', $this->event->budgets->pluck('id')->all())
+                ->groupBy('product_id')
+                ->selectRaw('*, sum(product_qty) as total_products')
+                ->get()
         ]);
     }
 
