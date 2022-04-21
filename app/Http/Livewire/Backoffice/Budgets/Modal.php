@@ -127,7 +127,7 @@ class Modal extends Component
      */
     private function notEnoughStockWarning($propertyName)
     {
-        if ($propertyName == 'productQty' || $propertyName == 'product_id') {
+        if ($propertyName == 'productQty') {
             // Find product
             $product = Product::find($this->product_id);
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Event;
+use App\Models\Item;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Zone;
@@ -81,7 +82,7 @@ class FakeDatabaseSeeder extends Seeder
         ]);
 
         // Create fake product
-        Product::factory()->count(20)->create();
+        Product::factory()->count(20)->has(Item::factory(), 'productReservations')->create();
 
         // Create an event for the following 5 days
         Event::create([

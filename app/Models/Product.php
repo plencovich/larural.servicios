@@ -73,7 +73,7 @@ class Product extends Model
     {
         // Convert date range to carbon
         $start = (new Carbon($dateFrom))->startOfDay();
-        $end = (new Carbon($dateTo))->startOfDay();
+        $end = (new Carbon($dateTo))->endOfDay();
 
         // Initialize days array
         $reservationDays = [];
@@ -95,11 +95,11 @@ class Product extends Model
             // Get every day with their reserved quantity
             for ($i = new Carbon($reservation->event_from); $i <= $reservation->event_to; $i->modify('+1 day')) {
                 $reservationDays[$i->format("Y-m-d")] = isset($reservationDays[$i->format("Y-m-d")])
-                    ? $reservation->total_products_reserved + $reservation->total_products_reserved
+                    ? $reservationDays[$i->format("Y-m-d")] + $reservation->total_products_reserved
                     : $reservation->total_products_reserved;
             }
         }
-        info($reservations);
+
         // Loop trough each date range
         // Get every day with their reserved quantity
         for ($i = $start; $i <= $end; $i->modify('+1 day')) {
